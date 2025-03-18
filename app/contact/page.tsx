@@ -67,7 +67,7 @@ function Contact() {
   // function to check submission limits
   const checkSubmissionLimit = () => {
     // get current submissions from localStorage
-    const submissionData = localStorage.getItem("contactSubmissions");
+    const submissionData = localStorage.getItem("contactSubmission");
 
     if (submissionData) {
       const { count, date } = JSON.parse(submissionData);
