@@ -4,16 +4,16 @@ export const socials = [
   {
     name: "Github",
     icon: <Github />,
-    link: "https://github.com/abdulrahman-mohammed",
+    link: "https://github.com/cmotanya",
   },
   {
     name: "LinkedIn",
     icon: <Linkedin />,
-    link: "https://www.linkedin.com/in/abdulrahman-mohammed/",
+    link: "www.linkedin.com/in/cornelius-motanya-56779141/",
   },
   {
     name: "Twitter",
     icon: <Twitter />,
-    link: "https://twitter.com/abdulrahman_mohammed",
+    link: "https://twitter.com/am_motanya",
   },
 ];
