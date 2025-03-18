@@ -159,7 +159,7 @@ function Contact() {
     <section className="mx-auto w-full max-w-md">
       <div className="relative mb-12">
         <span className="text-textColor/20 absolute -top-14 right-0 -z-10 text-9xl font-extrabold">
-          04
+          05
         </span>
         <h1 className="text-6xl font-bold">
           Contact <span className="text-primary">Me</span>
