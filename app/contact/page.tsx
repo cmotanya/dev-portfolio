@@ -2,8 +2,8 @@
 
 import { sendEmailSchema, TSendEmailSchema } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { Send } from "lucide-react";
-import React, { useState } from "react";
+import { AlertCircle, CheckCircle, Loader2, Send } from "lucide-react";
+import React, { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -59,48 +59,104 @@ function Contact() {
     },
   });
 
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [message, setIsMessage] = useState("");
-  const [dailySubmissionExceeded, setIsDailySubmissionExceeded] =
-    useState(false);
+  const submissionCount = 3;
 
-  // function to check submission limits
-  const checkSubmissionLimit = () => {
-    // get current submissions from localStorage
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [message, setMessage] = useState("");
+  const [dailySubmissionExceeded, setDailySubmissionExceeded] = useState(false);
+  const [countSubmissions, setCountSubmissions] = useState(submissionCount);
+
+  // load submission count from localStorage - only on initial mount
+  useEffect(() => {
+    const checkSubmissionStatus = () => {
+      const submissionData = localStorage.getItem("contactSubmission");
+
+      if (submissionData) {
+        try {
+          const { count, date } = JSON.parse(submissionData);
+          const lastSubmissionDate = new Date(date).toDateString();
+          const today = new Date().toDateString();
+
+          if (lastSubmissionDate !== today) {
+            // Reset for a new day - user gets full count
+            localStorage.removeItem("contactSubmission");
+            setCountSubmissions(submissionCount);
+            setDailySubmissionExceeded(false);
+          } else {
+            // Use stored count from previous submissions
+            const submissionsLeft = submissionCount - count;
+            setCountSubmissions(submissionsLeft);
+            setDailySubmissionExceeded(submissionsLeft < 0);
+          }
+        } catch (error) {
+          // If data is corrupt, reset it
+          console.error("Error parsing submission data:", error);
+          localStorage.removeItem("contactSubmission");
+          setCountSubmissions(submissionCount);
+          setDailySubmissionExceeded(false);
+        }
+      } else {
+        // No previous submissions today
+        setCountSubmissions(submissionCount);
+        setDailySubmissionExceeded(false);
+      }
+    };
+
+    checkSubmissionStatus();
+  }, []); // Empty dependency array to run only once on mount
+
+  // function to check submission limits and update counts only on form submission
+  const checkAndUpdateSubmissionCount = () => {
     const submissionData = localStorage.getItem("contactSubmission");
+    const today = new Date().toDateString();
 
     if (submissionData) {
-      const { count, date } = JSON.parse(submissionData);
-      const lastSubmissionData = new Date(date).toDateString();
-      const today = new Date().toDateString();
+      try {
+        const { count, date } = JSON.parse(submissionData);
+        const lastSubmissionDate = new Date(date).toDateString();
 
-      // if it is a new day, reset the counter
-      if (lastSubmissionData !== today) {
+        // If it's a new day
+        if (lastSubmissionDate !== today) {
+          localStorage.setItem(
+            "contactSubmission",
+            JSON.stringify({ count: 1, date: new Date().toString() }),
+          );
+          setCountSubmissions(submissionCount - 1);
+          return true;
+        }
+
+        // If within daily limit
+        if (count < submissionCount) {
+          const newCount = count + 1;
+          localStorage.setItem(
+            "contactSubmission",
+            JSON.stringify({
+              count: newCount,
+              date: new Date().toString(),
+            }),
+          );
+          setCountSubmissions(submissionCount - newCount);
+          setDailySubmissionExceeded(newCount >= submissionCount);
+          return true;
+        }
+
+        // Limit reached
+        setDailySubmissionExceeded(true);
+        setCountSubmissions(0);
+        return false;
+      } catch (error) {
+        // Handle corrupt data
+        console.error("Error processing submission count:", error);
         localStorage.setItem(
           "contactSubmission",
           JSON.stringify({ count: 1, date: new Date().toString() }),
         );
+        setCountSubmissions(submissionCount - 1);
         return true;
       }
-
-      // if under limit, increment counter and allow
-      if (count < 2) {
-        localStorage.setItem(
-          "contactSubmission",
-          JSON.stringify({
-            count: count + 1,
-            date: new Date().toString(),
-          }),
-        );
-        return true;
-      }
-
-      // if over limit, return false
-      setIsDailySubmissionExceeded(true);
-      return false;
     }
 
-    // if no data in localStorage, set count to 1 and date to today's date
+    // First submission of the day
     localStorage.setItem(
       "contactSubmission",
       JSON.stringify({
@@ -108,14 +164,16 @@ function Contact() {
         date: new Date().toString(),
       }),
     );
+    setCountSubmissions(submissionCount - 1);
     return true;
   };
 
   const onSubmit: SubmitHandler<TSendEmailSchema> = async (data) => {
-    if (!checkSubmissionLimit()) {
+    // Check submission limit before processing
+    if (!checkAndUpdateSubmissionCount()) {
       setIsSuccess(false);
-      setIsMessage(
-        "You've reached the daily limit of 2 submissions. Please try again tomorrow.",
+      setMessage(
+        `You've reached the daily limit of ${submissionCount} submissions. Please try again tomorrow.`,
       );
       return;
     }
@@ -142,43 +200,55 @@ function Contact() {
       if (res.success) {
         console.log("Success", res);
         setIsSuccess(true);
-        setIsMessage(res.message);
+        setMessage(res.message);
         reset();
       } else {
         setIsSuccess(false);
-        setIsMessage("Oops, something went wrong!");
+        setMessage("Oops, something went wrong!");
       }
     } catch (err) {
       setIsSuccess(false);
-      setIsMessage("Network error: Please check your internet connection.");
+      setMessage("Network error: Please check your internet connection.");
       console.error(err);
     }
   };
 
   return (
     <section className="mx-auto w-full max-w-md">
-      <div className="relative mb-12">
+      <div className="relative mb-16">
         <span className="text-textColor/20 absolute -top-14 right-0 -z-10 text-9xl font-extrabold">
           05
         </span>
-        <h1 className="text-6xl font-bold">
-          Contact <span className="text-primary">Me</span>
+        <h1 className="text-6xl font-bold tracking-tight">
+          Contact{" "}
+          <span className="text-primary relative">
+            Me
+            <span className="bg-primary absolute right-0 bottom-0 h-1 w-full" />
+          </span>
         </h1>
-        <span className="bg-primary absolute right-3 bottom-0 h-1 w-24" />
+
+        <p className="text-textColor/70 mt-4">
+          Drop me a message and I&apos;ll get back to you!
+        </p>
       </div>
 
       {/* success message display */}
       {isSubmitSuccessful && isSuccess && (
-        <div className="bg-primary/10 text-textColor/70 mb-4 rounded-md p-3 text-sm font-medium">
-          <p>Thank you for your message!</p>
+        <div className="text-textColor/80 mb-4 rounded-md border border-green-200 bg-green-50 p-3 text-sm font-medium">
+          <div className="mb-3 flex gap-3">
+            <CheckCircle className="text-green-600" />
+            <p className="font-semibold text-green-700 uppercase">
+              Thank you for your message!
+            </p>
+          </div>
           <p>{message}</p>
 
           <button
             onClick={() => {
-              setIsSuccess(true);
+              setIsSuccess(false);
               reset();
             }}
-            className="bg-primary mx-auto mt-8 block rounded-full px-4 py-3 text-white"
+            className="bg-primary mx-auto mt-8 block cursor-pointer rounded-full px-4 py-3 text-white"
           >
             Send another message
           </button>
@@ -186,9 +256,12 @@ function Contact() {
       )}
 
       {/* error message display on refresh */}
-      {!isSuccess && !isSubmitting && message && (
-        <div className="mb-5 rounded-md bg-red-500/20 p-2 text-sm font-bold text-red-500">
-          <p className="">Message not sent.</p>
+      {!isSuccess && dailySubmissionExceeded && message && (
+        <div className="mb-5 rounded-lg border border-red-200 bg-red-100 p-4 text-sm font-bold text-red-500 shadow-md">
+          <div className="mb-2 flex gap-3">
+            <AlertCircle />
+            <p className="text-lg">Message not sent.</p>
+          </div>
           <p>{message}</p>
         </div>
       )}
@@ -201,93 +274,170 @@ function Contact() {
           noValidate
           className="flex flex-col gap-4"
         >
-          <input
-            {...register("name")}
-            type="text"
-            placeholder="Enter name..."
-            name="name"
-            autoComplete="name"
-            className="ring-primary/40 focus-within:ring-primary/70 w-full rounded-full py-3 ps-4 ring outline-none"
-          />
-          {errors.name && (
-            <span
-              role="alert"
-              className="-mt-3 text-sm font-medium text-red-500"
-            >
-              {errors.name.message}
-            </span>
-          )}
+          <div className="space-y-2">
+            <label htmlFor="name" className="text-sm font-medium text-gray-700">
+              Name
+            </label>
+            <div className="relative">
+              <input
+                {...register("name")}
+                id="name"
+                type="text"
+                placeholder="Your name"
+                name="name"
+                autoComplete="name"
+                className={cn(
+                  "w-full rounded-lg border px-4 py-3 transition-all outline-none",
+                  errors.name
+                    ? "border-red-300 bg-red-50 focus:border-red-500 focus:ring focus:ring-red-200"
+                    : "focus:border-primary focus:ring-primary/20 border-gray-200 focus:ring",
+                )}
+              />
+            </div>
+            {errors.name && (
+              <span
+                role="alert"
+                className="-mt-1 flex items-center gap-1 text-sm font-medium text-red-500"
+              >
+                <AlertCircle size={14} />
+                {errors.name.message}
+              </span>
+            )}
+          </div>
 
-          <input
-            {...register("email")}
-            type="email"
-            name="email"
-            placeholder="Enter email..."
-            autoComplete="email"
-            className="ring-primary/40 focus-within:ring-primary rounded-full py-3 ps-4 ring outline-none"
-          />
-          {errors.email && (
-            <span
-              role="alert"
-              className="-mt-3 text-sm font-medium text-red-500"
+          <div className="space-y-2">
+            <label
+              htmlFor="email"
+              className="text-sm font-medium text-gray-700"
             >
-              {errors.email.message}
-            </span>
-          )}
+              Email
+            </label>
+            <div className="relative">
+              <input
+                {...register("email")}
+                id="email"
+                type="email"
+                name="email"
+                placeholder="your.email@example.com"
+                autoComplete="email"
+                className={cn(
+                  "w-full rounded-lg border px-4 py-3 transition-all outline-none",
+                  errors.email
+                    ? "border-red-300 bg-red-50 focus:border-red-500 focus:ring focus:ring-red-200"
+                    : "focus:border-primary focus:ring-primary/20 border-gray-200 focus:ring",
+                )}
+              />
+            </div>
+            {errors.email && (
+              <span
+                role="alert"
+                className="-mt-1 flex items-center gap-1 text-sm font-medium text-red-500"
+              >
+                <AlertCircle size={14} />
+                {errors.email.message}
+              </span>
+            )}
+          </div>
 
-          <input
-            {...register("mobile")}
-            type="tel"
-            name="mobile"
-            placeholder="Enter mobile number..."
-            className="ring-primary/40 focus-within:ring-primary/70 rounded-full py-3 ps-4 ring outline-none"
-          />
-          {errors.mobile && (
-            <span
-              role="alert"
-              className="-mt-3 text-sm font-medium text-red-500"
+          <div className="space-y-2">
+            <label
+              htmlFor="mobile"
+              className="text-sm font-medium text-gray-700"
             >
-              {errors.mobile.message}
-            </span>
-          )}
+              Phone (optional)
+            </label>
+            <div className="relative">
+              <input
+                {...register("mobile")}
+                id="mobile"
+                type="tel"
+                name="mobile"
+                placeholder="+254 700 000 000"
+                className={cn(
+                  "w-full rounded-lg border px-4 py-3 transition-all outline-none",
+                  errors.mobile
+                    ? "border-red-300 bg-red-50 focus:border-red-500 focus:ring focus:ring-red-200"
+                    : "focus:border-primary focus:ring-primary/20 border-gray-200 focus:ring",
+                )}
+              />
+            </div>
+            {errors.mobile && (
+              <span
+                role="alert"
+                className="-mt-1 flex items-center gap-1 text-sm font-medium text-red-500"
+              >
+                <AlertCircle size={14} />
+                {errors.mobile.message}
+              </span>
+            )}
+          </div>
 
-          <textarea
-            {...register("textarea")}
-            cols={15}
-            rows={4}
-            name="textarea"
-            placeholder="Enter message..."
-            className="ring-primary/40 focus-within:ring-primary/70 resize-none rounded-sm py-3 ps-4 ring outline-none"
-          />
-          {errors.textarea && (
-            <span
-              role="alert"
-              className="-mt-3 text-sm font-medium text-red-500"
+          <div className="space-y-2">
+            <label
+              htmlFor="textarea"
+              className="text-sm font-medium text-gray-700"
             >
-              {errors.textarea.message}
-            </span>
-          )}
+              Message
+            </label>
+            <div className="relative">
+              <textarea
+                {...register("textarea")}
+                id="textarea"
+                cols={15}
+                rows={5}
+                name="textarea"
+                placeholder="What would you like to discuss?"
+                className={cn(
+                  "w-full resize-none rounded-lg border px-4 py-3 transition-all outline-none",
+                  errors.textarea
+                    ? "border-red-300 bg-red-50 focus:border-red-500 focus:ring focus:ring-red-200"
+                    : "focus:border-primary focus:ring-primary/20 border-gray-200 focus:ring",
+                )}
+              />
+            </div>
+            {errors.textarea && (
+              <span
+                role="alert"
+                className="-mt-1 flex items-center gap-1 text-sm font-medium text-red-500"
+              >
+                <AlertCircle size={14} />
+                {errors.textarea.message}
+              </span>
+            )}
+          </div>
 
           {/* button */}
           <button
             type="submit"
-            disabled={isSubmitting}
+            disabled={isSubmitting || dailySubmissionExceeded}
             className={cn(
-              "disabled:bg-primary/50 flex items-center justify-center gap-2 rounded-full py-3 text-white transition-all",
+              "disabled:bg-primary/50 mt-4 flex cursor-pointer items-center justify-center gap-2 rounded-lg py-3 text-white transition-all",
               isSubmitting
                 ? "bg-primary/50"
                 : Object.keys(errors).length > 0
                   ? "bg-primary/50 select-none"
                   : "bg-primary",
-              dailySubmissionExceeded && "bg-primary/50 cursor-not-allowed",
+              dailySubmissionExceeded && "bg-primary/50 pointer-events-none",
             )}
           >
-            {isSubmitting ? "Sending..." : "Send"}
-            <Send
-              className={cn("", isSubmitting ? "hidden" : "block")}
-              size={17}
-            />
+            {isSubmitting ? (
+              <>
+                <Loader2 className="pointer-events-none animate-spin" />
+                Sending...
+              </>
+            ) : (
+              <>
+                Send message
+                <Send size={17} />
+              </>
+            )}
           </button>
+
+          <p className="text-textColor/50 text-bold mt-2 text-center text-xs">
+            {dailySubmissionExceeded
+              ? `Daily limit reached. Try again tomorrow.`
+              : `${countSubmissions} of ${submissionCount} submissions available today`}
+          </p>
         </form>
       )}
     </section>

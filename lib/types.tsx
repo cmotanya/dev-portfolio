@@ -35,7 +35,9 @@ export const sendEmailSchema = z.object({
     .min(1, "Phone number is required!")
     .min(10, "Phone number must be at least 10 characters long!")
     .max(15, "Phone number must be at most 15 characters long!")
-    .regex(/^\+?\d+$/, "Phone number must contain only digits!"),
+    .regex(/^\+?\d+$/, "Phone number must contain only digits!")
+    .optional()
+    .or(z.literal("")),
 
   textarea: z
     .string()
