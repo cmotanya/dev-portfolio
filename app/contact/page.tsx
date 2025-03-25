@@ -256,7 +256,7 @@ function Contact() {
       )}
 
       {/* error message display on refresh */}
-      {!isSuccess && dailySubmissionExceeded && message && (
+      {!isSuccess && dailySubmissionExceeded && (
         <div className="mb-5 rounded-lg border border-red-200 bg-red-100 p-4 text-sm font-bold text-red-500 shadow-md">
           <div className="mb-2 flex gap-3">
             <AlertCircle />
