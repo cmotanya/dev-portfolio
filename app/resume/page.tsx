@@ -1,231 +1,142 @@
 "use client";
 
-import { ArrowLeft } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { ArrowLeft, CalendarClock, MapPin } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Resume() {
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
   const handleClick = () => {
     router.push("/");
   };
 
+  useEffect(() => {
+    const hasLoaded = sessionStorage.getItem("hasLoadedResumePage");
+
+    if (hasLoaded) {
+      setIsLoading(false);
+    } else {
+      const setBlur = setTimeout(() => {
+        setIsLoading(false);
+        sessionStorage.setItem("hasLoadedResumePage", "true");
+      }, 200);
+      return () => clearTimeout(setBlur);
+    }
+  }, []);
+
   return (
-    <section className="mx-auto max-w-4xl px-4 py-8">
+    <section className="mx-auto">
       <button
         onClick={handleClick}
-        className="bg-primary outline-primary/60 text-background/80 -mt-16 flex items-center gap-2 rounded-full px-2.5 py-1.5 outline-offset-2 transition-all ease-in-out active:outline-2"
+        className="bg-primary text-background fixed z-50 -mt-16 flex items-center gap-2 rounded-full px-2.5 py-1.5 outline-offset-2 transition-all ease-in-out active:outline-2"
       >
-        {" "}
         <ArrowLeft size={14} /> <span className="text-sm">Go Back</span>
       </button>
 
       {/* Work Experience */}
-      <div className="mt-8">
-        <h2 className="text-primary border-primary/20 mb-3 border-b pb-1 text-xl font-bold">
+      <div
+        className={cn(
+          "transform-all mt-8 duration-300 ease-in-out",
+          isLoading ? "scale-[98%] blur-sm" : "blur-0 scale-100",
+        )}
+      >
+        <h2 className="border-primary/20 text-textColor/70 mb-3 border-b pb-1 text-3xl font-bold">
           WORK EXPERIENCE
         </h2>
 
-        {/* Sales Associate */}
-        <div className="mb-6">
-          <div className="flex justify-between">
-            <h3 className="font-semibold">Sales Associate</h3>
-            <span className="text-textColor/70">01/2019 - 04/2020</span>
-          </div>
-          <p className="text-textColor/80">Ken Computers, Mombasa</p>
-          <p className="text-textColor/80 mt-2">
-            During my tenure as a Sales Associate at Ken Computers, I played a
-            pivotal role in driving sales and contributing to the overall
-            success of the business. Here are key aspects of my experience:
-          </p>
+        {/* Freelance Experience */}
+        <div className="bg-secondary/5 border-secondary/10 mb-6 rounded-xl border p-6 shadow-sm transition-all duration-300 hover:shadow-md">
+          <div className="flex flex-col justify-between gap-1">
+            <h3 className="text-secondary text-xl font-semibold whitespace-nowrap uppercase underline">
+              Freelance: CCTV & Network
+            </h3>
 
-          <div className="mt-3">
-            <h4 className="font-medium">Exceeding Sales Targets:</h4>
-            <ul className="text-textColor/80 mt-1 ml-5 list-disc">
-              <li>
-                Demonstrated a proactive and results-driven approach by
-                consistently exceeding individual sales targets.
-              </li>
-              <li>
-                Implemented effective sales strategies and techniques to
-                maximize revenue, contributing to the financial success of the
-                organization.
-              </li>
-            </ul>
+            <div className="text-sm">
+              <span className="text-secondary flex items-center gap-2 font-medium">
+                {" "}
+                <CalendarClock /> 2020 - Present
+              </span>
+              <span className="text-secondary ml-0.5 font-medium">
+                👨‍💼<span className="ml-3">Self-Employed</span>
+              </span>
+              <span className="text-secondary -ml-0.5 flex items-center gap-2 font-medium">
+                <MapPin /> Mombasa, Kenya
+              </span>
+            </div>
           </div>
 
-          <div className="mt-3">
-            <h4 className="font-medium">Customer-Centric Approach:</h4>
-            <ul className="text-textColor/80 mt-1 ml-5 list-disc">
-              <li>
-                Conducted product demonstrations for customers, providing
-                insightful and informative sessions to showcase the features and
-                benefits of various computer and CCTV products.
-              </li>
-              <li>
-                Built strong relationships with customers by addressing
-                inquiries related to computer hardware, software, and CCTV
-                systems, leading to increased customer confidence and purchase
-                decisions.
-              </li>
-            </ul>
-          </div>
-
-          <div className="mt-3">
-            <h4 className="font-medium">
-              Inventory Management and Stock Replenishment:
-            </h4>
-            <ul className="text-textColor/80 mt-1 ml-5 list-disc">
-              <li>
-                Played a crucial role in maintaining an organized inventory
-                system, contributing to a 10% reduction in stock discrepancies.
-              </li>
-              <li>
-                Ensured product availability for customers by actively
-                participating in inventory management and stock replenishment
-                processes.
-              </li>
-            </ul>
-          </div>
-
-          <div className="mt-3">
-            <h4 className="font-medium">Positive Customer Feedback:</h4>
-            <ul className="text-textColor/80 mt-1 ml-5 list-disc">
-              <li>
-                Received positive customer feedback, acknowledging exceptional
-                customer service and satisfaction.
-              </li>
-              <li>
-                Established a reputation for reliability and professionalism,
-                enhancing the overall customer experience.
-              </li>
-            </ul>
-          </div>
-
-          <div className="mt-3">
-            <h4 className="font-medium">
-              Collaboration and Team Contribution:
-            </h4>
-            <ul className="text-textColor/80 mt-1 ml-5 list-disc">
-              <li>
-                Worked collaboratively with team members to achieve collective
-                sales goals.
-              </li>
-              <li>
-                Participated in team meetings and contributed insights to
-                enhance sales strategies and improve customer engagement.
-              </li>
-            </ul>
-          </div>
+          <ul className="text-textColor/80 mt-3 space-y-4">
+            <li>
+              Completed 40+ CCTV installations for residential and commercial
+              clients, including camera setup, wiring, and software
+              configuration
+            </li>
+            <li>
+              Installed and configured biometric time attendance systems and
+              access control solutions
+            </li>
+            <li>
+              Set up and troubleshot networks for schools and small businesses,
+              ensuring optimal performance for both wired and wireless systems
+            </li>
+            <li>
+              Performed hardware repairs and software installations for
+              individual customers
+            </li>
+            <li>
+              Built lasting client relationships through professional
+              communication and attention to detail
+            </li>
+          </ul>
         </div>
 
-        {/* Freelance Experience */}
-        <div>
-          <div className="flex justify-between">
-            <h3 className="font-semibold">Freelance Experience</h3>
-            <span className="text-textColor/70">2020 - Present</span>
-          </div>
-          <p className="text-textColor/80">
-            Self-Employed, Mombasa and throughout Kenya
-          </p>
-          <p className="text-textColor/80 mt-2">
-            During my tenure as a Freelance CCTV and Network Technician, I have
-            actively engaged in a wide range of projects, specializing in
-            computer installations and network configurations. My work has
-            extended to clients across Mombasa and various regions of Kenya, and
-            I have gained extensive experience in the following key areas:
-          </p>
+        {/* Sales Associate */}
+        <div className="bg-secondary/5 border-secondary/10 mb-6 rounded-xl border p-6 shadow-sm transition-all duration-300 hover:shadow-md">
+          <div className="flex flex-col justify-between gap-1">
+            <h3 className="text-secondary text-xl font-semibold uppercase underline">
+              Sales Associate
+            </h3>
 
-          <div className="mt-3">
-            <h4 className="font-medium">CCTV Installations:</h4>
-            <ul className="text-textColor/80 mt-1 ml-5 list-disc">
-              <li>
-                Successfully completed over 40 CCTV installations for numerous
-                residential and commercial clients.
-              </li>
-              <li>
-                Designed and implemented systems that include configuring camera
-                setups, intricate wiring, and software configuration.
-              </li>
-              <li>
-                Tailored solutions to meet specific security needs, enhancing
-                surveillance capabilities for clients.
-              </li>
-            </ul>
+            <div className="text-sm">
+              <span className="text-secondary flex items-center gap-2 font-medium">
+                {" "}
+                <CalendarClock />
+                01/2019 - 04/2020
+              </span>
+
+              <span className="text-secondary ml-0.5 font-medium">
+                👨‍💼<span className="ml-2"> Ken Computers, Mombasa</span>
+              </span>
+
+              <span className="text-secondary -ml-0.5 flex items-center gap-2 font-medium">
+                <MapPin /> Mombasa, Kenya
+              </span>
+            </div>
           </div>
 
-          <div className="mt-3">
-            <h4 className="font-medium">
-              Biometric and Access Control Specialist:
-            </h4>
-            <ul className="text-textColor/80 mt-1 ml-5 list-disc">
-              <li>
-                Installed and configured biometric time attendance systems for
-                efficient workforce management.
-              </li>
-              <li>
-                Expertise in access control solutions, ensuring secure and
-                seamless entry to authorized personnel.
-              </li>
-            </ul>
-          </div>
-
-          <div className="mt-3">
-            <h4 className="font-medium">Network Setup and Troubleshooting:</h4>
-            <ul className="text-textColor/80 mt-1 ml-5 list-disc">
-              <li>
-                Provided comprehensive network setup services for schools and
-                small office businesses with varying requirements.
-              </li>
-              <li>
-                Conducted troubleshooting and issue resolution for both wired
-                and wireless networks, consistently delivering optimal
-                performance.
-              </li>
-            </ul>
-          </div>
-
-          <div className="mt-3">
-            <h4 className="font-medium">
-              Computer Hardware and Software Repairs:
-            </h4>
-            <ul className="text-textColor/80 mt-1 ml-5 list-disc">
-              <li>
-                Conducted numerous computer hardware and software repairs for
-                individual customers.
-              </li>
-              <li>
-                Diagnosed and resolved hardware malfunctions, system
-                optimizations, and software installations promptly and
-                effectively.
-              </li>
-              <li>
-                Ensured client satisfaction by addressing a wide range of
-                computer-related issues, from hardware failures to software
-                glitches.
-              </li>
-            </ul>
-          </div>
-
-          <div className="mt-3">
-            <h4 className="font-medium">
-              Client Relationships and Project Management:
-            </h4>
-            <ul className="text-textColor/80 mt-1 ml-5 list-disc">
-              <li>
-                Managed client relationships with a focus on professionalism,
-                communication, and understanding client needs.
-              </li>
-              <li>
-                Handled project scheduling and billing, ensuring timely and
-                efficient service delivery.
-              </li>
-              <li>
-                Developed lasting client partnerships through a commitment to
-                quality service and attention to detail.
-              </li>
-            </ul>
-          </div>
+          <ul className="mt-3 space-y-4">
+            <li>
+              Assisted customers in Consistently exceeded sales targets through
+              effective customer engagement strategies
+            </li>
+            <li>
+              Conducted product demonstrations and provided technical advice on
+              computer hardware, software, and CCTV systems
+            </li>
+            <li>
+              Improved inventory management, reducing stock discrepancies by 10%
+            </li>
+            <li>
+              Received recognition for exceptional customer service and
+              satisfaction
+            </li>
+            <li>
+              Collaborated with team members to achieve collective sales goals
+            </li>
+          </ul>
         </div>
       </div>
     </section>

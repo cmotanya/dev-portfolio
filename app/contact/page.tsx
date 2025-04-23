@@ -6,6 +6,7 @@ import { AlertCircle, CheckCircle, Loader2, Send } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
+import { poppins } from "../data/font";
 
 function Contact() {
   const {
@@ -59,7 +60,7 @@ function Contact() {
     },
   });
 
-  const submissionCount = 3;
+  const submissionCount = 3; // max number of submissions per day
 
   const [isSuccess, setIsSuccess] = useState(false);
   const [message, setMessage] = useState("");
@@ -86,7 +87,7 @@ function Contact() {
             // Use stored count from previous submissions
             const submissionsLeft = submissionCount - count;
             setCountSubmissions(submissionsLeft);
-            setDailySubmissionExceeded(submissionsLeft < 0);
+            setDailySubmissionExceeded(true);
           }
         } catch (error) {
           // If data is corrupt, reset it
@@ -103,7 +104,7 @@ function Contact() {
     };
 
     checkSubmissionStatus();
-  }, []); // Empty dependency array to run only once on mount
+  }, [dailySubmissionExceeded]); // Empty dependency array to run only once on mount
 
   // function to check submission limits and update counts only on form submission
   const checkAndUpdateSubmissionCount = () => {
@@ -173,8 +174,9 @@ function Contact() {
     if (!checkAndUpdateSubmissionCount()) {
       setIsSuccess(false);
       setMessage(
-        `You've reached the daily limit of ${submissionCount} submissions. Please try again tomorrow.`,
+        `You have reached the daily limit of ${submissionCount} messages.`,
       );
+      setDailySubmissionExceeded(true);
       return;
     }
 
@@ -232,42 +234,34 @@ function Contact() {
         </p>
       </div>
 
-      {/* success message display */}
+      {/* success message display on submit */}
       {isSubmitSuccessful && isSuccess && (
-        <div className="text-textColor/80 mb-4 rounded-md border border-green-200 bg-green-50 p-3 text-sm font-medium">
-          <div className="mb-3 flex gap-3">
+        <div className="mb-6 rounded-md border border-green-200 bg-green-50 p-3 font-medium">
+          <div className="flex gap-2">
             <CheckCircle className="text-green-600" />
-            <p className="font-semibold text-green-700 uppercase">
-              Thank you for your message!
-            </p>
+            <h2 className="text-sm font-semibold text-green-700 uppercase">
+              {message}
+            </h2>
           </div>
-          <p>{message}</p>
-
-          <button
-            onClick={() => {
-              setIsSuccess(false);
-              reset();
-            }}
-            className="bg-primary mx-auto mt-8 block cursor-pointer rounded-full px-4 py-3 text-white"
-          >
-            Send another message
-          </button>
         </div>
       )}
 
       {/* error message display on refresh */}
-      {!isSuccess && dailySubmissionExceeded && (
-        <div className="mb-5 rounded-lg border border-red-200 bg-red-100 p-4 text-sm font-bold text-red-500 shadow-md">
-          <div className="mb-2 flex gap-3">
-            <AlertCircle />
-            <p className="text-lg">Message not sent.</p>
+      {dailySubmissionExceeded && !isSubmitSuccessful && (
+        <div className="space-y-3 rounded-lg border border-red-300 bg-red-100 p-2 font-bold text-red-500 shadow-md">
+          <div className="flex gap-2 rounded-sm font-medium text-red-600">
+            <AlertCircle className="size-6" />
+            <h2 className="font-bold">Message not sent</h2>
           </div>
-          <p>{message}</p>
+          <p className="text-sm font-semibold">
+            You cannot send more than {submissionCount} emails per day due to
+            our policy.
+          </p>
         </div>
       )}
 
       {/* form */}
-      {(!isSubmitSuccessful || !isSuccess || dailySubmissionExceeded) && (
+      {!dailySubmissionExceeded && (
         <form
           method="post"
           onSubmit={handleSubmit(onSubmit)}
@@ -433,9 +427,14 @@ function Contact() {
             )}
           </button>
 
-          <p className="text-textColor/50 text-bold mt-2 text-center text-xs">
+          <p
+            className={cn(
+              "text-bold text-textColor/50 mt-2 text-center text-xs font-semibold",
+              poppins.className,
+            )}
+          >
             {dailySubmissionExceeded
-              ? `Daily limit reached. Try again tomorrow.`
+              ? " "
               : `${countSubmissions} of ${submissionCount} submissions available today`}
           </p>
         </form>

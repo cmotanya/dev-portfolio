@@ -1,8 +1,8 @@
 import {
   Bricolage_Grotesque as Grotesque,
-  Schibsted_Grotesk as Schibsted,
   Big_Shoulders_Display as BigShoulder,
   Caveat_Brush as Caveat,
+  Poppins,
 } from "next/font/google";
 
 export const grotesque = Grotesque({
@@ -10,9 +10,9 @@ export const grotesque = Grotesque({
   subsets: ["latin"],
 });
 
-export const schibsted = Schibsted({
+export const poppins = Poppins({
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
   variable: "--font-geist-sans",
-  subsets: ["latin"],
 });
 
 export const bigShoulder = BigShoulder({
