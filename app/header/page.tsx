@@ -5,8 +5,8 @@ import { nav } from "../data/nav";
 import Link from "next/link";
 import Image from "next/image";
 import { socials } from "../data/socials";
-import { ChevronRight } from "lucide-react";
-import MenuToggleButton from "../menu-toggle-button";
+import { ChevronRight, Sun } from "lucide-react";
+import MenuToggleButton from "../../components/menu-toggle-button";
 import { cn } from "@/lib/utils";
 import { caveat } from "../data/font";
 import { usePathname, useRouter } from "next/navigation";
@@ -115,13 +115,19 @@ const Header = () => {
             </div>
           </div>
 
-          {/* Resume button */}
-          <button
-            onClick={handleResumeClick}
-            className="hover:bg-primary/50 bg-primary absolute bottom-8 left-1/2 flex -translate-x-1/2 items-center justify-center gap-1 self-start rounded-full px-3 py-2 text-sm font-medium whitespace-nowrap text-white transition-colors"
-          >
-            Read Resume <ChevronRight className="size-2" />
-          </button>
+          <div className="flex items-center justify-between gap-4">
+            {/* Resume button */}
+            <button
+              onClick={handleResumeClick}
+              className="hover:bg-primary/50 bg-primary flex items-center justify-center gap-1 self-start rounded-full border px-3 py-2 text-sm font-medium whitespace-nowrap text-white transition-colors"
+            >
+              Read Resume <ChevronRight className="size-2" />
+            </button>
+
+            <span>
+              <Sun />
+            </span>
+          </div>
         </div>
       </header>
 

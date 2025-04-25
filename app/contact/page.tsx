@@ -1,15 +1,27 @@
 "use client";
 
-import { sendEmailSchema, TSendEmailSchema } from "@/lib/types";
+import {
+  sendEmailSchema,
+  SUBMISSION_LIMIT,
+  SUBMISSION_STORAGE_KEY,
+  TSendEmailSchema,
+} from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { AlertCircle, CheckCircle, Loader2, Send } from "lucide-react";
+import {
+  AlertCircle,
+  CheckCircle,
+  Loader2,
+  MessageCircleCode,
+  Send,
+} from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { poppins } from "../data/font";
-
-const SUBMISSION_LIMIT = 2; // max number of submissions per day
-const SUBMISSION_STORAGE_KEY = "contactSubmission"; // key for localStorage
+import { Fade, Slide } from "react-awesome-reveal";
+import {
+  getLocalStorageData,
+  updateLocalStorageData,
+} from "@/lib/local-storage";
 
 type SubmissionStatus =
   | "idle"
@@ -19,36 +31,6 @@ type SubmissionStatus =
   | "limit_exceeded";
 
 //Helper function to get data from localStorage
-const getLocalStorageData = () => {
-  const submissionData = localStorage.getItem(SUBMISSION_STORAGE_KEY);
-
-  if (!submissionData) {
-    return { count: 0, date: null };
-  }
-  try {
-    const { count, date } = JSON.parse(submissionData);
-    // Validate retrieved data structure and types
-    if (typeof count === "number" && typeof date === "string") {
-      return { count, date: new Date(date) };
-    }
-    // Data is corrupt, remove it
-    console.error("Invalid data structure in localStorage");
-    return { count: 0, date: null };
-  } catch (error) {
-    // Handle parsing errors
-    console.error("Error parsing localStorage data:", error);
-    localStorage.removeItem(SUBMISSION_STORAGE_KEY);
-    return { count: 0, date: null };
-  }
-};
-
-// Helper function to update localStorage data
-const updateLocalStorageData = (newCount: number, date: Date) => {
-  localStorage.setItem(
-    SUBMISSION_STORAGE_KEY,
-    JSON.stringify({ count: newCount, date: new Date(date).toString() }),
-  );
-};
 
 function Contact() {
   const {
@@ -204,69 +186,77 @@ function Contact() {
   return (
     <section className="mx-auto w-full max-w-md">
       <div className="relative mb-16">
-        <span className="text-textColor/20 absolute -top-14 right-0 -z-10 text-9xl font-extrabold">
-          05
-        </span>
-        <h1 className="text-6xl font-bold tracking-tight">
-          Contact{" "}
-          <span className="text-primary relative">
-            Me
-            <span className="bg-primary absolute right-0 bottom-0 h-1 w-full" />
-          </span>
-        </h1>
+        <Fade direction="left" cascade triggerOnce duration={300}>
+          <div className="flex items-center gap-2 whitespace-nowrap">
+            <MessageCircleCode size={45} className="text-secondary shrink-0" />
+            <h1 className="text-[3.65rem] font-bold tracking-tight whitespace-nowrap">
+              Contact{" "}
+              <span className="text-primary relative">
+                Me
+                <span className="bg-primary absolute right-0 bottom-0 h-1 w-full" />
+              </span>
+            </h1>
+          </div>
 
-        <p className="text-textColor/70 mt-4">
-          Drop me a message and I&apos;ll get back to you!
-        </p>
+          <p className="text-textColor/70 mt-4">
+            Drop me a message and I&apos;ll get back to you!
+          </p>
+        </Fade>
       </div>
       {/* Submission Status Message */}
       {(submissionStatus === "success" || submissionStatus === "error") && (
-        <div
-          className={cn(
-            "mb-6 rounded-md border p-3 font-medium",
-            submissionStatus === "success"
-              ? "border-green-300 bg-green-100 text-green-700"
-              : "border-red-300 bg-red-100 text-red-700",
-          )}
-        >
-          <div className="flex gap-2">
-            {submissionStatus === "success" ? (
-              <CheckCircle className="text-green-600" />
-            ) : (
-              <AlertCircle className="text-red-600" />
+        <Slide direction="left" duration={300} triggerOnce>
+          <div
+            className={cn(
+              "mb-6 rounded-md border p-3 font-medium",
+              submissionStatus === "success"
+                ? "border-green-300 bg-green-100 text-green-700"
+                : "border-red-300 bg-red-100 text-red-700",
             )}
-
-            <h2
-              className={cn(
-                "text-sm font-semibold uppercase",
-                submissionStatus === "success"
-                  ? "text-green-700"
-                  : "text-red-700",
+          >
+            <div className="flex gap-2">
+              {submissionStatus === "success" ? (
+                <CheckCircle className="text-green-600" />
+              ) : (
+                <AlertCircle className="text-red-600" />
               )}
-            >
-              {message}
-            </h2>
+
+              <h2
+                className={cn(
+                  "text-sm font-semibold uppercase",
+                  submissionStatus === "success"
+                    ? "text-green-700"
+                    : "text-red-700",
+                )}
+              >
+                {message}
+              </h2>
+            </div>
           </div>
-        </div>
+        </Slide>
       )}
 
       {/* Submitting Status Message */}
       {submissionStatus === "submitting" && (
-        <div className="text-secondary mb-6 flex items-center gap-2 rounded-md border border-blue-200 bg-blue-100 p-3 font-medium">
-          <Loader2 className="text-secondary animate-spin" />
-          <h2 className="text-sm font-semibold">Sending your message...</h2>
-        </div>
+        <Slide direction="left" duration={300} triggerOnce>
+          <div className="text-secondary mb-6 flex items-center gap-2 rounded-md border border-blue-200 bg-blue-100 p-3 font-medium">
+            <Loader2 className="text-secondary animate-spin" />
+            <h2 className="text-sm font-semibold">Sending your message...</h2>
+          </div>
+        </Slide>
       )}
 
       {/* Daily limit exceeded message shown only if limit is reached */}
       {submissionStatus === "limit_exceeded" && (
-        <div className="space-y-3 rounded-lg border border-red-300 bg-red-100 p-2 font-bold text-red-500 shadow-md">
-          <div className="flex gap-2 rounded-sm font-medium text-red-600">
-            <AlertCircle className="size-6" />
-            <h2 className="font-bold">Message not sent</h2>
+        <Slide direction="right" duration={300} triggerOnce>
+          <div className="space-y-3 rounded-lg border border-red-300 bg-red-100 p-2 font-bold text-red-500 shadow-md">
+            <div className="flex gap-2 rounded-sm font-medium text-red-600">
+              <AlertCircle className="size-6" />
+              <h2 className="font-bold">Message not sent</h2>
+            </div>
+            <p className="text-sm font-semibold">{message}</p>
           </div>
-          <p className="text-sm font-semibold">{message}</p>
-        </div>
+        </Slide>
       )}
 
       {/* FORM (Conditionally rendered) */}
@@ -277,188 +267,207 @@ function Contact() {
           noValidate
           className="flex flex-col gap-4"
         >
-          <div className="space-y-2">
-            <label htmlFor="name" className="text-sm font-medium text-gray-700">
-              Name
-            </label>
-            <div className="relative">
-              <input
-                {...register("name")}
-                id="name"
-                type="text"
-                placeholder="Your name"
-                name="name"
-                autoComplete="name"
-                className={cn(
-                  "w-full rounded-lg border px-4 py-3 transition-all outline-none",
-                  errors.name
-                    ? "border-red-300 bg-red-50 focus:border-red-500 focus:ring focus:ring-red-200"
-                    : "focus:border-primary focus:ring-primary/20 border-gray-200 focus:ring",
-                  submissionStatus === "submitting"
-                    ? "pointer-events-none"
-                    : "",
-                )}
-              />
-            </div>
-            {errors.name && (
-              <span
-                role="alert"
-                className="-mt-1 flex items-center gap-1 text-sm font-medium text-red-500"
-              >
-                <AlertCircle size={14} />
-                {errors.name.message}
-              </span>
-            )}
-          </div>
-
-          <div className="space-y-2">
-            <label
-              htmlFor="email"
-              className="text-sm font-medium text-gray-700"
-            >
-              Email
-            </label>
-            <div className="relative">
-              <input
-                {...register("email")}
-                id="email"
-                type="email"
-                name="email"
-                placeholder="your.email@example.com"
-                autoComplete="email"
-                className={cn(
-                  "w-full rounded-lg border px-4 py-3 transition-all outline-none",
-                  errors.email
-                    ? "border-red-300 bg-red-50 focus:border-red-500 focus:ring focus:ring-red-200"
-                    : "focus:border-primary focus:ring-primary/20 border-gray-200 focus:ring",
-                  submissionStatus === "submitting"
-                    ? "pointer-events-none"
-                    : "",
-                )}
-              />
-            </div>
-            {errors.email && (
-              <span
-                role="alert"
-                className="-mt-1 flex items-center gap-1 text-sm font-medium text-red-500"
-              >
-                <AlertCircle size={14} />
-                {errors.email.message}
-              </span>
-            )}
-          </div>
-
-          <div className="space-y-2">
-            <label
-              htmlFor="mobile"
-              className="text-sm font-medium text-gray-700"
-            >
-              Phone (optional)
-            </label>
-            <div className="relative">
-              <input
-                {...register("mobile")}
-                id="mobile"
-                type="tel"
-                name="mobile"
-                placeholder="+254 700 000 000"
-                className={cn(
-                  "w-full rounded-lg border px-4 py-3 transition-all outline-none",
-                  errors.mobile
-                    ? "border-red-300 bg-red-50 focus:border-red-500 focus:ring focus:ring-red-200"
-                    : "focus:border-primary focus:ring-primary/20 border-gray-200 focus:ring",
-                  submissionStatus === "submitting"
-                    ? "pointer-events-none"
-                    : "",
-                )}
-              />
-            </div>
-            {errors.mobile && (
-              <span
-                role="alert"
-                className="-mt-1 flex items-center gap-1 text-sm font-medium text-red-500"
-              >
-                <AlertCircle size={14} />
-                {errors.mobile.message}
-              </span>
-            )}
-          </div>
-
-          <div className="space-y-2">
-            <label
-              htmlFor="textarea"
-              className="text-sm font-medium text-gray-700"
-            >
-              Message
-            </label>
-            <div className="relative">
-              <textarea
-                {...register("textarea")}
-                id="textarea"
-                cols={15}
-                rows={5}
-                name="textarea"
-                placeholder="What would you like to discuss?"
-                className={cn(
-                  "w-full resize-none rounded-lg border px-4 py-3 transition-all outline-none",
-                  errors.textarea
-                    ? "border-red-300 bg-red-50 focus:border-red-500 focus:ring focus:ring-red-200"
-                    : "focus:border-primary focus:ring-primary/20 border-gray-200 focus:ring",
-                  submissionStatus === "submitting"
-                    ? "pointer-events-none"
-                    : "",
-                )}
-              />
-            </div>
-            {errors.textarea && (
-              <span
-                role="alert"
-                className="-mt-3 flex items-center gap-1 text-sm font-medium text-red-500"
-              >
-                <AlertCircle size={14} />
-                {errors.textarea.message}
-              </span>
-            )}
-          </div>
-
-          {/* button */}
-          <button
-            type="submit"
-            disabled={
-              isSubmitting ||
-              Object.keys(errors).length > 0 ||
-              isDelayAfterSuccess
-            }
-            className={cn(
-              "disabled:bg-primary/50 mt-4 flex cursor-pointer items-center justify-center gap-2 rounded-lg py-3 text-white transition-all",
-              isSubmitting
-                ? "bg-primary/50"
-                : Object.keys(errors).length > 0 || isDelayAfterSuccess
-                  ? "bg-primary/50 pointer-events-none select-none"
-                  : "bg-primary",
-            )}
+          <Fade
+            direction="up"
+            cascade
+            damping={0.2}
+            triggerOnce
+            duration={200}
+            delay={500}
           >
-            {submissionStatus === "submitting" ? (
-              <>Sending...</>
-            ) : (
-              <>
-                Send message
-                <Send size={17} />
-              </>
-            )}
-          </button>
+            <div className="space-y-2">
+              <label
+                htmlFor="name"
+                className="text-sm font-medium text-gray-700"
+              >
+                Name
+              </label>
+              <div className="relative">
+                <input
+                  {...register("name")}
+                  id="name"
+                  type="text"
+                  placeholder="Your name"
+                  name="name"
+                  autoComplete="name"
+                  className={cn(
+                    "w-full rounded-lg border px-4 py-3 transition-all outline-none",
+                    errors.name
+                      ? "border-red-300 bg-red-50 focus:border-red-500 focus:ring focus:ring-red-200"
+                      : "focus:border-primary focus:ring-primary/20 border-gray-200 focus:ring",
+                    submissionStatus === "submitting"
+                      ? "pointer-events-none"
+                      : "",
+                  )}
+                />
+              </div>
+              {errors.name && (
+                <Slide direction="left" duration={300} triggerOnce>
+                  <span
+                    role="alert"
+                    className="-mt-1 flex items-center gap-1 text-sm font-medium text-red-500"
+                  >
+                    <AlertCircle size={14} />
+                    {errors.name.message}
+                  </span>
+                </Slide>
+              )}
+            </div>
 
-          {/* Remaining Submission Count */}
-          <p
-            className={cn(
-              "text-bold text-textColor/50 mt-2 text-center text-xs font-semibold",
-              poppins.className,
-            )}
-          >
-            {countSubmissions <= 0
-              ? "Daily submission limit reached"
-              : `${countSubmissions} of ${SUBMISSION_LIMIT} submissions available today`}
-          </p>
+            <div className="space-y-2">
+              <label
+                htmlFor="email"
+                className="text-sm font-medium text-gray-700"
+              >
+                Email
+              </label>
+              <div className="relative">
+                <input
+                  {...register("email")}
+                  id="email"
+                  type="email"
+                  name="email"
+                  placeholder="your.email@example.com"
+                  autoComplete="email"
+                  className={cn(
+                    "w-full rounded-lg border px-4 py-3 transition-all outline-none",
+                    errors.email
+                      ? "border-red-300 bg-red-50 focus:border-red-500 focus:ring focus:ring-red-200"
+                      : "focus:border-primary focus:ring-primary/20 border-gray-200 focus:ring",
+                    submissionStatus === "submitting"
+                      ? "pointer-events-none"
+                      : "",
+                  )}
+                />
+              </div>
+              {errors.email && (
+                <Slide direction="left" duration={300} triggerOnce>
+                  <span
+                    role="alert"
+                    className="-mt-1 flex items-center gap-1 text-sm font-medium text-red-500"
+                  >
+                    <AlertCircle size={14} />
+                    {errors.email.message}
+                  </span>
+                </Slide>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <label
+                htmlFor="mobile"
+                className="text-sm font-medium text-gray-700"
+              >
+                Phone (optional)
+              </label>
+              <div className="relative">
+                <input
+                  {...register("mobile")}
+                  id="mobile"
+                  type="tel"
+                  name="mobile"
+                  placeholder="+254 700 000 000"
+                  className={cn(
+                    "w-full rounded-lg border px-4 py-3 transition-all outline-none",
+                    errors.mobile
+                      ? "border-red-300 bg-red-50 focus:border-red-500 focus:ring focus:ring-red-200"
+                      : "focus:border-primary focus:ring-primary/20 border-gray-200 focus:ring",
+                    submissionStatus === "submitting"
+                      ? "pointer-events-none"
+                      : "",
+                  )}
+                />
+              </div>
+              {errors.mobile && (
+                <Slide direction="left" duration={300} triggerOnce>
+                  <span
+                    role="alert"
+                    className="-mt-1 flex items-center gap-1 text-sm font-medium text-red-500"
+                  >
+                    <AlertCircle size={14} />
+                    {errors.mobile.message}
+                  </span>
+                </Slide>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <label
+                htmlFor="textarea"
+                className="text-sm font-medium text-gray-700"
+              >
+                Message
+              </label>
+              <div className="relative">
+                <textarea
+                  {...register("textarea")}
+                  id="textarea"
+                  cols={15}
+                  rows={5}
+                  name="textarea"
+                  placeholder="What would you like to discuss?"
+                  className={cn(
+                    "w-full resize-none rounded-lg border px-4 py-3 transition-all outline-none",
+                    errors.textarea
+                      ? "border-red-300 bg-red-50 focus:border-red-500 focus:ring focus:ring-red-200"
+                      : "focus:border-primary focus:ring-primary/20 border-gray-200 focus:ring",
+                    submissionStatus === "submitting"
+                      ? "pointer-events-none"
+                      : "",
+                  )}
+                />
+              </div>
+              {errors.textarea && (
+                <Slide direction="left" duration={300} triggerOnce>
+                  <span
+                    role="alert"
+                    className="-mt-3 flex items-center gap-1 text-sm font-medium text-red-500"
+                  >
+                    <AlertCircle size={14} />
+                    {errors.textarea.message}
+                  </span>
+                </Slide>
+              )}
+            </div>
+
+            {/* button */}
+            <button
+              type="submit"
+              disabled={
+                isSubmitting ||
+                Object.keys(errors).length > 0 ||
+                isDelayAfterSuccess
+              }
+              className={cn(
+                "disabled:bg-primary/50 mt-4 flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg py-3 text-white transition-all",
+                isSubmitting
+                  ? "bg-primary/50"
+                  : Object.keys(errors).length > 0 || isDelayAfterSuccess
+                    ? "bg-primary/50 pointer-events-none select-none"
+                    : "bg-primary",
+              )}
+            >
+              {submissionStatus === "submitting" ? (
+                <>Sending...</>
+              ) : (
+                <>
+                  Send message
+                  <Send size={17} />
+                </>
+              )}
+            </button>
+
+            {/* Remaining Submission Count */}
+            <p
+              className={cn(
+                "text-bold text-secondary mt-2 text-center text-xs font-semibold",
+              )}
+            >
+              {countSubmissions <= 0
+                ? "Daily submission limit reached"
+                : `${countSubmissions} of ${SUBMISSION_LIMIT} submissions available today`}
+            </p>
+          </Fade>
         </form>
       )}
     </section>

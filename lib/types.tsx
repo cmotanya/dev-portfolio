@@ -1,5 +1,8 @@
 import { z } from "zod";
 
+export const SUBMISSION_LIMIT = 2; // max number of submissions per day
+export const SUBMISSION_STORAGE_KEY = "contactSubmission"; // key for localStorage
+
 export type ServiceData = {
   id: string;
   title: string;
@@ -10,6 +13,17 @@ export type ServiceData = {
   iconColor: string;
   category: string;
 };
+
+// types/index.ts or types/Project.d.ts
+export interface Project {
+  id: number;
+  name: string;
+  description: string;
+  image: string;
+  tags: string[];
+  liveLink?: string;
+  githubLink?: string;
+}
 
 export type ServicesDataMap = {
   [key: string]: ServiceData;

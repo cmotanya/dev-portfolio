@@ -1,4 +1,5 @@
-import { PanelLeftOpen, PanelRightOpen } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { LayoutGrid, X } from "lucide-react";
 import React from "react";
 
 type ButtonProps = {
@@ -14,12 +15,15 @@ const MenuToggleButton: React.FC<ButtonProps> = ({
     <>
       <button
         onClick={toggleMenu}
-        className="border-primary fixed right-4 bottom-6 z-20 rounded-full border p-2 backdrop-blur-lg"
+        className={cn(
+          "border-primary fixed right-4 bottom-6 z-20 rounded-full border p-2 backdrop-blur-lg",
+          isMenuOpen ? "border-red-500" : "border-primary",
+        )}
       >
         {isMenuOpen ? (
-          <PanelRightOpen className="text-red-500" />
+          <X className="text-red-500" />
         ) : (
-          <PanelLeftOpen className="text-primary" />
+          <LayoutGrid className="text-primary" />
         )}
       </button>
     </>

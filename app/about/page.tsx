@@ -1,127 +1,187 @@
-import { MessageCircleMoreIcon } from "lucide-react";
+import { BadgeCheckIcon, Brain, FileUser, Quote } from "lucide-react";
 import React from "react";
 import Image from "next/image";
 import { about } from "../data/about-section";
+import { cn } from "@/lib/utils";
+import { poppins } from "../data/font";
+import { Fade, Slide } from "react-awesome-reveal";
 
 const About = () => {
   return (
-    <section className="mx-auto max-w-4xl px-4 py-12">
-      <div className="relative mb-10">
-        <span className="text-textColor/10 absolute -top-14 left-0 -z-10 text-8xl font-extrabold">
-          02
-        </span>
-
-        <div className="flex items-center gap-3">
-          <MessageCircleMoreIcon size={48} className="text-primary" />
-          <h1 className="text-textColor text-5xl font-bold tracking-tight">
-            About <span className="text-primary">Me</span>
+    <section id="about" className="mx-auto max-w-4xl px-4 py-16 md:py-24">
+      {" "}
+      <Slide direction="left" duration={300} triggerOnce>
+        <div className="relative mb-12 flex items-center gap-4">
+          {" "}
+          <FileUser size={45} className="text-secondary shrink-0 rotate-12" />
+          <h1 className="text-6xl font-bold tracking-tight whitespace-nowrap">
+            About{" "}
+            <span className="text-primary relative">
+              Me
+              <span className="bg-primary absolute right-0 bottom-0 h-1 w-full" />
+            </span>
           </h1>
         </div>
-        <span className="bg-primary absolute -bottom-2 left-0 h-1 w-24" />
-      </div>
-
-      {/* Image gallery with overlays */}
-      <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+      </Slide>
+      <div className="mb-12 grid grid-cols-2 gap-4 sm:grid-cols-4">
+        {" "}
         {about.map((item, index) => (
           <div
             key={index}
-            className="group relative h-36 w-full overflow-hidden rounded-lg shadow-md hover:shadow-lg"
+            className="group relative aspect-square w-full overflow-hidden rounded-lg shadow-md transition-shadow hover:shadow-lg"
           >
             <Image
               src={item.src}
               alt={item.name}
-              width={400}
-              height={400}
-              className="h-full w-full object-cover object-center"
+              fill
+              sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 25vw"
+              className="object-cover object-center transition-transform duration-300 group-hover:scale-105"
             />
 
-            <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/70 to-transparent">
-              <span className="p-2 text-sm font-medium text-white">
+            <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/70 via-black/30 to-transparent p-3 opacity-0 transition-opacity group-hover:opacity-100">
+              {" "}
+              <span className="text-sm font-medium text-white">
                 {item.name}
               </span>
             </div>
           </div>
         ))}
       </div>
-
-      <div className="text-textColor/80 space-y-6">
-        <p className="text-textColor bg-secondary/5 border-l-primary rounded-md border-l-2 p-4 leading-relaxed font-medium">
-          With experience in web development, CCTV systems, and network
-          infrastructure, I&apos;ve built my career around creating technical
-          solutions that work for real people.
-        </p>
-
-        <p className="leading-relaxed">
-          My approach blends technical know-how with practical problem-solving.
-          I believe good tech should protect and enable users while remaining
-          approachable and easy to use.
-        </p>
-
-        <blockquote className="border-primary bg-primary/5 rounded-lg border-l-4 p-5 text-lg italic">
-          &quot;Technology is best when it brings people together.&quot; - Matt
-          Mullenweg
-        </blockquote>
-
-        <p className="leading-relaxed">
-          When I&apos;m not working on websites or security systems, you&apos;ll
-          find me exploring new technologies, reading tech blogs, or tinkering
-          with personal projects that help me grow my skills. I&apos;m
-          particularly interested in how technology can make everyday life more
-          secure and convenient.
-        </p>
-
-        <div className="my-8 grid gap-4 md:grid-cols-2">
-          <div className="bg-secondary/5 rounded-lg p-5">
-            <h3 className="text-primary mb-3 text-lg font-bold">What I Do</h3>
-            <ul className="space-y-2">
-              <li className="flex items-center gap-2">
-                <span className="bg-primary h-2 w-2 rounded-full"></span>
-                <span>Create responsive, user-focused websites</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="bg-primary h-2 w-2 rounded-full"></span>
-                <span>Install and configure security systems</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="bg-primary h-2 w-2 rounded-full"></span>
-                <span>Build reliable network infrastructure</span>
-              </li>
-            </ul>
+      {/* --- Core About Content --- */}
+      <Fade direction="right" delay={300} duration={500}>
+        <div className="text-textColor/90 space-y-8 leading-relaxed">
+          {" "}
+          <p
+            className={cn(
+              "text-textColor bg-secondary/5 border-l-primary relative border-l-4 p-4 leading-relaxed font-medium",
+              poppins.className,
+            )}
+          >
+            {" "}
+            Bringing together expertise in{" "}
+            <strong className="text-primary">web development</strong>, robust{" "}
+            <strong className="text-primary">CCTV systems</strong>, and reliable{" "}
+            <strong className="text-primary">network infrastructure</strong>, I
+            specialize in creating technical solutions that are not only
+            effective but also secure, user-friendly, and built for real-world
+            application. My professional journey is rooted in applying technical
+            knowledge with a pragmatic, problem-solving approach.
+            <span className="text-secondary/50 absolute right-0 bottom-2">
+              <Quote size={60} />
+            </span>
+          </p>
+          <p>
+            My philosophy centers on building technology that truly serves
+            people. This means prioritizing security from the ground up,
+            designing systems that are intuitive and accessible, and ensuring
+            the underlying infrastructure is solid and dependable. I believe
+            good technology should empower and protect, seamlessly integrating
+            into users&apos; lives without adding unnecessary complexity.
+          </p>
+          <div className="grid gap-8 md:grid-cols-2">
+            {" "}
+            <div className="bg-secondary/5 rounded-lg p-6">
+              {" "}
+              <h3 className="text-primary mb-4 text-xl font-bold">
+                What I Do
+              </h3>{" "}
+              <ul className="space-y-3">
+                {" "}
+                <li className="flex items-start gap-3">
+                  {" "}
+                  <span className="text-secondary flex-shrink-0 rounded-full">
+                    {" "}
+                    <BadgeCheckIcon />
+                  </span>{" "}
+                  <span>
+                    Develop responsive and performant web applications with a
+                    focus on user experience.
+                  </span>{" "}
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-secondary flex-shrink-0 rounded-full">
+                    {" "}
+                    <BadgeCheckIcon />
+                  </span>{" "}
+                  <span>
+                    Design, install, and configure robust security and
+                    surveillance systems.
+                  </span>{" "}
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-secondary flex-shrink-0 rounded-full">
+                    {" "}
+                    <BadgeCheckIcon />
+                  </span>{" "}
+                  <span>
+                    Establish and maintain reliable network infrastructure for
+                    seamless connectivity.
+                  </span>{" "}
+                </li>
+              </ul>
+            </div>
+            <div className="bg-secondary/5 rounded-lg p-6">
+              {" "}
+              <h3 className="text-primary mb-4 text-xl font-bold">
+                My Approach
+              </h3>{" "}
+              <ul className="space-y-3">
+                {" "}
+                <li className="flex items-start gap-3">
+                  <span className="text-secondary flex-shrink-0 rounded-full">
+                    {" "}
+                    <Brain />
+                  </span>{" "}
+                  <span>
+                    Prioritizing clear communication and understanding project
+                    requirements thoroughly.
+                  </span>{" "}
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-secondary flex-shrink-0 rounded-full">
+                    {" "}
+                    <Brain />
+                  </span>{" "}
+                  <span>
+                    Integrating security best practices into every stage of
+                    development and implementation.
+                  </span>{" "}
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-secondary flex-shrink-0 rounded-full">
+                    {" "}
+                    <Brain />
+                  </span>{" "}
+                  <span>
+                    Delivering solutions that are reliable, scalable, and easy
+                    for users to manage.
+                  </span>{" "}
+                </li>
+              </ul>
+            </div>
           </div>
-          <div className="bg-secondary/5 rounded-lg p-5">
-            <h3 className="text-primary mb-3 text-lg font-bold">My Approach</h3>
-            <ul className="space-y-2">
-              <li className="flex items-center gap-2">
-                <span className="bg-primary h-2 w-2 rounded-full"></span>
-                <span>Listen first, then build</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="bg-primary h-2 w-2 rounded-full"></span>
-                <span>Focus on security from the start</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="bg-primary h-2 w-2 rounded-full"></span>
-                <span>Create solutions that are easy to use</span>
-              </li>
-            </ul>
-          </div>
+          <p>
+            Beyond specific projects, I maintain a keen interest in the evolving
+            technology landscape. I actively explore new frameworks, read
+            industry publications, and engage in personal labs or projects.
+          </p>
+          <p>
+            This commitment to continuous learning ensures I can leverage the
+            best tools and techniques to address future challenges and provide
+            innovative solutions.
+          </p>
+          <p>
+            I value collaboration and am dedicated to finding the most effective
+            solution for each unique situation. Every project is an opportunity
+            to make a meaningful impact by solving problems and enhancing
+            security, efficiency, or user experience.
+          </p>
         </div>
-
-        <p className="leading-relaxed">
-          I value clear communication and finding the right solution for each
-          unique situation. Every project is an opportunity to solve a problem
-          and make someone&apos;s life a little easier or more secure.
-        </p>
-
-        <p className="leading-relaxed">
-          If you&apos;re looking for someone who approaches tech challenges with
-          both technical precision and a human touch, I&apos;d love to chat
-          about how I can help with your project.
-        </p>
-      </div>
-
-      <div className="mt-8 text-center">
-        <button className="bg-primary hover:bg-primary/90 rounded-full px-6 py-2 font-medium text-white transition-colors">
+      </Fade>
+      <div className="mt-12 text-center">
+        {" "}
+        <button className="bg-primary hover:bg-primary/90 inline-block rounded-full px-8 py-3 font-semibold text-white shadow-lg transition-colors duration-300 hover:shadow-xl">
+          {" "}
           Get in Touch
         </button>
       </div>

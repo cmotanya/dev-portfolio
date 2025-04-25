@@ -36,7 +36,7 @@ main {
 section {
   min-height: 100dvh;
   width: var(--width);
-  padding-block: 5rem 4rem;
+  padding-block: 2.5rem 4rem;
 }
 
 p {

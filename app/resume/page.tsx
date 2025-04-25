@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { ArrowLeft, CalendarClock, MapPin } from "lucide-react";
+import { ArrowLeft, CalendarDays, MapPin } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -57,7 +57,7 @@ export default function Resume() {
             <div className="text-sm">
               <span className="text-secondary flex items-center gap-2 font-medium">
                 {" "}
-                <CalendarClock /> 2020 - Present
+                <CalendarDays /> 2020 - Present
               </span>
               <span className="text-secondary ml-0.5 font-medium">
                 👨‍💼<span className="ml-3">Self-Employed</span>
@@ -103,7 +103,7 @@ export default function Resume() {
             <div className="text-sm">
               <span className="text-secondary flex items-center gap-2 font-medium">
                 {" "}
-                <CalendarClock />
+                <CalendarDays />
                 01/2019 - 04/2020
               </span>
 
