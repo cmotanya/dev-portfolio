@@ -13,24 +13,6 @@ export const projects: Project[] = [
     githubLink: "https://github.com/cmotanya/dev-portfolio",
   },
 
-  {
-    id: 2,
-    name: "Simple Weather App",
-    description:
-      "A clean and responsive web application that fetches and displays current weather data based on user location or city search.",
-    image: "/project/2.webp",
-    tags: [
-      "React",
-      "Next.js",
-      "TypeScript",
-      "Tailwind CSS",
-      "Weather API",
-      "Fetch API",
-      "Responsive Design",
-    ],
-    githubLink: "https://github.com/cmotanya/weather-app",
-  },
-
   // Project for Data Analysis
   {
     id: 3,
