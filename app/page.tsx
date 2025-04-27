@@ -1,5 +1,5 @@
 import Image from "next/image";
-import TechStack from "@/components/techStack";
+import TechStack from "@/components/tech-stack";
 import { Slide } from "react-awesome-reveal";
 
 export default function Home() {
