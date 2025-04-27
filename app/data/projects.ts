@@ -29,7 +29,7 @@ export const projects: Project[] = [
     id: 4,
     name: "Residential CCTV System Installation",
     description:
-      "Designed and installed a comprehensive security camera system for a residential property, including camera placement, cabling, NVR setup, and remote viewing configuration.",
+      "Designed and installed a comprehensive security camera system for several residential properties, offices and business premises, including camera placement, cabling, NVR setup, and remote viewing configuration.",
     image: "/project/1.jpeg",
     tags: [
       "CCTV",
