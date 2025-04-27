@@ -76,7 +76,7 @@ const Projects = () => {
                     <Link
                       href={project.liveLink}
                       target="_blank"
-                      rel=" noopener noreferrer"
+                      rel="noopener noreferrer"
                       className="text-textColor/80 hover:text-primary flex items-center gap-1 text-sm transition-colors"
                       aria-label={`View live demo of ${project.name}`}
                     >
