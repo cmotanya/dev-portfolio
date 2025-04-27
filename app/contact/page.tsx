@@ -272,7 +272,7 @@ function Contact() {
               cascade
               damping={0.2}
               triggerOnce
-              duration={200}
+              duration={400}
               delay={500}
             >
               <div className="space-y-2">
@@ -302,7 +302,7 @@ function Contact() {
                   />
                 </div>
                 {errors.name && (
-                  <Slide direction="left" duration={300} triggerOnce>
+                  <Slide direction="left" duration={400} triggerOnce>
                     <span
                       role="alert"
                       className="-mt-1 flex items-center gap-1 text-sm font-medium text-red-500"
@@ -341,7 +341,7 @@ function Contact() {
                   />
                 </div>
                 {errors.email && (
-                  <Slide direction="left" duration={300} triggerOnce>
+                  <Slide direction="left" duration={400} triggerOnce>
                     <span
                       role="alert"
                       className="-mt-1 flex items-center gap-1 text-sm font-medium text-red-500"
@@ -379,7 +379,7 @@ function Contact() {
                   />
                 </div>
                 {errors.mobile && (
-                  <Slide direction="left" duration={300} triggerOnce>
+                  <Slide direction="left" duration={400} triggerOnce>
                     <span
                       role="alert"
                       className="-mt-1 flex items-center gap-1 text-sm font-medium text-red-500"
@@ -418,7 +418,7 @@ function Contact() {
                   />
                 </div>
                 {errors.textarea && (
-                  <Slide direction="left" duration={300} triggerOnce>
+                  <Slide direction="left" duration={400} triggerOnce>
                     <span
                       role="alert"
                       className="-mt-3 flex items-center gap-1 text-sm font-medium text-red-500"

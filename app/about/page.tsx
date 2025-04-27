@@ -47,7 +47,7 @@ const About = () => {
   return (
     <section id="about" className="mx-auto max-w-4xl py-16 md:px-12 md:py-24">
       {" "}
-      <Slide direction="down" duration={200} triggerOnce>
+      <Slide direction="down" duration={300} triggerOnce>
         <div className="relative mb-12 flex items-center gap-4">
           {" "}
           <FileUser size={45} className="text-secondary shrink-0 rotate-12" />
@@ -60,7 +60,7 @@ const About = () => {
           </h1>
         </div>
       </Slide>
-      <Fade delay={300} triggerOnce duration={500}>
+      <Fade delay={300} triggerOnce duration={400}>
         <div className="relative mb-8 aspect-auto h-[300px] overflow-hidden rounded-lg">
           {" "}
           <Slider {...settings}>
@@ -86,7 +86,7 @@ const About = () => {
         </div>
       </Fade>
       {/* --- Core About Content --- */}
-      <Fade direction="left" delay={300} duration={500} triggerOnce>
+      <Fade direction="left" delay={500} duration={400} triggerOnce>
         <div className="text-textColor/90 space-y-8 leading-relaxed">
           {" "}
           <p>
@@ -95,10 +95,6 @@ const About = () => {
             designing systems that are intuitive and accessible, and ensuring
             the underlying infrastructure is solid and dependable.
           </p>
-          {/* <p>
-            I don&apos;t believe in one-size fits all pricing. Each project is
-            unique abd deserves a customized approach and personalized quote.
-          </p> */}
           <p>
             Beyond specific projects, I maintain a keen interest in the evolving
             technology landscape. I actively explore new frameworks, read
@@ -108,7 +104,7 @@ const About = () => {
       </Fade>
       <div className="mt-8 text-center">
         {" "}
-        <Slide direction="up" duration={300} triggerOnce>
+        <Slide direction="right" duration={400} triggerOnce>
           <div className="w-full">
             {" "}
             <div className="bg-primary/20 inline-flex items-center justify-center gap-4 rounded-full p-1.5 font-medium">
@@ -136,19 +132,21 @@ const About = () => {
         <div className="bg-secondary/15 my-4 mb-8 overflow-hidden rounded-md p-2">
           {activeTab === "security" ? <Security /> : <WebDev />}
         </div>
-        <div>
-          <p className="text-justify">
-            Looking for something specific? I create custom solutions for unique
-            needs
-          </p>
-          <button
-            onClick={() => router.push("/contact")}
-            className="bg-primary hover:bg-primary/90 inline-block rounded-full px-8 py-3 font-semibold text-white shadow-lg transition-all duration-300 ease-in-out hover:shadow-xl active:scale-105"
-          >
-            {" "}
-            Schedule a Consultation
-          </button>
-        </div>
+        <Slide direction="up" duration={500} triggerOnce>
+          <div>
+            <p className="text-justify">
+              Looking for something specific? I create custom solutions for
+              unique needs
+            </p>
+            <button
+              onClick={() => router.push("/contact")}
+              className="bg-primary hover:bg-primary/90 inline-block rounded-full px-8 py-3 font-semibold text-white shadow-lg transition-all duration-300 ease-in-out hover:shadow-xl active:scale-105"
+            >
+              {" "}
+              Schedule a Consultation
+            </button>
+          </div>
+        </Slide>
       </div>
     </section>
   );

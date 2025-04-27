@@ -31,10 +31,9 @@ const Projects = () => {
         <Slide
           direction="left"
           damping={0.5}
-          delay={300}
           cascade
           triggerOnce
-          duration={300}
+          duration={400}
         >
           {projects.map((project: Project) => (
             <div
