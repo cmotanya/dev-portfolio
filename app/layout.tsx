@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { grotesque } from "./data/font";
-// import Header from "./header/page";
-// import Footer from "./footer/page";
+import Header from "./header/page";
+import Footer from "./footer/page";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -21,9 +21,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`relative ${grotesque.className} antialiased`}>
-        {/* <Header /> */}
+        <Header />
         <main>{children}</main>
-        {/* <Footer /> */}
+        <Footer />
       </body>
     </html>
   );
