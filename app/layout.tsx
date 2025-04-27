@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`relative ${grotesque.className} antialiased`}>
+      <body className={`relative min-h-dvh ${grotesque.className} antialiased`}>
         <Header />
         <main>{children}</main>
         <Footer />

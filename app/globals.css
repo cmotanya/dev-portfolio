@@ -9,24 +9,26 @@
 
   --width: min(75ch, calc(100% - 2rem));
 }
+* {
+  box-sizing: border-box;
+  text-decoration: none;
+  scroll-behavior: smooth;
+}
 
 html,
 body {
   background: var(--background);
   color: var(--text-color);
   font-family: Arial, Helvetica, sans-serif;
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  min-height: 100vh;
-  scroll-behavior: smooth;
   user-select: none;
 }
 
 section {
   min-height: 100dvh;
   width: var(--width);
-  padding-block: 2.5rem 6rem;
+  padding-block: 2.5rem 9rem;
 }
 
 p {

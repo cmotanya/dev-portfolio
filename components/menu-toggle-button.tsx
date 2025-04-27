@@ -16,7 +16,7 @@ const MenuToggleButton: React.FC<ButtonProps> = ({
       <button
         onClick={toggleMenu}
         className={cn(
-          "border-primary fixed right-4 bottom-6 z-[9999] rounded-full border-2 bg-gray-50 p-2",
+          "border-primary fixed right-4 bottom-[4rem] z-[9999] rounded-full border-2 bg-gray-50 p-2",
           isMenuOpen ? "border-red-500" : "border-primary",
         )}
       >
