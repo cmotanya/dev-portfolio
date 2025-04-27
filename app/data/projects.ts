@@ -13,17 +13,6 @@ export const projects: Project[] = [
     githubLink: "https://github.com/cmotanya/dev-portfolio",
   },
 
-  // Project for Data Analysis
-  {
-    id: 3,
-    name: "Data Analysis Dashboard",
-    description:
-      "A dashboard that allows users to visualize and analyze data from various sources.",
-    image: "/project/4.png",
-    tags: ["Python", "Pandas", "Matplotlib", "Power Bi", "Jupyter Notebook"],
-    githubLink: "https://github.com/cmotanya/churn-prediction-analysis",
-  },
-
   // --- Projects: CCTV and Networking ---
   {
     id: 4,
@@ -43,6 +32,7 @@ export const projects: Project[] = [
     ],
     // No liveLink or githubLink for this type of physical project
   },
+
   {
     id: 5,
     name: "Small Office Network Setup",
@@ -61,5 +51,16 @@ export const projects: Project[] = [
       "Installation",
     ],
     // No liveLink or githubLink for this type of physical project
+  },
+
+  // Project for Data Analysis
+  {
+    id: 3,
+    name: "Data Analysis Dashboard",
+    description:
+      "A dashboard that allows users to visualize and analyze data from various sources.",
+    image: "/project/4.png",
+    tags: ["Python", "Pandas", "Matplotlib", "Power Bi", "Jupyter Notebook"],
+    githubLink: "https://github.com/cmotanya/churn-prediction-analysis",
   },
 ];
