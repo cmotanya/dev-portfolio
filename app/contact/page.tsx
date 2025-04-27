@@ -272,7 +272,7 @@ function Contact() {
               cascade
               damping={0.2}
               triggerOnce
-              duration={400}
+              duration={300}
               delay={500}
             >
               <div className="space-y-2">
