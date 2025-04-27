@@ -8,7 +8,7 @@ const Security = () => {
 
   return (
     <>
-      <Fade cascade delay={300} duration={300}>
+      <Fade cascade duration={300}>
         <h2 className="text-primary mb-4 text-xl font-bold">
           Security System Solutions
         </h2>
