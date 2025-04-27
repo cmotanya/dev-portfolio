@@ -10,10 +10,10 @@ export const about = [
   },
   {
     name: "Network Services",
-    src: "/about/6.jpg",
+    src: "/about/3.jpg",
   },
   {
     name: "Data Analysis",
-    src: "/about/5.jpg",
+    src: "/about/4.jpg",
   },
 ];
