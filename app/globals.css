@@ -1,4 +1,4 @@
-/* @import "tailwindcss";
+@import "tailwindcss";
 
 @theme {
   --color-primary: oklch(0.546 0.245 262.881);
@@ -32,4 +32,4 @@ section {
 p {
   line-height: 1.5rem;
   margin-block-end: 1rem;
-} */
+}
