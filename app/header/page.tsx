@@ -36,7 +36,7 @@ const Header = () => {
         <div
           onClick={toggleMenu}
           aria-hidden="true"
-          className="fixed inset-0 z-1 h-screen bg-gray-300/50 backdrop-blur-[1.5px]"
+          className="fixed inset-0 z-10 h-screen bg-gray-300/50 backdrop-blur-[1.5px]"
         />
       )}
 

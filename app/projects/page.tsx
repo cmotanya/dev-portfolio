@@ -90,7 +90,7 @@ const Projects = () => {
                       href={project.githubLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-textColor/80 hover:text-primary item-center flex gap-1 text-sm transition-colors"
+                      className="text-textColor/80 hover:text-primary items-center flex gap-1 text-sm transition-colors"
                       aria-label={`View source code for ${project.name}`}
                     >
                       <Github size={20} />

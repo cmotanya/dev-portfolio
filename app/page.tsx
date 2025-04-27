@@ -1,14 +1,17 @@
 import Image from "next/image";
 import TechStack from "@/components/techStack";
+import { Slide } from "react-awesome-reveal";
 
 export default function Home() {
   return (
-    <section id="home" className="mx-auto max-w-4xl py-16 md:px-12 md:py-24">
-      <div className="mb-6">
-        <h1 className="flex animate-bounce items-center justify-center gap-3 font-extrabold">
-          <span className="text-3xl">👋</span> Hey there! I&apos;m Cornelius
-        </h1>
-      </div>
+    <section id="home" className="mx-auto max-w-4xl mt-8 md:px-12 md:py-24">
+      <Slide direction="down" triggerOnce duration={200}>
+        <div className="mb-6">
+          <h1 className="flex animate-bounce items-center justify-center gap-3 font-extrabold">
+            <span className="text-3xl">👋</span> Hey there! I&apos;m Cornelius
+          </h1>
+        </div>
+      </Slide>
 
       <div>
         <Image

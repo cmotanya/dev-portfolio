@@ -10,7 +10,7 @@ export default function Resume() {
   const router = useRouter();
 
   const handleClick = () => {
-    router.back();
+    router.push("/");
   };
 
   useEffect(() => {

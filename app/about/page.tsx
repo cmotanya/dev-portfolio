@@ -39,7 +39,7 @@ const About = () => {
   return (
     <section id="about" className="mx-auto max-w-4xl py-16 md:px-12 md:py-24">
       {" "}
-      <Slide direction="left" duration={300} triggerOnce>
+      <Slide direction="down" duration={200} triggerOnce>
         <div className="relative mb-12 flex items-center gap-4">
           {" "}
           <FileUser size={45} className="text-secondary shrink-0 rotate-12" />
@@ -63,7 +63,7 @@ const About = () => {
                   alt={item.name}
                   fill
                   sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 25vw"
-                  className="object-fit rounded-lg object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                  className="rounded-lg object-cover object-center"
                 />
 
                 <div className="absolute inset-0 flex items-end p-4">
@@ -78,7 +78,7 @@ const About = () => {
         </div>
       </Fade>
       {/* --- Core About Content --- */}
-      <Fade direction="right" delay={300} duration={500} triggerOnce>
+      <Fade direction="left" delay={300} duration={500} triggerOnce>
         <div className="text-textColor/90 space-y-8 leading-relaxed">
           {" "}
           <p>

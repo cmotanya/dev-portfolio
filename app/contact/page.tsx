@@ -87,7 +87,7 @@ function Contact() {
         setSubmissionStatus("idle");
         setMessage("");
         reset();
-      }, 2000);
+      }, 1000);
 
       return () => {
         clearTimeout(timer);
@@ -160,10 +160,6 @@ function Contact() {
 
         const newCount = countBeforeIncrement + 1;
         updateLocalStorageData(newCount, new Date());
-        setCountSubmissions(SUBMISSION_LIMIT - newCount);
-
-        updateLocalStorageData(newCount, new Date());
-        // Update the state with the new count
         setCountSubmissions(SUBMISSION_LIMIT - newCount);
       } else {
         console.error("Submission Error", res);
@@ -443,7 +439,7 @@ function Contact() {
                   isDelayAfterSuccess
                 }
                 className={cn(
-                  "disabled:bg-primary/50 mt-4 flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg px-5 py-3 text-white transition-all md:w-fit md:ml-auto",
+                  "disabled:bg-primary/50 mt-4 flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg px-5 py-3 text-white transition-all md:ml-auto md:w-fit",
                   isSubmitting
                     ? "bg-primary/50"
                     : Object.keys(errors).length > 0 || isDelayAfterSuccess
