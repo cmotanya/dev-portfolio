@@ -25,9 +25,12 @@ export interface Project {
   githubLink?: string;
 }
 
-export type ServicesDataMap = {
-  [key: string]: ServiceData;
-};
+export interface SolutionOption {
+  id: string;
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+}
 
 export const sendEmailSchema = z.object({
   name: z

@@ -1,14 +1,21 @@
 "use client";
 
-import { BadgeCheckIcon, FileUser } from "lucide-react";
-import React from "react";
+import { FileUser } from "lucide-react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { about } from "../data/about";
 import { Fade, Slide } from "react-awesome-reveal";
 import Slider from "react-slick";
 import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
+import Security from "@/components/security";
+import WebDev from "@/components/web-dev";
 
 const About = () => {
+  const [activeTab, setActiveTab] = useState<"security" | "web">("security");
+
+  const router = useRouter();
+
   const settings = {
     dots: true,
     infinite: true,
@@ -36,8 +43,6 @@ const About = () => {
       <div className="hover:bg-secondary bg-secondary [.slick-active_&]:bg-primary size-3 rounded-full p-2 transition-all duration-300 ease-in-out"></div>
     ),
   };
-
-  const router = useRouter();
 
   return (
     <section id="about" className="mx-auto max-w-4xl py-16 md:px-12 md:py-24">
@@ -88,122 +93,63 @@ const About = () => {
             My philosophy centers on building technology that truly serves
             people. This means prioritizing security from the ground up,
             designing systems that are intuitive and accessible, and ensuring
-            the underlying infrastructure is solid and dependable. I believe
-            good technology should empower and protect, seamlessly integrating
-            into users&apos; lives without adding unnecessary complexity.
+            the underlying infrastructure is solid and dependable.
           </p>
-          <div className="grid gap-8 md:grid-cols-2">
-            {" "}
-            <div className="bg-secondary/5 rounded-lg p-6">
-              {" "}
-              <h3 className="text-primary mb-4 text-xl font-bold">
-                What I Do
-              </h3>{" "}
-              <ul className="space-y-3">
-                {" "}
-                <li className="flex items-start gap-3">
-                  {" "}
-                  <span className="text-secondary flex-shrink-0 rounded-full">
-                    {" "}
-                    <BadgeCheckIcon />
-                  </span>{" "}
-                  <span>
-                    Develop responsive and performant web applications with a
-                    focus on user experience.
-                  </span>{" "}
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-secondary flex-shrink-0 rounded-full">
-                    {" "}
-                    <BadgeCheckIcon />
-                  </span>{" "}
-                  <span>
-                    Design, install, and configure robust security and
-                    surveillance systems.
-                  </span>{" "}
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-secondary flex-shrink-0 rounded-full">
-                    {" "}
-                    <BadgeCheckIcon />
-                  </span>{" "}
-                  <span>
-                    Establish and maintain reliable network infrastructure for
-                    seamless connectivity.
-                  </span>{" "}
-                </li>
-              </ul>
-            </div>
-            <div className="bg-secondary/5 rounded-lg p-6">
-              {" "}
-              <h3 className="text-primary mb-4 text-xl font-bold">
-                My Approach to Development
-              </h3>{" "}
-              <ul className="space-y-3">
-                {" "}
-                <li className="flex items-start gap-3">
-                  <span className="text-secondary flex-shrink-0 rounded-full">
-                    {" "}
-                    <BadgeCheckIcon />
-                  </span>{" "}
-                  <span>
-                    Prioritizing clear communication and understanding project
-                    requirements thoroughly.
-                  </span>{" "}
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-secondary flex-shrink-0 rounded-full">
-                    {" "}
-                    <BadgeCheckIcon />
-                  </span>{" "}
-                  <span>
-                    Integrating security best practices into every stage of
-                    development and implementation.
-                  </span>{" "}
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-secondary flex-shrink-0 rounded-full">
-                    {" "}
-                    <BadgeCheckIcon />
-                  </span>{" "}
-                  <span>
-                    Delivering solutions that are reliable, scalable, and easy
-                    for users to manage.
-                  </span>{" "}
-                </li>
-              </ul>
-            </div>
-          </div>
+          {/* <p>
+            I don&apos;t believe in one-size fits all pricing. Each project is
+            unique abd deserves a customized approach and personalized quote.
+          </p> */}
           <p>
             Beyond specific projects, I maintain a keen interest in the evolving
             technology landscape. I actively explore new frameworks, read
             industry publications, and engage in personal labs or projects.
           </p>
-          <p>
-            This commitment to continuous learning ensures I can leverage the
-            best tools and techniques to address future challenges and provide
-            innovative solutions.
-          </p>
-          <p>
-            I value collaboration and am dedicated to finding the most effective
-            solution for each unique situation. Every project is an opportunity
-            to make a meaningful impact by solving problems and enhancing
-            security, efficiency, or user experience.
-          </p>
         </div>
       </Fade>
-      <Slide direction="up" duration={300} triggerOnce>
-        <div className="mt-12 text-center">
-          {" "}
+      <div className="mt-8 text-center">
+        {" "}
+        <Slide direction="up" duration={300} triggerOnce>
+          <div className="w-full">
+            {" "}
+            <div className="bg-primary/20 inline-flex items-center justify-center gap-4 rounded-full p-1.5 font-medium">
+              <button
+                onClick={() => setActiveTab("security")}
+                className={cn(
+                  "hover:bg-primary/20 hover:text-primary rounded-full px-4 py-2 transition-colors",
+                  activeTab === "security" ? "bg-primary text-white" : "",
+                )}
+              >
+                Security
+              </button>
+              <button
+                onClick={() => setActiveTab("web")}
+                className={cn(
+                  "hover:bg-primary/20 hover:text-primary rounded-full px-4 py-2 transition-colors",
+                  activeTab === "web" ? "bg-primary text-white" : "",
+                )}
+              >
+                Web Dev
+              </button>
+            </div>
+          </div>{" "}
+        </Slide>
+        <div className="bg-secondary/15 my-4 mb-8 overflow-hidden rounded-md p-2">
+          {activeTab === "security" ? <Security /> : <WebDev />}
+        </div>
+        <div>
+          <p className="text-justify">
+            Looking for something specific? I create custom solutions for unique
+            needs
+          </p>
           <button
             onClick={() => router.push("/contact")}
             className="bg-primary hover:bg-primary/90 inline-block rounded-full px-8 py-3 font-semibold text-white shadow-lg transition-all duration-300 ease-in-out hover:shadow-xl active:scale-105"
           >
             {" "}
-            Get in Touch
+            Schedule a Consultation
           </button>
         </div>
-      </Slide>
+      </div>
     </section>
   );
 };

@@ -4,7 +4,7 @@ import { Slide } from "react-awesome-reveal";
 
 export default function Home() {
   return (
-    <section id="home" className="mx-auto mt-8 max-w-4xl md:px-12 md:py-24">
+    <section id="home" className="mx-auto mt-4 max-w-4xl md:px-12 md:py-24">
       <Slide direction="down" triggerOnce duration={200}>
         <div className="mb-6">
           <h1 className="flex animate-bounce items-center justify-center gap-3 font-extrabold">
