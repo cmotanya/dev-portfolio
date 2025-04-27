@@ -1,6 +1,7 @@
 export const about = [
   {
     name: "Web Development",
+
     src: "/about/1.jpg",
   },
   {
@@ -9,10 +10,10 @@ export const about = [
   },
   {
     name: "Network Services",
-    src: "/about/3.jpg",
+    src: "/about/6.jpg",
   },
   {
     name: "Data Analysis",
-    src: "/about/4.jpg",
+    src: "/about/5.jpg",
   },
 ];

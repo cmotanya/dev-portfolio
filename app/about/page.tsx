@@ -3,7 +3,7 @@
 import { BadgeCheckIcon, FileUser } from "lucide-react";
 import React from "react";
 import Image from "next/image";
-import { about } from "../data/about-section";
+import { about } from "../data/about";
 import { Fade, Slide } from "react-awesome-reveal";
 import Slider from "react-slick";
 
