@@ -4,7 +4,7 @@ export const socials = [
   {
     name: "Github",
     icon: <Github />,
-    link: "https://github.com/cmotanya",
+    link: "https://github.com/cmotanya/dev-portfolio",
   },
   {
     name: "LinkedIn",
