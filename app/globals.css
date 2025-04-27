@@ -1,4 +1,4 @@
-@import "tailwindcss";
+/* @import "tailwindcss";
 
 @theme {
   --color-primary: oklch(0.546 0.245 262.881);
@@ -27,10 +27,9 @@ section {
   min-height: 100dvh;
   width: var(--width);
   padding-block: 2.5rem 6rem;
-  /* @apply md:overflow-hidden; */
 }
 
 p {
   line-height: 1.5rem;
   margin-block-end: 1rem;
-}
+} */
