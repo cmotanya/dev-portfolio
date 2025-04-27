@@ -6,6 +6,7 @@ import Image from "next/image";
 import { about } from "../data/about";
 import { Fade, Slide } from "react-awesome-reveal";
 import Slider from "react-slick";
+import { useRouter } from "next/navigation";
 
 const About = () => {
   const settings = {
@@ -35,6 +36,8 @@ const About = () => {
       <div className="hover:bg-secondary bg-secondary [.slick-active_&]:bg-primary size-3 rounded-full p-2 transition-all duration-300 ease-in-out"></div>
     ),
   };
+
+  const router = useRouter();
 
   return (
     <section id="about" className="mx-auto max-w-4xl py-16 md:px-12 md:py-24">
@@ -192,7 +195,10 @@ const About = () => {
       <Slide direction="up" duration={300} triggerOnce>
         <div className="mt-12 text-center">
           {" "}
-          <button className="bg-primary hover:bg-primary/90 inline-block rounded-full px-8 py-3 font-semibold text-white shadow-lg transition-colors duration-300 hover:shadow-xl">
+          <button
+            onClick={() => router.push("/contact")}
+            className="bg-primary hover:bg-primary/90 inline-block rounded-full px-8 py-3 font-semibold text-white shadow-lg transition-all duration-300 ease-in-out hover:shadow-xl active:scale-105"
+          >
             {" "}
             Get in Touch
           </button>
