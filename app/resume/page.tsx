@@ -10,7 +10,7 @@ export default function Resume() {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push("/");
+    router.back();
   };
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export default function Resume() {
     <section className="mx-auto">
       <button
         onClick={handleClick}
-        className="bg-primary text-background fixed z-50 -mt-16 flex items-center gap-2 rounded-full px-2.5 py-1.5 outline-offset-2 transition-all ease-in-out active:outline-2"
+        className="bg-primary text-background fixed z-50 -mt-6 flex items-center gap-2 rounded-full px-2.5 py-1.5 outline-offset-2 transition-all ease-in-out active:outline-2"
       >
         <ArrowLeft size={14} /> <span className="text-sm">Go Back</span>
       </button>
@@ -108,7 +108,7 @@ export default function Resume() {
               </span>
 
               <span className="text-secondary ml-0.5 font-medium">
-                👨‍💼<span className="ml-2"> Ken Computers, Mombasa</span>
+                👨‍💼<span className="ml-2"> Ken Computers Ltd.</span>
               </span>
 
               <span className="text-secondary -ml-0.5 flex items-center gap-2 font-medium">

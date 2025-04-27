@@ -36,13 +36,13 @@ const Header = () => {
         <div
           onClick={toggleMenu}
           aria-hidden="true"
-          className="fixed inset-0 z-10 bg-gray-300/50 backdrop-blur-[1px]"
+          className="fixed inset-0 z-1 h-screen bg-gray-300/50 backdrop-blur-[1.5px]"
         />
       )}
 
       <header
         className={cn(
-          "fixed z-30 flex h-dvh w-[60%] flex-col shadow-md backdrop-blur-md transition-transform duration-300 ease-in-out",
+          "fixed z-[999] flex h-screen w-[60%] flex-col overflow-hidden shadow-md backdrop-blur-md transition-transform duration-300 ease-in-out",
           isMenuOpen ? "translate-x-0" : "-translate-x-full",
         )}
       >

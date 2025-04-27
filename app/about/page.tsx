@@ -1,75 +1,86 @@
-import { BadgeCheckIcon, Brain, FileUser, Quote } from "lucide-react";
+"use client";
+
+import { BadgeCheckIcon, FileUser } from "lucide-react";
 import React from "react";
 import Image from "next/image";
 import { about } from "../data/about-section";
-import { cn } from "@/lib/utils";
-import { poppins } from "../data/font";
 import { Fade, Slide } from "react-awesome-reveal";
+import Slider from "react-slick";
 
 const About = () => {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    initialSlide: 1,
+    fade: true,
+    arrows: true,
+    waitForAnimate: false,
+
+    appendDots: (dots: React.ReactNode[]) => (
+      <div
+        style={{ position: "absolute", bottom: "-40px", width: "100%" }}
+        className=""
+      >
+        <ul className="flex justify-center gap-2">{dots}</ul>
+      </div>
+    ),
+
+    // Style for individual dots
+    customPaging: () => (
+      <div className="hover:bg-secondary bg-secondary [.slick-active_&]:bg-primary size-3 rounded-full p-2 transition-all duration-300 ease-in-out"></div>
+    ),
+  };
+
   return (
-    <section id="about" className="mx-auto max-w-4xl px-4 py-16 md:py-24">
+    <section id="about" className="mx-auto max-w-4xl py-16 md:px-12 md:py-24">
       {" "}
       <Slide direction="left" duration={300} triggerOnce>
         <div className="relative mb-12 flex items-center gap-4">
           {" "}
           <FileUser size={45} className="text-secondary shrink-0 rotate-12" />
           <h1 className="text-6xl font-bold tracking-tight whitespace-nowrap">
-            About{" "}
-            <span className="text-primary relative">
+            <span className="text-primary">About </span>
+            <span className="relative">
               Me
               <span className="bg-primary absolute right-0 bottom-0 h-1 w-full" />
             </span>
           </h1>
         </div>
       </Slide>
-      <div className="mb-12 grid grid-cols-2 gap-4 sm:grid-cols-4">
-        {" "}
-        {about.map((item, index) => (
-          <div
-            key={index}
-            className="group relative aspect-square w-full overflow-hidden rounded-lg shadow-md transition-shadow hover:shadow-lg"
-          >
-            <Image
-              src={item.src}
-              alt={item.name}
-              fill
-              sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 25vw"
-              className="object-cover object-center transition-transform duration-300 group-hover:scale-105"
-            />
+      <Fade delay={300} triggerOnce duration={500}>
+        <div className="relative mb-8 aspect-auto h-[300px] overflow-hidden rounded-lg">
+          {" "}
+          <Slider {...settings}>
+            {about.map((item, index) => (
+              <div key={index} className="h-[250px]">
+                <Image
+                  src={item.src}
+                  alt={item.name}
+                  fill
+                  sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 25vw"
+                  className="object-fit rounded-lg object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                />
 
-            <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/70 via-black/30 to-transparent p-3 opacity-0 transition-opacity group-hover:opacity-100">
-              {" "}
-              <span className="text-sm font-medium text-white">
-                {item.name}
-              </span>
-            </div>
-          </div>
-        ))}
-      </div>
+                <div className="absolute inset-0 flex items-end p-4">
+                  {" "}
+                  <span className="rounded-full bg-stone-700 px-3 py-1 text-sm font-medium text-white shadow-md">
+                    {item.name}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </Slider>
+        </div>
+      </Fade>
       {/* --- Core About Content --- */}
-      <Fade direction="right" delay={300} duration={500}>
+      <Fade direction="right" delay={300} duration={500} triggerOnce>
         <div className="text-textColor/90 space-y-8 leading-relaxed">
           {" "}
-          <p
-            className={cn(
-              "text-textColor bg-secondary/5 border-l-primary relative border-l-4 p-4 leading-relaxed font-medium",
-              poppins.className,
-            )}
-          >
-            {" "}
-            Bringing together expertise in{" "}
-            <strong className="text-primary">web development</strong>, robust{" "}
-            <strong className="text-primary">CCTV systems</strong>, and reliable{" "}
-            <strong className="text-primary">network infrastructure</strong>, I
-            specialize in creating technical solutions that are not only
-            effective but also secure, user-friendly, and built for real-world
-            application. My professional journey is rooted in applying technical
-            knowledge with a pragmatic, problem-solving approach.
-            <span className="text-secondary/50 absolute right-0 bottom-2">
-              <Quote size={60} />
-            </span>
-          </p>
           <p>
             My philosophy centers on building technology that truly serves
             people. This means prioritizing security from the ground up,
@@ -123,14 +134,14 @@ const About = () => {
             <div className="bg-secondary/5 rounded-lg p-6">
               {" "}
               <h3 className="text-primary mb-4 text-xl font-bold">
-                My Approach
+                My Approach to Development
               </h3>{" "}
               <ul className="space-y-3">
                 {" "}
                 <li className="flex items-start gap-3">
                   <span className="text-secondary flex-shrink-0 rounded-full">
                     {" "}
-                    <Brain />
+                    <BadgeCheckIcon />
                   </span>{" "}
                   <span>
                     Prioritizing clear communication and understanding project
@@ -140,7 +151,7 @@ const About = () => {
                 <li className="flex items-start gap-3">
                   <span className="text-secondary flex-shrink-0 rounded-full">
                     {" "}
-                    <Brain />
+                    <BadgeCheckIcon />
                   </span>{" "}
                   <span>
                     Integrating security best practices into every stage of
@@ -150,7 +161,7 @@ const About = () => {
                 <li className="flex items-start gap-3">
                   <span className="text-secondary flex-shrink-0 rounded-full">
                     {" "}
-                    <Brain />
+                    <BadgeCheckIcon />
                   </span>{" "}
                   <span>
                     Delivering solutions that are reliable, scalable, and easy
@@ -178,13 +189,15 @@ const About = () => {
           </p>
         </div>
       </Fade>
-      <div className="mt-12 text-center">
-        {" "}
-        <button className="bg-primary hover:bg-primary/90 inline-block rounded-full px-8 py-3 font-semibold text-white shadow-lg transition-colors duration-300 hover:shadow-xl">
+      <Slide direction="up" duration={300} triggerOnce>
+        <div className="mt-12 text-center">
           {" "}
-          Get in Touch
-        </button>
-      </div>
+          <button className="bg-primary hover:bg-primary/90 inline-block rounded-full px-8 py-3 font-semibold text-white shadow-lg transition-colors duration-300 hover:shadow-xl">
+            {" "}
+            Get in Touch
+          </button>
+        </div>
+      </Slide>
     </section>
   );
 };

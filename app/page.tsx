@@ -1,12 +1,23 @@
+import Image from "next/image";
 import TechStack from "@/components/techStack";
 
 export default function Home() {
   return (
-    <section>
+    <section id="home" className="mx-auto max-w-4xl py-16 md:px-12 md:py-24">
       <div className="mb-6">
         <h1 className="flex animate-bounce items-center justify-center gap-3 font-extrabold">
           <span className="text-3xl">👋</span> Hey there! I&apos;m Cornelius
         </h1>
+      </div>
+
+      <div>
+        <Image
+          src={"/home/2.png"}
+          alt=""
+          width={200}
+          height={200}
+          className="mx-auto"
+        />
       </div>
 
       <p className="text-balance text-gray-600">

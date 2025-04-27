@@ -5,7 +5,7 @@ export const about = [
   },
   {
     name: "CCTV & Security",
-    src: "/about/2.jpg",
+    src: "/about/2.webp",
   },
   {
     name: "Network Services",

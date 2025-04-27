@@ -1,8 +1,8 @@
 import {
   Bricolage_Grotesque as Grotesque,
-  Big_Shoulders_Display as BigShoulder,
   Caveat_Brush as Caveat,
   Poppins,
+  Nunito,
 } from "next/font/google";
 
 export const grotesque = Grotesque({
@@ -16,10 +16,10 @@ export const poppins = Poppins({
   subsets: ["latin"],
 });
 
-export const bigShoulder = BigShoulder({
+export const nunito = Nunito({
   variable: "--font-geist-serif",
   subsets: ["latin"],
-  weight: ["700", "800"],
+  weight: ["400", "500", "600", "700", "800", "900"],
 });
 
 export const caveat = Caveat({

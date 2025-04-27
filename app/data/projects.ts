@@ -18,7 +18,7 @@ export const projects: Project[] = [
     name: "Simple Weather App",
     description:
       "A clean and responsive web application that fetches and displays current weather data based on user location or city search.",
-    image: "/images/project-weather-app.jpg",
+    image: "/project/2.webp",
     tags: [
       "React",
       "Next.js",
@@ -37,7 +37,7 @@ export const projects: Project[] = [
     name: "Data Analysis Dashboard",
     description:
       "A dashboard that allows users to visualize and analyze data from various sources.",
-    image: "/images/project-data-analysis.jpg",
+    image: "/project/4.png",
     tags: ["Python", "Pandas", "Matplotlib", "Power Bi", "Jupyter Notebook"],
     githubLink: "https://github.com/cmotanya/churn-prediction-analysis",
   },
@@ -48,7 +48,7 @@ export const projects: Project[] = [
     name: "Residential CCTV System Installation",
     description:
       "Designed and installed a comprehensive security camera system for a residential property, including camera placement, cabling, NVR setup, and remote viewing configuration.",
-    image: "/images/project-cctv-install.jpg",
+    image: "/project/1.jpeg",
     tags: [
       "CCTV",
       "Security Systems",
@@ -66,7 +66,7 @@ export const projects: Project[] = [
     name: "Small Office Network Setup",
     description:
       "Provided complete network infrastructure setup for a small office, including router/firewall configuration, structured cabling for wired connections, and secure Wi-Fi deployment.",
-    image: "/images/project-networking-install.jpg",
+    image: "/project/3.webp",
     tags: [
       "Networking",
       "Router Configuration",

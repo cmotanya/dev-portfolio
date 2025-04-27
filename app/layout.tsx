@@ -4,6 +4,9 @@ import { grotesque } from "./data/font";
 import Header from "./header/page";
 import Footer from "./footer/page";
 
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 export const metadata: Metadata = {
   title: "Cornelius Motanya | Portfolio",
   description:

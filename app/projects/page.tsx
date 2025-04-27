@@ -7,20 +7,27 @@ import { Fade, Slide } from "react-awesome-reveal";
 
 const Projects = () => {
   return (
-    <section id="projects">
+    <section
+      id="projects"
+      className="mx-auto max-w-4xl py-16 md:px-12 md:py-24"
+    >
       <div className="relative mb-12">
         <Fade direction="down" triggerOnce duration={300}>
           <div className="flex items-center gap-4 whitespace-nowrap">
             <FolderCode size={45} className="text-secondary shrink-0" />
             <h1 className="text-6xl leading-tight font-bold tracking-tight md:text-7xl">
-              <span className="text-primary">My</span> Project
+              <span className="text-primary">My</span>{" "}
+              <span className="relative">
+                {" "}
+                Project
+                <span className="bg-primary absolute right-0 bottom-0 h-1 w-full"></span>
+              </span>
             </h1>
           </div>
-          <span className="bg-primary absolute right-0 -bottom-2 h-1 w-24"></span>
         </Fade>
       </div>
 
-      <div className="md:grid-col-2 lg:grid-col-3 grid gap-8">
+      <div className="grid gap-8 md:grid-cols-2">
         <Slide
           direction="left"
           damping={0.5}
@@ -32,7 +39,7 @@ const Projects = () => {
           {projects.map((project: Project) => (
             <div
               key={project.id}
-              className="bg-secondary/10 border-secondary flex flex-col overflow-hidden rounded-lg border shadow-md transition-transform duration-300"
+              className="bg-secondary/10 border-secondary flex flex-col overflow-hidden rounded-lg border shadow-md transition-transform duration-300 md:max-w-xl"
             >
               {/* Project Image */}
               <div className="relative aspect-video w-full">
@@ -47,10 +54,8 @@ const Projects = () => {
 
               {/* Project Details */}
               <div className="flex flex-grow flex-col p-6">
-                <h3 className="text-textColor mb-3 text-xl font-semibold">
-                  {project.name}
-                </h3>
-                <p className="text-textColor/80 flex-grow text-sm">
+                <h3 className="mb-3 text-xl font-semibold">{project.name}</h3>
+                <p className="text-textColor flex-grow text-sm">
                   {project.description}
                 </p>
 

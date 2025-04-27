@@ -5,9 +5,9 @@
   --color-secondary: #77a5fb;
   --color-accent: #4b5bf9;
   --color-background: #ffffff;
-  --color-textColor: #171717;
+  --color-textColor: #030607;
 
-  --width: min(80ch, calc(100% - 2rem));
+  --width: min(75ch, calc(100% - 2rem));
 }
 
 html,
@@ -18,25 +18,16 @@ body {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
   min-height: 100vh;
   scroll-behavior: smooth;
   user-select: none;
 }
 
-main {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0 auto;
-}
-
 section {
   min-height: 100dvh;
   width: var(--width);
-  padding-block: 2.5rem 4rem;
+  padding-block: 2.5rem 6rem;
+  /* @apply md:overflow-hidden; */
 }
 
 p {
