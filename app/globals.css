@@ -26,9 +26,9 @@ body {
 }
 
 section {
-  min-height: 100dvh;
+  /* height: 100dvh; */
   width: var(--width);
-  padding-block: 2.5rem 9rem;
+  /* padding-block: 2.5rem 9rem; */
 }
 
 p {
