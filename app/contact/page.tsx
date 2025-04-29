@@ -11,8 +11,12 @@ import {
   AlertCircle,
   CheckCircle,
   Loader2,
+  Mail,
   MessageCircleCode,
+  MessageSquare,
+  Phone,
   Send,
+  User,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -182,7 +186,7 @@ function Contact() {
   return (
     <section id="contact" className="mx-auto max-w-4xl py-16 md:px-12 md:py-24">
       <div className="md:max-w-xl">
-        <div className="relative mb-16">
+        <div className="relative mb-10">
           <Fade direction="left" cascade triggerOnce duration={300}>
             <div className="flex items-center gap-2 whitespace-nowrap">
               <MessageCircleCode
@@ -210,8 +214,8 @@ function Contact() {
               className={cn(
                 "mb-6 rounded-md border p-3 font-medium",
                 submissionStatus === "success"
-                  ? "border-green-300 bg-green-100 text-green-700"
-                  : "border-red-300 bg-red-100 text-red-700",
+                  ? "border-green-200 bg-green-100 text-green-700"
+                  : "border-red-200 bg-red-100 text-red-700",
               )}
             >
               <div className="flex gap-2">
@@ -239,8 +243,8 @@ function Contact() {
         {/* Submitting Status Message */}
         {submissionStatus === "submitting" && (
           <Slide direction="left" duration={300} triggerOnce>
-            <div className="text-secondary mb-6 flex items-center gap-2 rounded-md border border-blue-200 bg-blue-100 p-3 font-medium">
-              <Loader2 className="text-secondary animate-spin" />
+            <div className="text-primary bg-secondary/15 border-secondary/20 mb-6 flex items-center gap-2 rounded-md border p-3 font-medium">
+              <Loader2 className="text-primary animate-spin" />
               <h2 className="text-sm font-semibold">Sending your message...</h2>
             </div>
           </Slide>
@@ -261,26 +265,20 @@ function Contact() {
 
         {/* FORM (Conditionally rendered) */}
         {showForm && (
-          <form
-            method="post"
-            onSubmit={handleSubmit(onSubmit)}
-            noValidate
-            className="flex flex-col gap-4"
-          >
-            <Fade
-              direction="up"
-              cascade
-              damping={0.2}
-              triggerOnce
-              duration={300}
-              delay={500}
+          <Fade triggerOnce duration={300} delay={500}>
+            <form
+              method="post"
+              onSubmit={handleSubmit(onSubmit)}
+              noValidate
+              className="bg-secondary/15 flex flex-col gap-4 rounded-lg p-4 shadow-lg md:gap-6"
             >
               <div className="space-y-2">
                 <label
                   htmlFor="name"
-                  className="text-sm font-medium text-gray-700"
+                  className="flex items-center gap-2 font-medium"
                 >
-                  Name
+                  <User size={18} className="text-primary" />
+                  Your Name
                 </label>
                 <div className="relative">
                   <input
@@ -291,10 +289,10 @@ function Contact() {
                     name="name"
                     autoComplete="name"
                     className={cn(
-                      "w-full rounded-lg border px-4 py-3 transition-all outline-none",
+                      "w-full rounded-lg border px-4 py-3 transition-all focus:outline-none",
                       errors.name
                         ? "border-red-300 bg-red-50 focus:border-red-500 focus:ring focus:ring-red-200"
-                        : "focus:border-secondary focus:ring-secondary border-gray-300 focus:ring",
+                        : "focus:border-primary focus:ring-primary border-gray-300 focus:ring-1",
                       submissionStatus === "submitting"
                         ? "pointer-events-none"
                         : "",
@@ -317,8 +315,9 @@ function Contact() {
               <div className="space-y-2">
                 <label
                   htmlFor="email"
-                  className="text-sm font-medium text-gray-700"
+                  className="flex items-center gap-2 font-medium"
                 >
+                  <Mail size={18} className="text-primary" />
                   Email
                 </label>
                 <div className="relative">
@@ -330,10 +329,10 @@ function Contact() {
                     placeholder="your.email@example.com"
                     autoComplete="email"
                     className={cn(
-                      "w-full rounded-lg border px-4 py-3 transition-all outline-none",
-                      errors.email
+                      "w-full rounded-lg border px-4 py-3 transition-all focus:outline-none",
+                      errors.name
                         ? "border-red-300 bg-red-50 focus:border-red-500 focus:ring focus:ring-red-200"
-                        : "focus:border-secondary focus:ring-secondary border-gray-300 focus:ring",
+                        : "focus:border-primary focus:ring-primary border-gray-300 focus:ring-1",
                       submissionStatus === "submitting"
                         ? "pointer-events-none"
                         : "",
@@ -356,8 +355,9 @@ function Contact() {
               <div className="space-y-2">
                 <label
                   htmlFor="mobile"
-                  className="text-sm font-medium text-gray-700"
+                  className="flex items-center gap-2 font-medium"
                 >
+                  <Phone size={18} className="text-primary" />
                   Phone (optional)
                 </label>
                 <div className="relative">
@@ -368,10 +368,10 @@ function Contact() {
                     name="mobile"
                     placeholder="+254 700 000 000"
                     className={cn(
-                      "w-full rounded-lg border px-4 py-3 transition-all outline-none",
-                      errors.mobile
+                      "w-full rounded-lg border px-4 py-3 transition-all focus:outline-none",
+                      errors.name
                         ? "border-red-300 bg-red-50 focus:border-red-500 focus:ring focus:ring-red-200"
-                        : "focus:border-secondary focus:ring-secondary border-gray-300 focus:ring",
+                        : "focus:border-primary focus:ring-primary border-gray-300 focus:ring-1",
                       submissionStatus === "submitting"
                         ? "pointer-events-none"
                         : "",
@@ -394,8 +394,9 @@ function Contact() {
               <div className="space-y-2">
                 <label
                   htmlFor="textarea"
-                  className="text-sm font-medium text-gray-700"
+                  className="flex items-center gap-2 font-medium"
                 >
+                  <MessageSquare size={18} className="text-primary" />
                   Message
                 </label>
                 <div className="relative">
@@ -407,10 +408,10 @@ function Contact() {
                     name="textarea"
                     placeholder="What would you like to discuss?"
                     className={cn(
-                      "w-full resize-none rounded-lg border px-4 py-3 transition-all outline-none",
-                      errors.textarea
+                      "w-full resize-none rounded-lg border px-4 py-3 transition-all focus:outline-none",
+                      errors.name
                         ? "border-red-300 bg-red-50 focus:border-red-500 focus:ring focus:ring-red-200"
-                        : "focus:border-secondary focus:ring-secondary border-gray-300 focus:ring",
+                        : "focus:border-primary focus:ring-primary border-gray-300 focus:ring-1",
                       submissionStatus === "submitting"
                         ? "pointer-events-none"
                         : "",
@@ -439,7 +440,7 @@ function Contact() {
                   isDelayAfterSuccess
                 }
                 className={cn(
-                  "disabled:bg-primary/50 mt-4 flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg px-5 py-3 text-white transition-all md:ml-auto md:w-fit",
+                  "disabled:bg-primary/50 mt-4 inline-flex cursor-pointer items-center justify-center gap-2 rounded-full p-4 text-white transition-all md:ml-auto md:w-fit",
                   isSubmitting
                     ? "bg-primary/50"
                     : Object.keys(errors).length > 0 || isDelayAfterSuccess
@@ -460,15 +461,15 @@ function Contact() {
               {/* Remaining Submission Count */}
               <p
                 className={cn(
-                  "text-bold text-secondary mt-2 text-center text-xs font-semibold",
+                  "text-bold text-primary mt-2 text-center text-xs font-semibold",
                 )}
               >
                 {countSubmissions <= 0
                   ? "Daily submission limit reached"
                   : `${countSubmissions} of ${SUBMISSION_LIMIT} submissions available today`}
               </p>
-            </Fade>
-          </form>
+            </form>
+          </Fade>
         )}
       </div>
     </section>
