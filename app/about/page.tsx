@@ -45,7 +45,7 @@ const About = () => {
   };
 
   return (
-    <section id="about" className="mx-auto max-w-4xl py-16 md:px-12 md:py-24">
+    <section id="about" className="mx-auto max-w-4xl">
       {" "}
       <Slide direction="down" duration={300} triggerOnce>
         <div className="relative mb-12 flex items-center gap-4">

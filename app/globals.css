@@ -28,7 +28,7 @@ body {
 section {
   /* height: 100dvh; */
   width: var(--width);
-  /* padding-block: 2.5rem 9rem; */
+  padding-block: 1.5rem 2rem;
 }
 
 p {

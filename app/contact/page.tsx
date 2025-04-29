@@ -184,7 +184,7 @@ function Contact() {
   const showForm = submissionStatus !== "limit_exceeded";
 
   return (
-    <section id="contact" className="mx-auto max-w-4xl py-16 md:px-12 md:py-24">
+    <section id="contact" className="mx-auto max-w-4xl">
       <div className="md:max-w-xl">
         <div className="relative mb-10">
           <Fade direction="left" cascade triggerOnce duration={300}>
@@ -440,7 +440,7 @@ function Contact() {
                   isDelayAfterSuccess
                 }
                 className={cn(
-                  "disabled:bg-primary/50 mt-4 inline-flex cursor-pointer items-center justify-center gap-2 rounded-full p-4 text-white transition-all md:ml-auto md:w-fit",
+                  "disabled:bg-primary/50 mt-4 inline-flex cursor-pointer items-center justify-center gap-2 rounded-full p-3.5 font-semibold text-white transition-all md:ml-auto md:w-fit",
                   isSubmitting
                     ? "bg-primary/50"
                     : Object.keys(errors).length > 0 || isDelayAfterSuccess

@@ -2,10 +2,7 @@ import React from "react";
 
 const Article = () => {
   return (
-    <section
-      id="articles"
-      className="mx-auto max-w-4xl py-16 md:px-12 md:py-24"
-    >
+    <section id="articles" className="mx-auto max-w-4xl">
       <div className="relative mb-12">
         <h1 className="text-6xl font-bold">
           <span className="text-primary">Articles</span>{" "}
