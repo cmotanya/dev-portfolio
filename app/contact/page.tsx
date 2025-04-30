@@ -69,19 +69,21 @@ function Contact() {
         setMessage(
           `You have reached the daily limit of ${SUBMISSION_LIMIT} messages`,
         );
-      } else {
-        // If it's a new day, reset the count
-        setCountSubmissions(SUBMISSION_LIMIT);
-        setSubmissionStatus("idle");
-        setMessage(`You have ${SUBMISSION_LIMIT} submissions available today`);
+      }
+    } else {
+      // If it's a new day, reset the count
+      setCountSubmissions(SUBMISSION_LIMIT);
+      setSubmissionStatus("idle");
+      setMessage(`You have ${SUBMISSION_LIMIT} submissions available today`);
 
-        if (date) {
-          // Update localStorage with the new date
-          localStorage.removeItem(SUBMISSION_STORAGE_KEY);
-        }
+      if (date) {
+        // Update localStorage with the new date
+        localStorage.removeItem(SUBMISSION_STORAGE_KEY);
       }
     }
-  }, []);
+
+    clearErrors(); // Clear errors to reset the form state
+  }, [clearErrors]);
 
   // Effect to clear success message after delay
   useEffect(() => {
@@ -99,6 +101,12 @@ function Contact() {
       };
     }
   }, [isSubmitSuccessful, submissionStatus, reset]);
+
+  useEffect(() => {
+    if (Object.keys.length > 0) {
+      setMessage("Please fix the errors before submitting.");
+    }
+  }, [errors]);
 
   const onSubmit: SubmitHandler<TSendEmailSchema> = async (data) => {
     // Check submission limit FIRST
@@ -288,8 +296,11 @@ function Contact() {
                     placeholder="Your name"
                     name="name"
                     autoComplete="name"
+                    aria-invalid={errors.name ? "true" : "false"}
+                    aria-describedby="name-error"
+                    autoFocus={true}
                     className={cn(
-                      "w-full rounded-lg border px-4 py-3 transition-all focus:outline-none",
+                      "text-textColor/60 autofill:text-textColor/70 w-full rounded-lg border px-4 py-3 font-medium transition-all focus:outline-none",
                       errors.name
                         ? "border-red-300 bg-red-50 focus:border-red-500 focus:ring focus:ring-red-200"
                         : "focus:border-primary focus:ring-primary border-gray-300 focus:ring-1",
@@ -302,6 +313,7 @@ function Contact() {
                 {errors.name && (
                   <Slide direction="left" duration={400} triggerOnce>
                     <span
+                      id="name-error"
                       role="alert"
                       className="-mt-1 flex items-center gap-1 text-sm font-medium text-red-500"
                     >
@@ -325,11 +337,13 @@ function Contact() {
                     {...register("email")}
                     id="email"
                     type="email"
+                    aria-invalid={errors.email ? "true" : "false"}
+                    aria-describedby="email-error"
                     name="email"
                     placeholder="your.email@example.com"
                     autoComplete="email"
                     className={cn(
-                      "w-full rounded-lg border px-4 py-3 transition-all focus:outline-none",
+                      "text-textColor/60 autofill:text-textColor/70 w-full rounded-lg border px-4 py-3 font-medium transition-all focus:outline-none",
                       errors.name
                         ? "border-red-300 bg-red-50 focus:border-red-500 focus:ring focus:ring-red-200"
                         : "focus:border-primary focus:ring-primary border-gray-300 focus:ring-1",
@@ -343,6 +357,7 @@ function Contact() {
                   <Slide direction="left" duration={400} triggerOnce>
                     <span
                       role="alert"
+                      id="email-error"
                       className="-mt-1 flex items-center gap-1 text-sm font-medium text-red-500"
                     >
                       <AlertCircle size={14} />
@@ -366,9 +381,13 @@ function Contact() {
                     id="mobile"
                     type="tel"
                     name="mobile"
+                    aria-invalid={errors.mobile ? "true" : "false"}
+                    aria-describedby="mobile-error"
+                    autoComplete="tel"
+                    title="Format: 700-000-000"
                     placeholder="+254 700 000 000"
                     className={cn(
-                      "w-full rounded-lg border px-4 py-3 transition-all focus:outline-none",
+                      "text-textColor/60 autofill:text-textColor/70 w-full rounded-lg border px-4 py-3 font-medium transition-all focus:outline-none",
                       errors.name
                         ? "border-red-300 bg-red-50 focus:border-red-500 focus:ring focus:ring-red-200"
                         : "focus:border-primary focus:ring-primary border-gray-300 focus:ring-1",
@@ -382,6 +401,7 @@ function Contact() {
                   <Slide direction="left" duration={400} triggerOnce>
                     <span
                       role="alert"
+                      id="mobile-error"
                       className="-mt-1 flex items-center gap-1 text-sm font-medium text-red-500"
                     >
                       <AlertCircle size={14} />
@@ -406,9 +426,11 @@ function Contact() {
                     cols={15}
                     rows={5}
                     name="textarea"
+                    aria-invalid={errors.textarea ? "true" : "false"}
+                    aria-describedby="textarea-error"
                     placeholder="What would you like to discuss?"
                     className={cn(
-                      "w-full resize-none rounded-lg border px-4 py-3 transition-all focus:outline-none",
+                      "text-textColor/60 autofill:text-textColor/70 w-full resize-none rounded-lg border px-4 py-3 font-medium transition-all focus:outline-none",
                       errors.name
                         ? "border-red-300 bg-red-50 focus:border-red-500 focus:ring focus:ring-red-200"
                         : "focus:border-primary focus:ring-primary border-gray-300 focus:ring-1",
@@ -422,6 +444,7 @@ function Contact() {
                   <Slide direction="left" duration={400} triggerOnce>
                     <span
                       role="alert"
+                      id="textarea-error"
                       className="-mt-3 flex items-center gap-1 text-sm font-medium text-red-500"
                     >
                       <AlertCircle size={14} />
