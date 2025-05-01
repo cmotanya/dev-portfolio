@@ -40,7 +40,7 @@ const About = () => {
 
     // Style for individual dots
     customPaging: () => (
-      <div className="hover:bg-secondary bg-secondary [.slick-active_&]:bg-primary size-3 rounded-full p-2 transition-all duration-300 ease-in-out"></div>
+      <div className="hover:bg-primary [.slick-active_&]:before:bg-primary [.slick-active_&]:after:bg-secondary after:bg-primary before:bg-background/90 relative rounded-full p-2 transition-all duration-300 ease-in-out before:absolute before:top-1/2 before:left-1/2 before:z-40 before:size-[14px] before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:p-1 before:content-[''] after:absolute after:top-1/2 after:left-1/2 after:-z-10 after:size-5 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:content-[''] [.slick-active_&]:scale-110 [.slick-active_&]:after:scale-110"></div>
     ),
   };
 
