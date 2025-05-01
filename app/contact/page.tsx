@@ -102,12 +102,6 @@ function Contact() {
     }
   }, [isSubmitSuccessful, submissionStatus, reset]);
 
-  useEffect(() => {
-    if (Object.keys.length > 0) {
-      setMessage("Please fix the errors before submitting.");
-    }
-  }, [errors]);
-
   const onSubmit: SubmitHandler<TSendEmailSchema> = async (data) => {
     // Check submission limit FIRST
     const { count: currentCount, date: lastSubmissionDate } =
@@ -344,7 +338,7 @@ function Contact() {
                     autoComplete="email"
                     className={cn(
                       "text-textColor/60 autofill:text-textColor/70 w-full rounded-lg border px-4 py-3 font-medium transition-all focus:outline-none",
-                      errors.name
+                      errors.email
                         ? "border-red-300 bg-red-50 focus:border-red-500 focus:ring focus:ring-red-200"
                         : "focus:border-primary focus:ring-primary border-gray-300 focus:ring-1",
                       submissionStatus === "submitting"
@@ -388,7 +382,7 @@ function Contact() {
                     placeholder="+254 700 000 000"
                     className={cn(
                       "text-textColor/60 autofill:text-textColor/70 w-full rounded-lg border px-4 py-3 font-medium transition-all focus:outline-none",
-                      errors.name
+                      errors.mobile
                         ? "border-red-300 bg-red-50 focus:border-red-500 focus:ring focus:ring-red-200"
                         : "focus:border-primary focus:ring-primary border-gray-300 focus:ring-1",
                       submissionStatus === "submitting"
@@ -431,7 +425,7 @@ function Contact() {
                     placeholder="What would you like to discuss?"
                     className={cn(
                       "text-textColor/60 autofill:text-textColor/70 w-full resize-none rounded-lg border px-4 py-3 font-medium transition-all focus:outline-none",
-                      errors.name
+                      errors.textarea
                         ? "border-red-300 bg-red-50 focus:border-red-500 focus:ring focus:ring-red-200"
                         : "focus:border-primary focus:ring-primary border-gray-300 focus:ring-1",
                       submissionStatus === "submitting"

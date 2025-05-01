@@ -7,6 +7,11 @@
   --color-background: #ffffff;
   --color-textColor: #030607;
 
+  /* RGB components for using with rgba() */
+  --color-textColor-rgb: 3, 6, 7;
+  --color-secondary-rgb: 119, 165, 251;
+  --color-background-rgb: 255, 255, 255;
+
   --width: min(75ch, calc(100% - 2rem));
 }
 * {
@@ -34,4 +39,16 @@ section {
 p {
   line-height: 1.5rem;
   margin-block-end: 1rem;
+}
+
+input:-webkit-autofill:is(
+    :not(:placeholder-shown),
+    :focus-visible,
+    :focus,
+    :hover,
+    :active
+  ) {
+  -webkit-text-fill-color: rgba(var(--color-textColor-rgb), 0.65);
+  -webkit-box-shadow: 0 0 0 30px inherit inset;
+  transition: -webkit-text-fill-color 0.5s ease-in-out;
 }
