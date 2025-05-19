@@ -1,4 +1,5 @@
 import React from "react";
+import Appointment from "../sample";
 
 const Article = () => {
   return (
@@ -12,6 +13,8 @@ const Article = () => {
           </span>
         </h1>
       </div>
+
+      <Appointment />
     </section>
   );
 };

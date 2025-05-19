@@ -14,6 +14,13 @@ export type ServiceData = {
   category: string;
 };
 
+export type SubmissionStatus =
+  | "idle"
+  | "submitting"
+  | "success"
+  | "error"
+  | "limit_exceeded";
+
 // types/index.ts or types/Project.d.ts
 export interface Project {
   id: number;
@@ -54,6 +61,8 @@ export const sendEmailSchema = z.object({
     .regex(/^\+?\d+$/, "Phone number must contain only digits!")
     .optional()
     .or(z.literal("")),
+
+  serviceType: z.string().min(1, "Required!"),
 
   textarea: z
     .string()

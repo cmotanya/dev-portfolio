@@ -4,6 +4,7 @@ import {
   sendEmailSchema,
   SUBMISSION_LIMIT,
   SUBMISSION_STORAGE_KEY,
+  SubmissionStatus,
   TSendEmailSchema,
 } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -16,6 +17,7 @@ import {
   MessageSquare,
   Phone,
   Send,
+  Settings,
   User,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
@@ -26,13 +28,6 @@ import {
   getLocalStorageData,
   updateLocalStorageData,
 } from "@/lib/local-storage";
-
-type SubmissionStatus =
-  | "idle"
-  | "submitting"
-  | "success"
-  | "error"
-  | "limit_exceeded";
 
 //Helper function to get data from localStorage
 
@@ -274,6 +269,7 @@ function Contact() {
               noValidate
               className="bg-secondary/15 flex flex-col gap-4 rounded-lg p-4 shadow-lg md:gap-6"
             >
+              {/* Name Input Field */}
               <div className="space-y-2">
                 <label
                   htmlFor="name"
@@ -318,6 +314,7 @@ function Contact() {
                 )}
               </div>
 
+              {/* Email Input Field */}
               <div className="space-y-2">
                 <label
                   htmlFor="email"
@@ -361,6 +358,7 @@ function Contact() {
                 )}
               </div>
 
+              {/* Mobile Input (optional) */}
               <div className="space-y-2">
                 <label
                   htmlFor="mobile"
@@ -405,6 +403,57 @@ function Contact() {
                 )}
               </div>
 
+              {/* Service Type  */}
+              <div className="space-y-2">
+                <label
+                  htmlFor="serviceType"
+                  className="flex items-center gap-2 font-medium"
+                >
+                  <Settings size={18} className="text-primary" />
+                  Service Needed
+                </label>
+                <select
+                  {...register("serviceType")}
+                  name="serviceType"
+                  id="serviceType"
+                  aria-invalid={errors.serviceType ? "true" : "false"}
+                  aria-describedby="service-type-error"
+                  className={cn(
+                    "text-textColor/70 relative w-full rounded-lg border px-4 py-3 font-medium transition-all after:absolute after:inset-0 after:z-50 after:size-5 after:content-['>'] focus:outline-none",
+                    errors.serviceType
+                      ? "border-red-300 bg-red-50 focus:border-red-500 focus:ring focus:ring-red-200"
+                      : "focus:border-primary focus:ring-primary border-gray-300 focus:ring-1",
+                    submissionStatus === "submitting"
+                      ? "pointer-events-none"
+                      : "",
+                  )}
+                >
+                  <option value="security">Security</option>
+                  <option value="networking">Networking</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              {/* Urgent checkbox */}
+              <div className="relative flex items-center gap-4">
+                <input
+                  type="checkbox"
+                  name="isUrgent"
+                  id="isUrgent"
+                  className="after:bg-secondary before:bg-background after:left-y-1/2 checked:before:bg-secondary checked:after:bg-primary relative ml-3 appearance-none transition-all duration-300 ease-in-out before:absolute before:inset-0 before:top-1/2 before:left-1/2 before:z-50 before:size-[16px] before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:content-[''] after:visible after:absolute after:top-1/2 after:left-0 after:-z-10 after:size-6 after:-translate-x-1/2 after:-translate-y-1/2 after:overflow-hidden after:rounded-full after:content-[''] checked:scale-110 checked:after:scale-110"
+                />
+                <label
+                  htmlFor="isUrgent"
+                  className="ml-3 flex items-center gap-1 font-semibold"
+                >
+                  <AlertCircle size={18} className="text-secondary" />
+                  <span className="text-textColor/70">
+                    This request is urgent
+                  </span>
+                </label>
+              </div>
+
+              {/* Message textarea field */}
               <div className="space-y-2">
                 <label
                   htmlFor="textarea"
@@ -469,7 +518,7 @@ function Contact() {
                   <>Sending...</>
                 ) : (
                   <>
-                    Send message
+                    Submit message
                     <Send size={17} />
                   </>
                 )}
