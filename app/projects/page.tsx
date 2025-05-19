@@ -16,12 +16,11 @@ const Projects = () => {
           <div className="flex items-center gap-4 whitespace-nowrap">
             <FolderCode size={45} className="text-secondary shrink-0" />
             <h1 className="text-6xl leading-tight font-bold tracking-tight md:text-7xl">
-              <span className="text-primary">My</span>{" "}
               <span className="relative">
-                {" "}
-                Project
-                <span className="bg-primary absolute right-0 bottom-0 h-1 w-full"></span>
-              </span>
+                My
+                <span className="bg-secondary absolute right-0 bottom-0 h-1 w-full" />
+              </span>{" "}
+              <span className="text-secondary"> Project</span>
             </h1>
           </div>
         </Fade>

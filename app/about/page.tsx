@@ -50,10 +50,10 @@ const About = () => {
           {" "}
           <FileUser size={45} className="text-secondary shrink-0 rotate-12" />
           <h1 className="text-6xl font-bold tracking-tight whitespace-nowrap">
-            <span className="text-primary">About </span>
+            <span className="text-secondary">About </span>
             <span className="relative">
               Me
-              <span className="bg-primary absolute right-0 bottom-0 h-1 w-full" />
+              <span className="bg-secondary absolute right-0 bottom-0 h-1 w-full" />
             </span>
           </h1>
         </div>
@@ -139,7 +139,7 @@ const About = () => {
             <Link
               type="button"
               href={"/contact"}
-              className="bg-primary ring ring-secondary inline-block rounded-full px-8 py-3 font-semibold transition-all duration-300 ease-in-out hover:-translate-y-1 md:font-normal"
+              className="bg-primary ring-secondary inline-block rounded-full px-8 py-3 font-semibold ring transition-all duration-300 ease-in-out hover:-translate-y-1 md:font-normal"
             >
               {" "}
               Schedule a Consultation
