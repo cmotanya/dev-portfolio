@@ -29,8 +29,6 @@ import {
   updateLocalStorageData,
 } from "@/lib/local-storage";
 
-//Helper function to get data from localStorage
-
 function Contact() {
   const {
     register,

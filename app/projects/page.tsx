@@ -38,7 +38,7 @@ const Projects = () => {
           {projects.map((project: Project) => (
             <div
               key={project.id}
-              className="bg-secondary/10 border-secondary flex flex-col overflow-hidden rounded-lg border shadow-md transition-transform duration-300 md:max-w-xl"
+              className="border-primary flex flex-col overflow-hidden rounded-lg border shadow-md transition-transform duration-300 md:max-w-xl"
             >
               {/* Project Image */}
               <div className="relative aspect-video w-full">
@@ -54,16 +54,14 @@ const Projects = () => {
               {/* Project Details */}
               <div className="flex flex-grow flex-col p-6">
                 <h3 className="mb-3 text-xl font-semibold">{project.name}</h3>
-                <p className="text-textColor flex-grow text-sm">
-                  {project.description}
-                </p>
+                <p className="text-xs-sm flex-grow">{project.description}</p>
 
                 {/* technologies used */}
                 <div className="mb-4 flex flex-wrap gap-2">
                   {project.tags.map((tag, tagIndex) => (
                     <span
                       key={tagIndex}
-                      className="bg-primary/10 text-primary rounded-full px-2.5 py-0.5 text-xs font-medium"
+                      className="bg-primary/70 text-text rounded-full px-2.5 py-0.5 text-xs"
                     >
                       {tag}
                     </span>
@@ -71,16 +69,16 @@ const Projects = () => {
                 </div>
 
                 {/* Project Links */}
-                <div className="mt-auto flex gap-4">
+                <div className="mt-4 flex gap-4">
                   {project.liveLink && (
                     <Link
                       href={project.liveLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-textColor/80 hover:text-primary flex items-center gap-1 text-sm transition-colors"
+                      className="ring-secondary bg-primary flex items-center gap-1 rounded-full p-1.5 text-xs ring transition-all duration-200 ease-in-out hover:-translate-y-0.5"
                       aria-label={`View live demo of ${project.name}`}
                     >
-                      <ExternalLink size={20} />
+                      <ExternalLink size={15} />
                       <span>Live Demo</span>
                     </Link>
                   )}
@@ -89,10 +87,10 @@ const Projects = () => {
                       href={project.githubLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-textColor/80 hover:text-primary flex items-center gap-1 text-sm transition-colors"
+                      className="ring-secondary bg-primary flex items-center gap-1 rounded-full p-1.5 text-xs ring transition-all duration-200 ease-in-out hover:-translate-y-0.5"
                       aria-label={`View source code for ${project.name}`}
                     >
-                      <Github size={20} />
+                      <Github size={15} />
                       <span>Github</span>
                     </Link>
                   )}

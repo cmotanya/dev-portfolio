@@ -6,15 +6,13 @@ import Image from "next/image";
 import { about } from "../data/about";
 import { Fade, Slide } from "react-awesome-reveal";
 import Slider from "react-slick";
-import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import Security from "@/components/security";
 import WebDev from "@/components/web-dev";
+import Link from "next/link";
 
 const About = () => {
   const [activeTab, setActiveTab] = useState<"security" | "web">("security");
-
-  const router = useRouter();
 
   const settings = {
     dots: true,
@@ -40,7 +38,7 @@ const About = () => {
 
     // Style for individual dots
     customPaging: () => (
-      <div className="hover:bg-primary [.slick-active_&]:before:bg-primary [.slick-active_&]:after:bg-secondary after:bg-primary before:bg-background/90 relative rounded-full p-2 transition-all duration-300 ease-in-out before:absolute before:top-1/2 before:left-1/2 before:z-40 before:size-[14px] before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:p-1 before:content-[''] after:absolute after:top-1/2 after:left-1/2 after:-z-10 after:size-5 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:content-[''] [.slick-active_&]:scale-110 [.slick-active_&]:after:scale-110"></div>
+      <div className="hover:bg-secondary [.slick-active_&]:before:bg-primary [.slick-active_&]:after:bg-secondary after:bg-primary before:bg-background/90 relative rounded-full p-2 transition-all duration-300 ease-in-out before:absolute before:top-1/2 before:left-1/2 before:z-40 before:size-[14px] before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:p-1 before:content-[''] after:absolute after:top-1/2 after:left-1/2 after:-z-10 after:size-5 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:content-[''] [.slick-active_&]:scale-110 [.slick-active_&]:after:scale-110"></div>
     ),
   };
 
@@ -107,12 +105,12 @@ const About = () => {
         <Slide direction="right" duration={400} triggerOnce>
           <div className="w-full">
             {" "}
-            <div className="bg-primary/20 inline-flex items-center justify-center gap-4 rounded-full p-1.5 font-medium">
+            <div className="bg-primary inline-flex items-center justify-center gap-4 rounded-full p-1.5">
               <button
                 onClick={() => setActiveTab("security")}
                 className={cn(
-                  "hover:bg-primary/20 hover:text-primary rounded-full px-4 py-2 transition-colors",
-                  activeTab === "security" ? "bg-primary text-white" : "",
+                  "hover:bg-secondary/50 cursor-pointer rounded-full px-4 py-2 transition-colors",
+                  activeTab === "security" ? "bg-secondary text-white" : "",
                 )}
               >
                 Security
@@ -120,8 +118,8 @@ const About = () => {
               <button
                 onClick={() => setActiveTab("web")}
                 className={cn(
-                  "hover:bg-primary/20 hover:text-primary rounded-full px-4 py-2 transition-colors",
-                  activeTab === "web" ? "bg-primary text-white" : "",
+                  "hover:bg-secondary/50 cursor-pointer rounded-full px-4 py-2 transition-colors",
+                  activeTab === "web" ? "bg-secondary text-white" : "",
                 )}
               >
                 Web Dev
@@ -129,22 +127,23 @@ const About = () => {
             </div>
           </div>{" "}
         </Slide>
-        <div className="bg-secondary/15 my-4 mb-8 overflow-hidden rounded-md p-2">
+        <div className="bg-primary/50 my-4 mb-8 overflow-hidden rounded-md p-2">
           {activeTab === "security" ? <Security /> : <WebDev />}
         </div>
         <Slide direction="up" duration={500} triggerOnce>
-          <div>
+          <div className="mt-18">
             <p className="text-justify">
               Looking for something specific? I create custom solutions for
               unique needs
             </p>
-            <button
-              onClick={() => router.push("/contact")}
-              className="bg-primary hover:bg-primary/90 inline-block rounded-full px-8 py-3 font-semibold text-white shadow-lg transition-all duration-300 ease-in-out hover:shadow-xl active:scale-105"
+            <Link
+              type="button"
+              href={"/contact"}
+              className="bg-primary ring ring-secondary inline-block rounded-full px-8 py-3 font-semibold transition-all duration-300 ease-in-out hover:-translate-y-1 md:font-normal"
             >
               {" "}
               Schedule a Consultation
-            </button>
+            </Link>
           </div>
         </Slide>
       </div>

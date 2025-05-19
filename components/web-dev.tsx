@@ -1,75 +1,41 @@
-import { webOptions } from "@/app/data/about";
-import { ArrowRight, BadgeCheckIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { webDevProcess, webOptions } from "@/app/data/about";
+import { BadgeCheckIcon } from "lucide-react";
 import { Fade } from "react-awesome-reveal";
 
 const WebDev = () => {
-  const router = useRouter();
-
   return (
     <>
       <Fade duration={300} cascade>
-        <h2 className="text-primary mb-4 text-xl font-bold">
-          Web Development Solutions
-        </h2>
+        <h2 className="mb-4 text-2xl font-medium">Web Development Solutions</h2>
 
-        <div>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {webOptions.map((option) => (
             <div
               key={option.id}
-              className="border-secondary mb-2 rounded-lg border bg-white/95 px-2.5 py-2"
+              className="border-secondary bg-primary mb-2 rounded-lg border px-2.5 py-2"
             >
-              <span className="text-primary">{option.icon}</span>
-              <h3 className="mb-2 font-bold">{option.title}</h3>
-              <p className="text-justify">{option.description}</p>
-              <button
-                onClick={() =>
-                  router.push(`/contact?service=security&type=${option.id}`)
-                }
-                className="bg-secondary flex items-center gap-1 rounded-full p-2 text-sm font-medium transition-all duration-300 ease-in-out hover:shadow-xl active:scale-105"
-              >
-                Request Quote <ArrowRight size={14} />
-              </button>
+              <span className="text-secondary">{option.icon}</span>
+              <h3 className="mb-2 text-xl font-medium">{option.title}</h3>
+              <p className="text-xs-sm text-left">{option.description}</p>
             </div>
           ))}
         </div>
 
-        <div className="rounded-lg bg-white px-2.5 py-2">
+        <div className="px-2.5 py-2">
           {" "}
-          <h3 className="text-primary my-2 text-xl font-bold">
+          <h3 className="my-4 text-xl font-medium">
             My Development Process
           </h3>{" "}
-          <ul className="space-y-2 text-justify">
-            {" "}
-            <li className="flex items-start gap-3">
-              {" "}
-              <span className="text-secondary flex-shrink-0 rounded-full">
-                {" "}
-                <BadgeCheckIcon />
-              </span>{" "}
-              <span>Understanding your business and goals</span>{" "}
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-secondary flex-shrink-0 rounded-full">
-                {" "}
-                <BadgeCheckIcon />
-              </span>{" "}
-              <span>Creating mockups and wireframes</span>{" "}
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-secondary flex-shrink-0 rounded-full">
-                {" "}
-                <BadgeCheckIcon />
-              </span>{" "}
-              <span>Building your custom solution</span>{" "}
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-secondary flex-shrink-0 rounded-full">
-                {" "}
-                <BadgeCheckIcon />
-              </span>{" "}
-              <span>Going live with ongoing support</span>{" "}
-            </li>
+          <ul className="space-y-1 text-left">
+            {webDevProcess.map((desc) => (
+              <li key={desc.description} className="flex items-start gap-3">
+                <span className="text-text/50 flex-shrink-0 rounded-full">
+                  {" "}
+                  <BadgeCheckIcon />
+                </span>{" "}
+                <span>{desc.description}</span>
+              </li>
+            ))}{" "}
           </ul>
         </div>
       </Fade>

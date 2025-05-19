@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`flex min-h-dvh flex-col antialiased ${grotesque.className}`}
+        className={`flex min-h-dvh flex-col text-sm antialiased ${grotesque.className}`}
       >
         <Header />
         <main className="flex-grow">{children}</main>

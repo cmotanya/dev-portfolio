@@ -5,6 +5,7 @@ import Image from "next/image";
 import { tech_stack } from "@/app/data/tech-stack";
 import { useRouter } from "next/navigation";
 import { Fade } from "react-awesome-reveal";
+import Link from "next/link";
 
 const TechStack = () => {
   const router = useRouter();
@@ -17,7 +18,14 @@ const TechStack = () => {
     <>
       <Fade direction="up" cascade triggerOnce duration={200}>
         {tech_stack.map((item) => (
-          <div onClick={() => handleClick(item.link)} key={item.name}>
+          <Link
+            key={item.name}
+            href={item.link}
+            onClick={() => handleClick(item.link)}
+            className="bg-primary/70 flex flex-col items-center justify-center gap-1 rounded-lg p-2 shadow-sm transition-transform duration-200 hover:scale-105"
+            target="_blank"
+          >
+            {" "}
             <Image
               src={item.image}
               alt={item.name}
@@ -25,8 +33,8 @@ const TechStack = () => {
               height={50}
               className="mx-auto"
             />{" "}
-            {item.name}
-          </div>
+            <span className="text-center text-gray-500">{item.name}</span>
+          </Link>
         ))}
       </Fade>
     </>

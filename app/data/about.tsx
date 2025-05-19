@@ -54,3 +54,18 @@ export const webOptions: SolutionOption[] = [
     icon: <Globe size={24} />,
   },
 ];
+
+export const siteAssessment = [
+  { description: "Free onsite evaluation to understand your security needs" },
+  { description: "Tailored security solution based on your requirements" },
+  { description: "Comprehensive site assessment to identify vulnerabilities" },
+  { description: "Recommendations for optimal security measures" },
+  { description: "Detailed report outlining findings and suggestions" },
+];
+
+export const webDevProcess = [
+  { description: "Understanding your business and goals" },
+  { description: "Creating mockups and wireframes" },
+  { description: "Building your custom solution" },
+  { description: "Going live with ongoing support" },
+];
