@@ -15,7 +15,7 @@ const TechStack = () => {
   };
 
   return (
-    <>
+    <div className="grid grid-cols-4 gap-4">
       <Fade direction="up" cascade triggerOnce duration={200}>
         {tech_stack.map((item) => (
           <Link
@@ -37,7 +37,7 @@ const TechStack = () => {
           </Link>
         ))}
       </Fade>
-    </>
+    </div>
   );
 };
 

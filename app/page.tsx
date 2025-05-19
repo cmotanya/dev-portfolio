@@ -19,7 +19,8 @@ export default function Home() {
           alt=""
           width={200}
           height={200}
-          className="mx-auto"
+          priority
+          className="mx-auto h-auto w-auto"
         />
 
         <p>
@@ -36,8 +37,8 @@ export default function Home() {
         </p>
       </div>
 
-      <div>
-        <h3 className="font-bold">Tech Stack</h3>
+      <div className="space-y-4">
+        <h3 className="text-xl font-bold">Tech Stack</h3>
 
         <div className="flex flex-wrap items-center justify-center gap-5">
           <TechStack />

@@ -59,11 +59,11 @@ const About = () => {
         </div>
       </Slide>
       <Fade delay={300} triggerOnce duration={400}>
-        <div className="relative mb-8 aspect-auto h-[300px] overflow-hidden rounded-lg">
+        <div className="mb-8 aspect-auto h-[300px] overflow-hidden rounded-lg">
           {" "}
           <Slider {...settings}>
             {about.map((item, index) => (
-              <div key={index} className="h-[250px]">
+              <div key={index} className="relative h-[250px]">
                 <Image
                   src={item.src}
                   alt={item.name}
