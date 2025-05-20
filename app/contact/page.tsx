@@ -45,6 +45,7 @@ function Contact() {
   const [message, setMessage] = useState("");
   const [countSubmissions, setCountSubmissions] = useState(SUBMISSION_LIMIT);
   const [isDelayAfterSuccess, setIsDelayAfterSuccess] = useState(false);
+  const [isUrgentChecked, setIsUrgentChecked] = useState(false);
 
   // Load submission count from localStorage - only on initial mount
   useEffect(() => {
@@ -239,7 +240,7 @@ function Contact() {
         {submissionStatus === "submitting" && (
           <Slide direction="left" duration={300} triggerOnce>
             <div className="text-primary bg-secondary/15 border-secondary/20 mb-6 flex items-center gap-2 rounded-md border p-3 font-medium">
-              <Loader2 className="text-primary animate-spin" />
+              <Loader2 className="text-secondary animate-spin" />
               <h2 className="text-sm font-semibold">Sending your message...</h2>
             </div>
           </Slide>
@@ -387,7 +388,7 @@ function Contact() {
               </div>
 
               {/* Service Type  */}
-              <div className="space-y-2">
+              <div className="relative space-y-2">
                 <label
                   htmlFor="serviceType"
                   className="flex items-center gap-2"
@@ -402,35 +403,88 @@ function Contact() {
                   aria-invalid={errors.serviceType ? "true" : "false"}
                   aria-describedby="service-type-error"
                   className={cn(
-                    "bg-primary relative w-full rounded-full px-5 py-3 font-medium ring transition-all focus:outline-none",
+                    "bg-primary custom-select text-xs-sm w-full rounded-full px-5 py-3 ring transition-all focus:outline-none",
                     errors.serviceType ? "ring-red-500" : "ring-secondary",
                     submissionStatus === "submitting"
                       ? "pointer-events-none"
                       : "",
                   )}
                 >
-                  <option value="security">Security</option>
-                  <option value="networking">Networking</option>
-                  <option value="other">Other</option>
+                  <option value="" disabled>
+                    Select a service...
+                  </option>
+                  <option value="security">🔒 Security Consulting</option>
+                  <option value="networking">🌐 Networking Solutions</option>
+                  <option value="support">🛠️ Ongoing Support</option>
+                  <option value="other">Other (please specify)</option>
                 </select>
+
+                {/* custom down arrow */}
+                <span className="pointer-event-none absolute top-1/2 right-2">
+                  <svg
+                    width="18"
+                    height="18"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M6 9l6 6 6-6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </span>
               </div>
 
               {/* Urgent checkbox */}
-              <div className="relative flex items-center gap-4">
+              <div className="flex items-center gap-4">
                 <input
                   type="checkbox"
                   name="isUrgent"
                   id="isUrgent"
-                  className="after:bg-secondary before:bg-background after:left-y-1/2 checked:before:bg-secondary checked:after:bg-primary relative ml-3 appearance-none transition-all duration-300 ease-in-out before:absolute before:inset-0 before:top-1/2 before:left-1/2 before:z-50 before:size-[16px] before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:content-[''] after:visible after:absolute after:top-1/2 after:left-0 after:-z-10 after:size-6 after:-translate-x-1/2 after:-translate-y-1/2 after:overflow-hidden after:rounded-full after:content-[''] checked:scale-110 checked:after:scale-110"
+                  checked={isUrgentChecked}
+                  onChange={(e) => setIsUrgentChecked(e.target.checked)}
+                  className="border-secondary bg-primary peer checked:bg-secondary custom-select relative size-5 cursor-pointer rounded-md border-2 transition-all duration-200"
                 />
-                <label
-                  htmlFor="isUrgent"
-                  className="ml-3 flex items-center gap-1 font-semibold"
-                >
-                  <AlertCircle size={18} className="text-secondary" />
-                  <span className="text-textColor/70">
-                    This request is urgent
-                  </span>
+                {/* custom checkmark */}
+                <span className="pointer-events-none absolute ml-0.5">
+                  {isUrgentChecked && (
+                    <svg
+                      className="text-text h-4 w-4"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={3}
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  )}
+                </span>
+                <label htmlFor="isUrgent">
+                  <Fade
+                    key={isUrgentChecked ? "urgent" : "not-urgent"}
+                    direction="up"
+                    triggerOnce={false}
+                    duration={400}
+                  >
+                    {isUrgentChecked ? (
+                      <div className="ml-3 flex items-center gap-1 text-xs text-red-500">
+                        <AlertCircle size={18} className="text-red-500" />
+                        This request will be marked as urgent!
+                      </div>
+                    ) : (
+                      <div className="ml-3 flex items-center gap-1 text-xs">
+                        <CheckCircle size={18} className="text-secondary" />
+                        Mark as urgent
+                      </div>
+                    )}
+                  </Fade>
                 </label>
               </div>
 
@@ -451,7 +505,7 @@ function Contact() {
                     aria-describedby="textarea-error"
                     placeholder="What would you like to discuss?"
                     className={cn(
-                      "ring-secondary bg-primary w-full rounded-lg px-5 py-3 ring transition-all focus:outline-none",
+                      "ring-secondary bg-primary w-full resize-none rounded-lg px-5 py-3 ring transition-all focus:outline-none",
                       errors.textarea ? "ring-red-500" : "focus:ring-secondary",
                       submissionStatus === "submitting"
                         ? "pointer-events-none"
