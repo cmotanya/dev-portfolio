@@ -286,7 +286,7 @@ function Contact() {
                     aria-describedby="name-error"
                     autoFocus={true}
                     className={cn(
-                      "ring-secondary bg-primary w-full rounded-full px-5 py-3 ring transition-all focus:outline-none",
+                      "ring-primary w-full rounded-full px-5 py-3 ring transition-all focus:outline-none",
                       errors.name ? "ring-red-500" : "focus:ring-secondary",
                       submissionStatus === "submitting"
                         ? "pointer-events-none"
@@ -325,7 +325,7 @@ function Contact() {
                     placeholder="your.email@example.com"
                     autoComplete="email"
                     className={cn(
-                      "ring-secondary bg-primary w-full rounded-full px-5 py-3 ring transition-all focus:outline-none",
+                      "ring-primary w-full rounded-full px-5 py-3 ring transition-all focus:outline-none",
                       errors.email ? "ring-red-500" : "focus:ring-secondary",
                       submissionStatus === "submitting"
                         ? "pointer-events-none"
@@ -365,7 +365,7 @@ function Contact() {
                     title="Format: 700-000-000"
                     placeholder="+254 700 000 000"
                     className={cn(
-                      "ring-secondary bg-primary w-full rounded-full px-5 py-3 ring transition-all focus:outline-none",
+                      "ring-primary w-full rounded-full px-5 py-3 ring transition-all focus:outline-none",
                       errors.mobile ? "ring-red-500" : "focus:ring-secondary",
                       submissionStatus === "submitting"
                         ? "pointer-events-none"
@@ -505,7 +505,7 @@ function Contact() {
                     aria-describedby="textarea-error"
                     placeholder="What would you like to discuss?"
                     className={cn(
-                      "ring-secondary bg-primary w-full resize-none rounded-lg px-5 py-3 ring transition-all focus:outline-none",
+                      "ring-primary w-full resize-none rounded-lg px-5 py-3 ring transition-all focus:outline-none",
                       errors.textarea ? "ring-red-500" : "focus:ring-secondary",
                       submissionStatus === "submitting"
                         ? "pointer-events-none"
@@ -541,7 +541,7 @@ function Contact() {
                     ? "bg-primary/50"
                     : Object.keys(errors).length > 0 || isDelayAfterSuccess
                       ? "bg-primary/50 cursor-not-allowed select-none"
-                      : "bg-primary ring-secondary ring",
+                      : "bg-accent",
                 )}
               >
                 {submissionStatus === "submitting" ? (

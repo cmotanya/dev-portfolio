@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: oklch(27.8% 0.033 256.848); /* bg-gray-800 */
-  --color-secondary: oklch(37.3% 0.034 259.733); /* bg-gray-700 */
-  --color-accent: oklch(27.8% 0.033 256.848 / 0.5); /* bg-gray-700 */
-  --color-background: oklch(21% 0.034 264.665); /* bg-gray-900 */
+  --color-primary: #283618; /* bg-gray-800 */
+  --color-secondary: #606c38; /* bg-gray-700 */
+  --color-accent: #1f18f2; /* bg-gray-700 */
+  --color-background: oklch(13% 0.028 261.692); /* bg-gray-900 */
   --color-text: oklch(87.2% 0.01 258.338); /* text-gray-500 */
 
   --text-xs-sm: 0.8rem;
