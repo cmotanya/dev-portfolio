@@ -36,14 +36,14 @@ const Header = () => {
         <div
           onClick={toggleMenu}
           aria-hidden="true"
-          className="fixed inset-0 z-10 h-screen bg-gray-300/50 backdrop-blur-[1.5px]"
+          className="bg-background/30 fixed inset-0 z-10 h-screen backdrop-blur-[1.5px]"
         />
       )}
 
       <header
         className={cn(
-          "fixed z-[999] flex h-screen w-[60%] flex-col overflow-hidden shadow-md backdrop-blur-md transition-transform duration-300 ease-in-out",
-          isMenuOpen ? "translate-x-0" : "-translate-x-full",
+          "fixed z-[999] flex h-screen w-[80%] flex-col overflow-hidden shadow-md backdrop-blur-md transition-transform duration-300 ease-in-out md:w-[20%]",
+          isMenuOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0",
         )}
       >
         {/* Profile section */}
@@ -53,19 +53,19 @@ const Header = () => {
             alt="Cornelius Motanya"
             width={64}
             height={64}
-            className="size-16 rounded-full border-2 border-blue-500 object-cover object-center"
+            className="border-secondary size-16 rounded-full border-2 object-cover object-center"
           />
 
           <div className="flex flex-col">
             <h1
               className={cn(
-                "mt-4 text-2xl font-bold text-gray-800 uppercase",
+                "mt-4 text-2xl font-semibold uppercase",
                 caveat.className,
               )}
             >
               Cornelius
             </h1>
-            <p className="-mt-1 text-sm text-gray-500">Web Developer</p>
+            <p className="text-accent -mt-1 text-sm">Web Developer</p>
           </div>
         </div>
 
@@ -82,11 +82,11 @@ const Header = () => {
                       href={item.link}
                       onClick={handleCloseMenu}
                       className={cn(
-                        "flex items-center gap-3 rounded-md px-3 py-2 transition-colors hover:bg-gray-100",
-                        isActive && "bg-primary/20",
+                        "hover:bg-primary flex items-center gap-3 rounded-md px-3 py-2 transition-colors duration-150 ease-in-out",
+                        isActive && "bg-primary/50",
                       )}
                     >
-                      <span className="text-primary">{item.icon}</span>
+                      <span className="text-accent">{item.icon}</span>
                       <span>{item.name}</span>
                     </Link>
                   </li>
@@ -96,20 +96,18 @@ const Header = () => {
           </nav>
 
           {/* Social links */}
-          <div className="mb-6 border-b pb-8">
-            <h2 className="text-textColor/70 mb-3 font-bold">
-              Connect with Me
-            </h2>
+          <div className="mb-6 pb-8">
+            <h2 className="mb-3">Connect with Me</h2>
             <div className="inline-block space-y-3">
               {socials.map((item) => (
                 <Link
                   key={item.name}
                   href={item.link}
                   onClick={handleCloseMenu}
-                  className="flex items-center gap-2 rounded-full bg-gray-100 px-3 py-1 text-sm transition-colors hover:bg-gray-200"
+                  className="bg-primary flex items-center gap-2 rounded-full px-3 py-1 text-sm transition-all duration-150 ease-in-out hover:-translate-y-0.5"
                 >
                   <span>{item.icon}</span>
-                  <span className="text-gray-700">{item.name}</span>
+                  <span className="text-xs-sm">{item.name}</span>
                 </Link>
               ))}
             </div>

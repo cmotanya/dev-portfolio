@@ -60,7 +60,7 @@ const Projects = () => {
                   {project.tags.map((tag, tagIndex) => (
                     <span
                       key={tagIndex}
-                      className="bg-primary/70 text-text rounded-full px-2.5 py-0.5 text-xs"
+                      className="bg-primary/70 text-text/50 rounded-full px-2.5 py-0.5 text-xs"
                     >
                       {tag}
                     </span>
@@ -105,5 +105,4 @@ const Projects = () => {
 
 export default Projects;
 
-// This code defines a React component that displays a list of projects. Each project has an image, name, description, tags, and links to a live demo and GitHub repository. The component uses Tailwind CSS for styling and Lucide icons for visual elements.
-// The projects are mapped from a data source, and the layout is responsive, adjusting the number of columns based on screen size. The component is structured to be visually appealing and user-friendly, with hover effects and accessibility features.
+

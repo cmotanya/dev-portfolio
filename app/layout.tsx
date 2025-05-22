@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { grotesque } from "./data/font";
+import { inter } from "./data/font";
 import Header from "./header/page";
 import Footer from "./footer/page";
 
@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`flex min-h-dvh flex-col text-sm antialiased ${grotesque.className}`}
+        className={`flex min-h-dvh flex-col text-sm antialiased ${inter.className}`}
       >
         <Header />
         <main className="flex-grow">{children}</main>

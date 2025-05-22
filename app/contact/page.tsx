@@ -205,7 +205,7 @@ function Contact() {
         </div>
         {/* Submission Status Message */}
         {(submissionStatus === "success" || submissionStatus === "error") && (
-          <Slide direction="left" duration={300} triggerOnce>
+          <Fade direction="up" duration={300} triggerOnce>
             <div
               className={cn(
                 "mb-6 rounded-md border p-3 font-medium",
@@ -233,7 +233,7 @@ function Contact() {
                 </h2>
               </div>
             </div>
-          </Slide>
+          </Fade>
         )}
 
         {/* Submitting Status Message */}
@@ -248,7 +248,7 @@ function Contact() {
 
         {/* Daily limit exceeded message shown only if limit is reached */}
         {submissionStatus === "limit_exceeded" && (
-          <Slide direction="right" duration={300} triggerOnce>
+          <Fade direction="up" duration={300} triggerOnce>
             <div className="space-y-3 rounded-lg border border-red-300 bg-red-100 p-2 font-bold text-red-500 shadow-md">
               <div className="flex gap-2 rounded-sm font-medium text-red-600">
                 <AlertCircle className="size-6" />
@@ -256,7 +256,7 @@ function Contact() {
               </div>
               <p className="text-sm font-semibold">{message}</p>
             </div>
-          </Slide>
+          </Fade>
         )}
 
         {/* FORM (Conditionally rendered) */}
@@ -286,8 +286,8 @@ function Contact() {
                     aria-describedby="name-error"
                     autoFocus={true}
                     className={cn(
-                      "ring-primary w-full rounded-full px-5 py-3 ring transition-all focus:outline-none",
-                      errors.name ? "ring-red-500" : "focus:ring-secondary",
+                      "ring-primary w-full rounded-full px-5 py-3 ring transition-all",
+                      errors.name ? "ring-error" : "focus:ring-secondary",
                       submissionStatus === "submitting"
                         ? "pointer-events-none"
                         : "",
@@ -295,16 +295,16 @@ function Contact() {
                   />
                 </div>
                 {errors.name && (
-                  <Slide direction="left" duration={400} triggerOnce>
+                  <Fade direction="up" duration={400} triggerOnce>
                     <span
                       id="name-error"
                       role="alert"
-                      className="-mt-1 flex items-center gap-1 text-sm font-medium text-red-500 md:text-xs"
+                      className="text-error -mt-1 flex items-center gap-1 text-xs font-medium md:text-xs"
                     >
                       <AlertCircle size={14} />
                       {errors.name.message}
                     </span>
-                  </Slide>
+                  </Fade>
                 )}
               </div>
 
@@ -325,8 +325,8 @@ function Contact() {
                     placeholder="your.email@example.com"
                     autoComplete="email"
                     className={cn(
-                      "ring-primary w-full rounded-full px-5 py-3 ring transition-all focus:outline-none",
-                      errors.email ? "ring-red-500" : "focus:ring-secondary",
+                      "ring-primary w-full rounded-full px-5 py-3 ring transition-all",
+                      errors.email ? "ring-error" : "focus:ring-secondary",
                       submissionStatus === "submitting"
                         ? "pointer-events-none"
                         : "",
@@ -334,16 +334,16 @@ function Contact() {
                   />
                 </div>
                 {errors.email && (
-                  <Slide direction="left" duration={400} triggerOnce>
+                  <Fade direction="up" duration={400} triggerOnce>
                     <span
                       role="alert"
                       id="email-error"
-                      className="-mt-1 flex items-center gap-1 text-sm font-medium text-red-500 md:text-xs"
+                      className="text-error -mt-1 flex items-center gap-1 text-sm font-medium md:text-xs"
                     >
                       <AlertCircle size={14} />
                       {errors.email.message}
                     </span>
-                  </Slide>
+                  </Fade>
                 )}
               </div>
 
@@ -365,8 +365,8 @@ function Contact() {
                     title="Format: 700-000-000"
                     placeholder="+254 700 000 000"
                     className={cn(
-                      "ring-primary w-full rounded-full px-5 py-3 ring transition-all focus:outline-none",
-                      errors.mobile ? "ring-red-500" : "focus:ring-secondary",
+                      "ring-primary w-full rounded-full px-5 py-3 ring transition-all",
+                      errors.mobile ? "ring-error" : "focus:ring-secondary",
                       submissionStatus === "submitting"
                         ? "pointer-events-none"
                         : "",
@@ -374,16 +374,16 @@ function Contact() {
                   />
                 </div>
                 {errors.mobile && (
-                  <Slide direction="left" duration={400} triggerOnce>
+                  <Fade direction="up" duration={400} triggerOnce>
                     <span
                       role="alert"
                       id="mobile-error"
-                      className="-mt-1 flex items-center gap-1 text-sm font-medium text-red-500"
+                      className="text-error -mt-1 flex items-center gap-1 text-xs font-medium"
                     >
                       <AlertCircle size={14} />
                       {errors.mobile.message}
                     </span>
-                  </Slide>
+                  </Fade>
                 )}
               </div>
 
@@ -403,8 +403,8 @@ function Contact() {
                   aria-invalid={errors.serviceType ? "true" : "false"}
                   aria-describedby="service-type-error"
                   className={cn(
-                    "bg-primary custom-select text-xs-sm w-full rounded-full px-5 py-3 ring transition-all focus:outline-none",
-                    errors.serviceType ? "ring-red-500" : "ring-secondary",
+                    "bg-primary custom-select text-xs-sm w-full rounded-full px-5 py-3 ring transition-all",
+                    errors.serviceType ? "ring-error" : "ring-secondary",
                     submissionStatus === "submitting"
                       ? "pointer-events-none"
                       : "",
@@ -474,8 +474,8 @@ function Contact() {
                     duration={400}
                   >
                     {isUrgentChecked ? (
-                      <div className="ml-3 flex items-center gap-1 text-xs text-red-500">
-                        <AlertCircle size={18} className="text-red-500" />
+                      <div className="text-warning ml-3 flex items-center gap-1 text-xs">
+                        <AlertCircle size={18} className="text-error" />
                         This request will be marked as urgent!
                       </div>
                     ) : (
@@ -506,7 +506,7 @@ function Contact() {
                     placeholder="What would you like to discuss?"
                     className={cn(
                       "ring-primary w-full resize-none rounded-lg px-5 py-3 ring transition-all focus:outline-none",
-                      errors.textarea ? "ring-red-500" : "focus:ring-secondary",
+                      errors.textarea ? "ring-error" : "focus:ring-secondary",
                       submissionStatus === "submitting"
                         ? "pointer-events-none"
                         : "",
@@ -514,16 +514,16 @@ function Contact() {
                   />
                 </div>
                 {errors.textarea && (
-                  <Slide direction="left" duration={400} triggerOnce>
+                  <Fade direction="up" duration={400} triggerOnce>
                     <span
                       role="alert"
                       id="textarea-error"
-                      className="-mt-2 flex items-center gap-1 text-sm font-medium text-red-500 md:text-xs"
+                      className="text-error -mt-2 flex items-center gap-1 text-sm font-medium md:text-xs"
                     >
                       <AlertCircle size={14} />
                       {errors.textarea.message}
                     </span>
-                  </Slide>
+                  </Fade>
                 )}
               </div>
 
@@ -536,12 +536,12 @@ function Contact() {
                   isDelayAfterSuccess
                 }
                 className={cn(
-                  "disabled:bg-primary/50 disabled:text-text/40 mt-4 inline-flex cursor-pointer items-center justify-center gap-2 rounded-full p-3.5 transition-all md:ml-auto",
+                  "disabled:bg-primary/50 disabled:text-text/40 mt-4 inline-flex cursor-pointer items-center justify-center gap-2 rounded-full p-3.5 transition-all duration-200 ease-in-out hover:-translate-y-1 disabled:translate-0 md:ml-auto",
                   isSubmitting
                     ? "bg-primary/50"
                     : Object.keys(errors).length > 0 || isDelayAfterSuccess
                       ? "bg-primary/50 cursor-not-allowed select-none"
-                      : "bg-accent",
+                      : "bg-button text-button-text",
                 )}
               >
                 {submissionStatus === "submitting" ? (
@@ -555,7 +555,12 @@ function Contact() {
               </button>
 
               {/* Remaining Submission Count */}
-              <p className={cn("text-xs-sm mt-2 text-center")}>
+              <p
+                className={cn(
+                  "mt-2 text-center text-xs",
+                  countSubmissions < 2 ? "text-warning" : "",
+                )}
+              >
                 {countSubmissions <= 0
                   ? "Daily submission limit reached"
                   : `${countSubmissions} of ${SUBMISSION_LIMIT} submissions available today`}

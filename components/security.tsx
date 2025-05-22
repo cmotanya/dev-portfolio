@@ -29,10 +29,8 @@ const Security = () => {
             <>
               {siteAssessment.map((desc) => (
                 <li key={desc.description} className="flex items-start gap-3">
-                  <span className="text-text/50 flex-shrink-0 rounded-full">
-                    {" "}
-                    <BadgeCheckIcon />
-                  </span>{" "}
+                  {" "}
+                  <BadgeCheckIcon className="text-secondary flex-shrink-0 rounded-full" />
                   <span>{desc.description}</span>
                 </li>
               ))}

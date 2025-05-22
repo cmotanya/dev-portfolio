@@ -38,7 +38,7 @@ const About = () => {
 
     // Style for individual dots
     customPaging: () => (
-      <div className="hover:bg-secondary [.slick-active_&]:before:bg-primary [.slick-active_&]:after:bg-secondary after:bg-primary before:bg-background/90 relative rounded-full p-2 transition-all duration-300 ease-in-out before:absolute before:top-1/2 before:left-1/2 before:z-40 before:size-[14px] before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:p-1 before:content-[''] after:absolute after:top-1/2 after:left-1/2 after:-z-10 after:size-5 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:content-[''] [.slick-active_&]:scale-110 [.slick-active_&]:after:scale-110"></div>
+      <div className="hover:bg-secondary [.slick-active_&]:before:bg-accent [.slick-active_&]:after:bg-secondary after:bg-accent before:bg-background/90 relative rounded-full p-2 transition-all duration-300 ease-in-out before:absolute before:top-1/2 before:left-1/2 before:z-40 before:size-[14px] before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:p-1 before:content-[''] after:absolute after:top-1/2 after:left-1/2 after:-z-10 after:size-5 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:content-[''] [.slick-active_&]:scale-110 [.slick-active_&]:after:scale-110"></div>
     ),
   };
 
@@ -139,7 +139,7 @@ const About = () => {
             <Link
               type="button"
               href={"/contact"}
-              className="bg-primary ring-secondary inline-block rounded-full px-8 py-3 font-semibold ring transition-all duration-300 ease-in-out hover:-translate-y-1 md:font-normal"
+              className="bg-button text-button-text inline-block rounded-full px-8 py-3 font-semibold transition-all duration-200 ease-in-out hover:-translate-y-1 md:font-normal"
             >
               {" "}
               Schedule a Consultation
