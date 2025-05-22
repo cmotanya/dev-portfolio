@@ -3,7 +3,7 @@ import Image from "next/image";
 import { projects } from "../data/projects";
 import { Project } from "@/lib/types";
 import Link from "next/link";
-import { Fade, Slide } from "react-awesome-reveal";
+import { Fade } from "react-awesome-reveal";
 
 const Projects = () => {
   return (
@@ -27,13 +27,7 @@ const Projects = () => {
       </div>
 
       <div className="grid gap-8 md:grid-cols-2">
-        <Slide
-          direction="left"
-          damping={0.5}
-          cascade
-          triggerOnce
-          duration={400}
-        >
+        <Fade damping={0.5} cascade triggerOnce duration={400}>
           {projects.map((project: Project) => (
             <div
               key={project.id}
@@ -97,12 +91,10 @@ const Projects = () => {
               </div>
             </div>
           ))}
-        </Slide>
+        </Fade>
       </div>
     </section>
   );
 };
 
 export default Projects;
-
-
