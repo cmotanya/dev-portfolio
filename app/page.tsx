@@ -27,9 +27,9 @@ export default function Home() {
         <Fade
           direction="down"
           cascade
-          duration={500}
-          damping={0.15}
-          delay={400}
+          duration={300}
+          damping={0.3}
+          delay={300}
           triggerOnce
         >
           <p>

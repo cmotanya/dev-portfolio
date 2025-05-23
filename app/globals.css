@@ -8,11 +8,14 @@
 
   --color-accent: #38bdf8;
   --color-success: #22c55e;
-  --color-warning: #f1fa8c; --color-error: oklch(63.7% 0.237 25.331);
+  --color-warning: #f1fa8c;
+  --color-error: oklch(63.7% 0.237 25.331);
   --color-accent-alt: #ec4899;
 
   --color-button: #1e40af; /* Rich blue, darker than accent */
   --color-button-text: #cbd5e1; /* Light text */
+
+  --color-primary-text: #6a7282; /* Light text */
 
   --text-xs-sm: 0.8rem;
   --width: min(75ch, calc(100% - 2rem));
@@ -74,4 +77,17 @@ select:-webkit-autofill {
     0 0 0 8px var(--color-primary),
     0 0 0 10px var(--color-primary);
   transition: background-color 5000s ease-in-out 0s;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-1.5px);
+  }
+  75% {
+    transform: translateX(1.5px);
+  }
 }

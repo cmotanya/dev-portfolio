@@ -74,7 +74,7 @@ const About = () => {
 
                 <div className="absolute inset-0 flex items-end p-4">
                   {" "}
-                  <span className="rounded-full bg-stone-700 px-3 py-1 text-sm font-medium text-white shadow-md">
+                  <span className="bg-primary rounded-full p-1.5 text-xs shadow-md">
                     {item.name}
                   </span>
                 </div>

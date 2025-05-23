@@ -6,7 +6,7 @@ export const projects: Project[] = [
     id: 1,
     name: "Personal Portfolio",
     description:
-      "This very website! Built to showcase my projects, skills, and connect with others.",
+      "A modern, responsive portfolio website built with Next.js and TypeScript. Features include dynamic project showcasing, smooth animations, dark theme, and a contact form with email integration. Implemented best practices for accessibility and performance optimization.",
     image: "/images/project-portfolio.jpg",
     tags: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
     liveLink: "https://cmotanya.dev",
@@ -16,9 +16,9 @@ export const projects: Project[] = [
   // --- Projects: CCTV and Networking ---
   {
     id: 4,
-    name: "Residential CCTV System Installation",
+    name: "CCTV Installation & Security Solutions",
     description:
-      "Designed and installed a comprehensive security camera system for several residential properties, offices and business premises, including camera placement, cabling, NVR setup, and remote viewing configuration.",
+      "Designed and implemented comprehensive security surveillance systems across multiple residential and commercial properties. Integrated advanced IP cameras with night vision capabilities, configured secure remote access, and established reliable backup systems. Provided client training on system operation and maintenance.",
     image: "/project/1.jpeg",
     tags: [
       "CCTV",
@@ -26,37 +26,34 @@ export const projects: Project[] = [
       "IP Cameras",
       "NVR/DVR",
       "Cable Management",
-      "Networking Basics",
-      "Remote Access",
-      "Installation",
+      "Remote Monitoring",
+      "Motion Detection",
+      "4K Resolution",
     ],
     // No liveLink or githubLink for this type of physical project
   },
 
   {
     id: 5,
-    name: "Small Office Network Setup",
+    name: "Office Network Setup",
     description:
-      "Provided complete network infrastructure setup for a small office, including router/firewall configuration, structured cabling for wired connections, and secure Wi-Fi deployment.",
+      "Deployed and configured a reliable office network infrastructure including router setup, Wi-Fi access points, and secure data cabling. Implemented essential security measures and provided ongoing technical support for seamless business operations.",
     image: "/project/3.webp",
     tags: [
       "Networking",
       "Router Configuration",
-      "Firewall",
       "Wi-Fi Setup",
       "Ethernet Cabling",
       "Switching",
-      "TCP/IP",
       "Network Security",
       "Installation",
     ],
-    // No liveLink or githubLink for this type of physical project
   },
 
   // Project for Data Analysis
   {
     id: 3,
-    name: "Data Analysis Dashboard",
+    name: "Data Analysis",
     description:
       "A dashboard that allows users to visualize and analyze data from various sources.",
     image: "/project/4.png",

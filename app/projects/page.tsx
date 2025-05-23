@@ -1,4 +1,4 @@
-import { ExternalLink, FolderCode, Github } from "lucide-react";
+import { ArrowUpRight, ExternalLink, FolderCode, Github } from "lucide-react";
 import Image from "next/image";
 import { projects } from "../data/projects";
 import { Project } from "@/lib/types";
@@ -26,7 +26,7 @@ const Projects = () => {
         </Fade>
       </div>
 
-      <div className="grid gap-8 md:grid-cols-2">
+      <div className="grid gap-3">
         <Fade damping={0.5} cascade triggerOnce duration={400}>
           {projects.map((project: Project) => (
             <div
@@ -45,20 +45,24 @@ const Projects = () => {
               </div>
 
               {/* Project Details */}
-              <div className="flex flex-grow flex-col p-6">
+              <div className="flex flex-grow flex-col p-2">
                 <h3 className="mb-3 text-xl font-semibold">{project.name}</h3>
-                <p className="text-xs-sm flex-grow">{project.description}</p>
+                <p className="text-xs-sm flex-grow text-gray-700">
+                  {project.description}
+                </p>
 
                 {/* technologies used */}
                 <div className="mb-4 flex flex-wrap gap-2">
-                  {project.tags.map((tag, tagIndex) => (
-                    <span
-                      key={tagIndex}
-                      className="bg-primary/70 text-text/50 rounded-full px-2.5 py-0.5 text-xs"
-                    >
-                      {tag}
-                    </span>
-                  ))}
+                  <Fade cascade direction="up" triggerOnce duration={300}>
+                    {project.tags.map((tag, tagIndex) => (
+                      <span
+                        key={tagIndex}
+                        className="bg-secondary text-text/50 rounded-full px-1.5 py-1 text-xs"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </Fade>
                 </div>
 
                 {/* Project Links */}
@@ -85,6 +89,7 @@ const Projects = () => {
                     >
                       <Github size={15} />
                       <span>Github</span>
+                      <ArrowUpRight size={15} />
                     </Link>
                   )}
                 </div>

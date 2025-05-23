@@ -1,0 +1,254 @@
+export const serviceData = {
+  cctv: [
+    {
+      id: "dome-camera",
+      name: "Dome Camera",
+      description: "4MP HD Indoor/Outdoor Surveillance Camera",
+      basePrice: 150,
+      unit: "piece",
+      category: "camera",
+      options: {
+        resolution: ["2MP", "4MP", "8MP"],
+        nightVision: ["Standard", "Enhanced"],
+        weatherProof: ["Indoor", "Outdoor IP67"],
+      },
+    },
+    {
+      id: "bullet-camera",
+      name: "Bullet Camera",
+      description: "4MP HD Outdoor Camera with Night Vision",
+      basePrice: 180,
+      unit: "piece",
+      category: "camera",
+      options: {
+        resolution: ["2MP", "4MP", "8MP"],
+        nightVision: ["Standard", "Enhanced"],
+        weatherProof: ["Indoor", "Outdoor IP67"],
+      },
+    },
+    {
+      id: "ptz-camera",
+      name: "PTZ Camera",
+      description: "Pan-Tilt-Zoom Camera with Remote Control",
+      basePrice: 450,
+      unit: "piece",
+      category: "camera",
+      options: {
+        resolution: ["2MP", "4MP", "8MP"],
+        zoomLevel: ["10x", "20x", "30x"],
+        nightVision: ["Standard", "Enhanced"],
+      },
+    },
+    {
+      id: "nvr-system",
+      name: "Network Video Recorder (NVR)",
+      description: "Professional NVR System",
+      basePrice: 300,
+      unit: "piece",
+      category: "storage",
+      options: {
+        channels: ["4-Channel", "8-Channel", "16-Channel", "32-Channel"],
+        hddSize: ["1TB", "2TB", "4TB", "8TB", "16TB"],
+        poeSupport: ["With PoE", "Without PoE"],
+      },
+    },
+    {
+      id: "hard-disk",
+      name: "Surveillance Hard Disk",
+      description: "Purple Series Surveillance HDD",
+      basePrice: 80,
+      unit: "piece",
+      category: "storage",
+      options: {
+        capacity: ["1TB", "2TB", "4TB", "6TB", "8TB", "10TB", "12TB", "16TB"],
+        brand: ["Western Digital", "Seagate", "Toshiba"],
+      },
+    },
+    {
+      id: "cable-cat6",
+      name: "CAT6 Network Cable",
+      description: "High-quality networking cable for CCTV",
+      basePrice: 2.5,
+      unit: "meter",
+      category: "cable",
+      options: {
+        type: ["Indoor", "Outdoor"],
+        shielding: ["UTP", "STP"],
+        color: ["Blue", "Gray", "Black", "White"],
+      },
+    },
+    {
+      id: "power-cable",
+      name: "Power Cable",
+      description: "DC Power Cable for Cameras",
+      basePrice: 1.5,
+      unit: "meter",
+      category: "cable",
+      options: {
+        gauge: ["18AWG", "16AWG", "14AWG"],
+        type: ["Standard", "Weatherproof"],
+      },
+    },
+    {
+      id: "poe-switch",
+      name: "PoE Network Switch",
+      description: "Power over Ethernet Switch",
+      basePrice: 120,
+      unit: "piece",
+      category: "networking",
+      options: {
+        ports: ["8-Port", "16-Port", "24-Port"],
+        power: ["65W", "120W", "250W"],
+        managed: ["Unmanaged", "Managed"],
+      },
+    },
+    {
+      id: "monitor",
+      name: "CCTV Monitor",
+      description: "Professional Security Monitor",
+      basePrice: 200,
+      unit: "piece",
+      category: "display",
+      options: {
+        size: ['19"', '22"', '24"', '27"', '32"'],
+        resolution: ["1080p", "4K"],
+        inputs: ["HDMI", "VGA", "BNC"],
+      },
+    },
+    {
+      id: "installation",
+      name: "Professional Installation",
+      description: "Installation and configuration service",
+      basePrice: 50,
+      unit: "camera",
+      category: "service",
+      options: {
+        complexity: ["Basic", "Standard", "Complex"],
+        height: ["Ground Level", "High Mount", "Extreme Height"],
+      },
+    },
+  ],
+  web: [
+    {
+      id: "basic-website",
+      name: "Basic Website",
+      description: "Professional business website",
+      basePrice: 800,
+      unit: "project",
+      category: "development",
+      options: {
+        pages: ["5 Pages", "10 Pages", "15 Pages"],
+        design: ["Template", "Custom"],
+        responsive: ["Mobile Responsive", "Desktop Only"],
+      },
+    },
+    {
+      id: "ecommerce",
+      name: "E-commerce Website",
+      description: "Online store with payment integration",
+      basePrice: 2500,
+      unit: "project",
+      category: "development",
+      options: {
+        products: ["Up to 50", "Up to 200", "Up to 500", "Unlimited"],
+        payment: ["PayPal", "Stripe", "Multiple Gateways"],
+        features: ["Basic", "Advanced", "Enterprise"],
+      },
+    },
+    {
+      id: "domain",
+      name: "Domain Registration",
+      description: "Annual domain name registration",
+      basePrice: 15,
+      unit: "year",
+      category: "hosting",
+      options: {
+        extension: [".com", ".net", ".org", ".co.uk", ".info"],
+        privacy: ["Standard", "Privacy Protection"],
+      },
+    },
+    {
+      id: "hosting",
+      name: "Web Hosting",
+      description: "Professional web hosting service",
+      basePrice: 120,
+      unit: "year",
+      category: "hosting",
+      options: {
+        plan: ["Shared", "VPS", "Dedicated"],
+        storage: ["10GB", "50GB", "100GB", "Unlimited"],
+        bandwidth: ["100GB", "500GB", "Unlimited"],
+      },
+    },
+  ],
+  networking: [
+    {
+      id: "router-enterprise",
+      name: "Enterprise Router",
+      description: "High-performance business router",
+      basePrice: 450,
+      unit: "piece",
+      category: "networking",
+      options: {
+        speed: ["AC1200", "AC1900", "AX3000", "AX6000"],
+        ports: ["4-Port", "8-Port", "16-Port"],
+        security: ["Basic", "Advanced Firewall"],
+      },
+    },
+    {
+      id: "network-switch",
+      name: "Network Switch",
+      description: "Managed Gigabit Ethernet Switch",
+      basePrice: 280,
+      unit: "piece",
+      category: "networking",
+      options: {
+        ports: ["8-Port", "16-Port", "24-Port", "48-Port"],
+        speed: ["Fast Ethernet", "Gigabit", "10-Gigabit"],
+        management: ["Unmanaged", "Smart Managed", "Fully Managed"],
+      },
+    },
+    {
+      id: "access-point",
+      name: "Wireless Access Point",
+      description: "Enterprise WiFi Access Point",
+      basePrice: 200,
+      unit: "piece",
+      category: "wireless",
+      options: {
+        standard: ["WiFi 5", "WiFi 6", "WiFi 6E"],
+        coverage: ["Small Office", "Large Office", "Warehouse"],
+        power: ["PoE", "PoE+", "External Adapter"],
+      },
+    },
+    {
+      id: "network-cable",
+      name: "Network Cable Installation",
+      description: "Professional cable installation",
+      basePrice: 8,
+      unit: "meter",
+      category: "installation",
+      options: {
+        type: ["CAT5e", "CAT6", "CAT6A", "Fiber Optic"],
+        installation: ["Surface Mount", "Conduit", "Ceiling"],
+        termination: ["RJ45", "Keystone", "Patch Panel"],
+      },
+    },
+  ],
+};
+
+export interface ServiceItem {
+  id: string;
+  name: string;
+  description: string;
+  basePrice: number;
+  unit: string;
+  category: string;
+  options?: Partial<Record<string, string[]>>;
+}
+
+export interface SelectedItem extends ServiceItem {
+  quantity: number;
+  selectedOptions: Record<string, string>;
+  customPrice?: number;
+}
