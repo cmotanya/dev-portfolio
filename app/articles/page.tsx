@@ -7,6 +7,8 @@ import { Fade } from "react-awesome-reveal";
 import {
   AddItem,
   removeItem,
+  submitQuoteAlert,
+  totalAmount,
   updateCustomPrice,
   updateItemOption,
   updateQuantity,
@@ -17,11 +19,7 @@ const Article = () => {
   const [selectedItems, setSelectedItems] = useState<SelectedItem[]>([]);
 
   return (
-    <section
-      id="articles
-    "
-      className="mx-auto max-w-4xl"
-    >
+    <section id="articles" className="mx-auto max-w-4xl">
       <div className="relative mb-12">
         <h1 className="text-6xl font-bold">
           <span className="text-primary">Articles</span>{" "}
@@ -270,7 +268,7 @@ const Article = () => {
                   </div>
 
                   {/* quantity and price control */}
-                  <div>
+                  <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
                       <button
                         onClick={() =>
@@ -280,6 +278,7 @@ const Article = () => {
                             setSelectedItems,
                           })
                         }
+                        title="Decrease quantity"
                         className="bg-secondary size-6 rounded"
                       >
                         <Minus />
@@ -295,16 +294,56 @@ const Article = () => {
                             setSelectedItems,
                           })
                         }
+                        min={item.basePrice}
+                        step={0.1}
                         className="border-secondary w-14 rounded border p-1"
                       />
-                      <button className="bg-secondary size-6 rounded">
+                      <button
+                        onClick={() =>
+                          updateQuantity({
+                            index,
+                            quantity: Math.max(1, item.quantity + 1),
+                            setSelectedItems,
+                          })
+                        }
+                        title="Increase quantity"
+                        className="bg-secondary size-6 rounded"
+                      >
                         <Plus />
                       </button>
                     </div>
+                    {/* unit */}
+                    <span className="text-primary-text text-xs">
+                      / {item.unit}
+                    </span>
                   </div>
+
+                  {/* total */}
+                  <p className="text-accent text-xs-sm mt-4 uppercase">
+                    Item Total: Ksh.{" "}
+                    {(item.customPrice !== undefined
+                      ? item.customPrice
+                      : item.basePrice * item.quantity
+                    ).toFixed(2)}
+                  </p>
                 </Fade>
               </div>
             ))}
+          </div>
+        )}
+        {selectedItems.length > 0 && (
+          <div>
+            <div>
+              <h3>Total</h3>
+              <p>KSH. {totalAmount(selectedItems).toFixed(2)}</p>
+            </div>
+
+            <button
+              onClick={() => submitQuoteAlert(totalAmount(selectedItems))}
+              className="bg-accent text-primary mt-6 inline-block max-w-full cursor-pointer rounded-full p-1.5 font-semibold"
+            >
+              Submit Quote
+            </button>
           </div>
         )}
       </div>

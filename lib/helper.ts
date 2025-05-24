@@ -1,6 +1,7 @@
 import { SelectedItem, ServiceItem } from "@/app/data/service-quotation";
 import { Dispatch, SetStateAction } from "react";
 
+// add item
 type AddItemParams = {
   item: ServiceItem;
   selectedItems: SelectedItem[];
@@ -48,6 +49,7 @@ export const AddItem = ({
   }
 };
 
+// remove item
 type RemoveItemsParam = {
   index: number;
   setSelectedItems: Dispatch<SetStateAction<SelectedItem[]>>;
@@ -83,6 +85,7 @@ export const updateItemOption = ({
   );
 };
 
+// update quantity
 type UpdateQuantityProp = {
   index: number;
   quantity: number;
@@ -102,6 +105,7 @@ export const updateQuantity = ({
   }
 };
 
+// update custom price
 type customerPriceProps = {
   index: number;
   customPrice: number;
@@ -114,5 +118,25 @@ export const updateCustomPrice = ({
 }: customerPriceProps) => {
   setSelectedItems((prev) =>
     prev.map((item, i) => (i === index ? { ...item, customPrice } : item)),
+  );
+};
+
+// calculate item amount
+export const calculateItemAmount = (item: SelectedItem) => {
+  const price = item.customPrice || item.basePrice;
+  return price * item.quantity;
+};
+
+// calculate total amount
+export const totalAmount = (selectedItems: SelectedItem[]) => {
+  return selectedItems.reduce(
+    (total, item) => total + calculateItemAmount(item),
+    0,
+  );
+};
+
+export const submitQuoteAlert = (totalAmount: number) => {
+  alert(
+    `Quotation submitted successfully! Total Ksh. ${totalAmount.toFixed(2)}\n\nNote: Customer info and actual actual submission logic would be handled here.`,
   );
 };
