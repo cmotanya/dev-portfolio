@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { SelectedItem, serviceData } from "../data/service-quotation";
 import { Minus, Pencil, Plus, RotateCcw, Trash2 } from "lucide-react";
 import { Fade } from "react-awesome-reveal";
-import { sendEmailSchema, TSendEmailSchema } from "../../lib/types";
 import {
   AddItem,
   removeItem,
@@ -14,33 +13,16 @@ import {
   updateQuantity,
 } from "@/lib/helper";
 import { cn } from "@/lib/utils";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 
 const Article = () => {
   const [serviceType, setServiceType] = useState<string>("");
   const [selectedItems, setSelectedItems] = useState<SelectedItem[]>([]);
-
-  const {
-    register,
-    reset,
-    formState: { errors, isSubmitting },
-  } = useForm<TSendEmailSchema>({
-    resolver: zodResolver(sendEmailSchema),
-    mode: "onChange",
-    defaultValues: {
-      name: "",
-      email: "",
-      mobile: "",
-    },
-  });
 
   // Add window click event listener
 
   const handleReset = () => {
     setServiceType("");
     setSelectedItems([]);
-    reset();
   };
 
   return (
@@ -92,67 +74,43 @@ const Article = () => {
                 Full Name
               </label>
               <input
-                {...register("name")}
                 type="text"
                 id="name"
                 name="name"
                 placeholder="Enter your name"
                 autoComplete="name"
-                aria-invalid={errors.name ? "true" : "false"}
                 className={cn(
                   "ring-secondary placeholder:text-primary-text focus:ring-accent w-full rounded-lg bg-transparent px-3 py-2 ring transition-colors focus:outline-none md:w-[80%]",
-                  errors.name && "ring-error focus:ring-error",
                 )}
               />
-              {errors.name && (
-                <span className="text-error text-xs">
-                  {errors.name.message}
-                </span>
-              )}
             </div>
 
             <div className="flex flex-col gap-1">
               <label htmlFor="email">Email</label>
               <input
-                {...register("email")}
                 type="email"
                 id="email"
                 name="email"
                 placeholder="Enter your email"
                 autoComplete="email"
-                aria-invalid={errors.email ? "true" : "false"}
                 className={cn(
                   "ring-secondary placeholder:text-primary-text focus:ring-accent w-full rounded-lg bg-transparent px-3 py-2 ring transition-colors focus:outline-none md:w-[80%]",
-                  errors.email && "ring-error focus:ring-error",
                 )}
               />
-              {errors.email && (
-                <span className="text-error text-xs">
-                  {errors.email.message}
-                </span>
-              )}
             </div>
 
             <div className="flex flex-col gap-1">
               <label htmlFor="mobile">Phone</label>
               <input
-                {...register("mobile")}
                 type="tel"
                 id="mobile"
                 name="mobile"
                 placeholder="Enter your phone number"
                 autoComplete="tel"
-                aria-invalid={errors.mobile ? "true" : "false"}
                 className={cn(
                   "ring-secondary placeholder:text-primary-text focus:ring-accent w-full rounded-lg bg-transparent px-3 py-2 ring transition-colors focus:outline-none md:w-[80%]",
-                  errors.mobile && "ring-error focus:ring-error",
                 )}
               />
-              {errors.mobile && (
-                <span className="text-error text-xs">
-                  {errors.mobile.message}
-                </span>
-              )}
             </div>
           </div>
         </div>{" "}
@@ -476,7 +434,7 @@ const Article = () => {
 
                 <button className="group bg-accent text-background relative cursor-pointer overflow-hidden rounded-full px-6 py-3 font-bold uppercase transition-all duration-300 hover:pr-8 hover:pl-4">
                   <span className="z-10 transition-all duration-300 group-hover:-translate-x-1">
-                    {isSubmitting ? "Submitting..." : "Submit Quote"}
+                    Submit Order
                   </span>
                   <svg
                     className="absolute top-1/2 right-4 size-4 -translate-y-1/2 transform opacity-0 transition-all duration-300 group-hover:right-3 group-hover:opacity-100"
