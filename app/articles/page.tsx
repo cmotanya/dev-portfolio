@@ -16,7 +16,6 @@ import {
 import { cn } from "@/lib/utils";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import toast from "react-hot-toast";
 
 const Article = () => {
   const [serviceType, setServiceType] = useState<string>("");
@@ -42,23 +41,6 @@ const Article = () => {
     setServiceType("");
     setSelectedItems([]);
     reset();
-  };
-
-  const handleSubmit = () => {
-    const hasErrors = Object.keys(errors).length > 0;
-
-    if (hasErrors) {
-      toast.error("Please fill in all the required fields.");
-      return;
-    }
-
-    if (selectedItems.length === 0) {
-      toast.error("Please select at least one service.");
-    }
-
-    alert("Form submitted");
-
-    handleReset();
   };
 
   return (
@@ -492,10 +474,7 @@ const Article = () => {
                   </p>
                 </div>
 
-                <button
-                  onClick={handleSubmit}
-                  className="group bg-accent text-background relative cursor-pointer overflow-hidden rounded-full px-6 py-3 font-bold uppercase transition-all duration-300 hover:pr-8 hover:pl-4"
-                >
+                <button className="group bg-accent text-background relative cursor-pointer overflow-hidden rounded-full px-6 py-3 font-bold uppercase transition-all duration-300 hover:pr-8 hover:pl-4">
                   <span className="z-10 transition-all duration-300 group-hover:-translate-x-1">
                     {isSubmitting ? "Submitting..." : "Submit Quote"}
                   </span>
