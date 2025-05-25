@@ -134,9 +134,3 @@ export const totalAmount = (selectedItems: SelectedItem[]) => {
     0,
   );
 };
-
-export const submitQuoteAlert = (totalAmount: number) => {
-  alert(
-    `Quotation submitted successfully! Total Ksh. ${totalAmount.toFixed(2)}\n\nNote: Customer info and actual actual submission logic would be handled here.`,
-  );
-};

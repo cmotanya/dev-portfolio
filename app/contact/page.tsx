@@ -286,7 +286,7 @@ function Contact() {
                     aria-describedby="name-error"
                     autoFocus={true}
                     className={cn(
-                      "ring-primary w-full rounded-full px-5 py-3 ring transition-all",
+                      "ring-secondary w-full rounded-lg px-3 py-3 ring transition-all",
                       errors.name ? "ring-error" : "focus:ring-secondary",
                       submissionStatus === "submitting"
                         ? "pointer-events-none"
@@ -325,7 +325,7 @@ function Contact() {
                     placeholder="your.email@example.com"
                     autoComplete="email"
                     className={cn(
-                      "ring-primary w-full rounded-full px-5 py-3 ring transition-all",
+                      "ring-secondary w-full rounded-lg px-3 py-3 ring transition-all",
                       errors.email ? "ring-error" : "focus:ring-secondary",
                       submissionStatus === "submitting"
                         ? "pointer-events-none"
@@ -365,7 +365,7 @@ function Contact() {
                     title="Format: 700-000-000"
                     placeholder="+254 700 000 000"
                     className={cn(
-                      "ring-primary w-full rounded-full px-5 py-3 ring transition-all",
+                      "ring-secondary w-full rounded-lg px-3 py-3 ring transition-all",
                       errors.mobile ? "ring-error" : "focus:ring-secondary",
                       submissionStatus === "submitting"
                         ? "pointer-events-none"
@@ -403,7 +403,7 @@ function Contact() {
                   aria-invalid={errors.serviceType ? "true" : "false"}
                   aria-describedby="service-type-error"
                   className={cn(
-                    "bg-primary custom-select text-xs-sm w-full rounded-full px-5 py-3 ring transition-all",
+                    "bg-primary custom-select text-xs-sm w-full rounded-lg px-5 py-3 ring transition-all",
                     errors.serviceType ? "ring-error" : "ring-secondary",
                     submissionStatus === "submitting"
                       ? "pointer-events-none"
@@ -505,7 +505,7 @@ function Contact() {
                     aria-describedby="textarea-error"
                     placeholder="What would you like to discuss?"
                     className={cn(
-                      "ring-primary w-full resize-none rounded-lg px-5 py-3 ring transition-all focus:outline-none",
+                      "ring-secondary w-full resize-none rounded-lg px-5 py-3 ring transition-all focus:outline-none",
                       errors.textarea ? "ring-error" : "focus:ring-secondary",
                       submissionStatus === "submitting"
                         ? "pointer-events-none"
