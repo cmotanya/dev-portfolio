@@ -19,7 +19,7 @@
   --color-secondary-text: oklch(55.1% 0.027 264.364);
 
   --text-xs-sm: 0.8rem;
-  --width: min(75ch, calc(100% - 2rem));
+  /* --width: min(100ch, calc(100% - 2rem)); */
 }
 
 * {
@@ -42,7 +42,7 @@ body {
 
 section {
   width: var(--width);
-  padding-block: 1.5rem 5rem;
+  padding-block-end: 5rem;
 }
 
 p {

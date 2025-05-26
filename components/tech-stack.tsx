@@ -22,7 +22,7 @@ const TechStack = () => {
             key={item.name}
             href={item.link}
             onClick={() => handleClick(item.link)}
-            className="flex flex-col items-center justify-center gap-1 rounded-lg bg-[#e5e5e5] p-2 shadow-md transition-transform duration-200 hover:-translate-y-1"
+            className="flex flex-col items-center justify-center gap-1 rounded-lg bg-secondary p-2 shadow-md transition-transform duration-200 hover:-translate-y-1"
             target="_blank"
           >
             {" "}

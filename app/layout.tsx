@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { inter } from "./data/font";
-import Header from "./header/page";
+// import Header from "./header/page";
 import Footer from "./footer/page";
 
 import "slick-carousel/slick/slick.css";
@@ -23,7 +23,7 @@ export default function RootLayout({
       <body
         className={`flex min-h-dvh flex-col text-sm antialiased ${inter.className}`}
       >
-        <Header />
+        {/* <Header /> */}
         <main className="flex-grow">{children}</main>
         <Footer />
       </body>
