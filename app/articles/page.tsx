@@ -29,10 +29,10 @@ const Article = () => {
     <section id="articles" className="mx-auto max-w-4xl">
       <div className="relative mb-12">
         <h1 className="text-6xl font-bold">
-          <span className="text-primary">Articles</span>{" "}
+          <span className="text-accent">Articles</span>{" "}
           <span className="relative">
             Me
-            <span className="bg-primary absolute right-0 bottom-0 h-1 w-full" />
+            <span className="bg-accent absolute right-0 bottom-0 h-1 w-full" />
           </span>
         </h1>
       </div>
@@ -44,13 +44,13 @@ const Article = () => {
       {/* reset button */}
 
       <div className="flex flex-col gap-4">
-        <Fade cascade direction="up" duration={250}>
+        <Fade cascade direction="up" duration={300}>
           <div className="flex justify-end">
             {selectedItems.length > 0 && (
               <button
                 onClick={handleReset}
                 title="Reset All Fields and Selections"
-                className="bg-primary ring-secondary group flex max-w-max cursor-pointer items-center gap-2 rounded-md p-2 text-xs font-medium ring transition-all duration-300"
+                className="bg-primary ring-accent-alt group flex max-w-max cursor-pointer items-center gap-2 rounded-md p-2 text-xs ring"
               >
                 <RotateCcw
                   size={16}
@@ -80,7 +80,7 @@ const Article = () => {
                 placeholder="Enter your name"
                 autoComplete="name"
                 className={cn(
-                  "ring-secondary placeholder:text-primary-text focus:ring-accent w-full rounded-lg bg-transparent px-3 py-2 ring transition-colors focus:outline-none md:w-[80%]",
+                  "ring-primary placeholder:text-secondary-text focus:ring-accent-alt w-full rounded-lg bg-transparent px-3 py-2 shadow-md ring transition-colors focus:outline-none md:w-[80%]",
                 )}
               />
             </div>
@@ -94,7 +94,7 @@ const Article = () => {
                 placeholder="Enter your email"
                 autoComplete="email"
                 className={cn(
-                  "ring-secondary placeholder:text-primary-text focus:ring-accent w-full rounded-lg bg-transparent px-3 py-2 ring transition-colors focus:outline-none md:w-[80%]",
+                  "ring-primary placeholder:text-secondary-text focus:ring-accent-alt w-full rounded-lg bg-transparent px-3 py-2 shadow-md ring transition-colors focus:outline-none md:w-[80%]",
                 )}
               />
             </div>
@@ -108,7 +108,7 @@ const Article = () => {
                 placeholder="Enter your phone number"
                 autoComplete="tel"
                 className={cn(
-                  "ring-secondary placeholder:text-primary-text focus:ring-accent w-full rounded-lg bg-transparent px-3 py-2 ring transition-colors focus:outline-none md:w-[80%]",
+                  "ring-primary placeholder:text-secondary-text focus:ring-accent-alt w-full rounded-lg bg-transparent px-3 py-2 shadow-md ring transition-colors focus:outline-none md:w-[80%]",
                 )}
               />
             </div>
@@ -119,10 +119,7 @@ const Article = () => {
           <h3 className="mt-2 text-xl font-medium">Service Selection</h3>
 
           <div className="relative mx-auto max-w-2xl space-y-2">
-            <label
-              htmlFor="service"
-              className="text-primary-text mb-1.5 block tracking-wide"
-            >
+            <label htmlFor="service" className="mb-1.5 block tracking-wide">
               Select a Service Category
             </label>
             <div className="group/select relative">
@@ -134,7 +131,7 @@ const Article = () => {
                   setServiceType(e.target.value);
                   setSelectedItems([]);
                 }}
-                className="peer/select border-secondary bg-primary focus:border-accent w-full appearance-none rounded-lg border px-4 py-3 pr-10 transition-all duration-300 outline-none"
+                className="peer/select border-primary bg-secondary focus:border-accent w-full appearance-none rounded-lg border px-4 py-3 pr-10 shadow-md transition-all duration-300 outline-none"
               >
                 <option value="" disabled>
                   Choose a service category...
@@ -178,7 +175,7 @@ const Article = () => {
                       duration={300}
                       triggerOnce
                     >
-                      <div className="border-secondary hover:border-accent group bg-primary h-full rounded-lg border p-3 transition-all ease-in-out">
+                      <div className="border-primary group bg-secondary h-full rounded-lg border p-3 transition duration-300">
                         <div className="mb-4 flex items-start justify-between">
                           <div className="flex-1">
                             <div className="flex items-center gap-2">
@@ -190,7 +187,7 @@ const Article = () => {
                             <p className="text-xs text-gray-500">
                               {service.description}
                             </p>
-                            <span className="bg-secondary rounded-lg p-1.5">
+                            <span className="bg-primary rounded-md p-1 text-xs">
                               {service.basePrice}/{service.unit}
                             </span>
                           </div>
@@ -203,7 +200,7 @@ const Article = () => {
                                 setSelectedItems,
                               })
                             }
-                            className="bg-accent text-primary translate-y-2 transform cursor-pointer rounded-md p-0.5 transition-all duration-300 ease-in-out group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 md:invisible md:opacity-0"
+                            className="bg-primary text-button translate-y-2 transform cursor-pointer rounded-md p-0.5 transition-all duration-300 ease-in-out group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 md:invisible md:opacity-0"
                           >
                             <Plus className="transform transition-transform duration-300 group-hover:rotate-90" />
                           </button>
@@ -211,7 +208,7 @@ const Article = () => {
 
                         {/* show available options */}
                         {service.options && (
-                          <div className="text-primary-text text-xs">
+                          <div className="text-xs text-gray-900">
                             {Object.entries(service.options).map(
                               ([key, values]) => (
                                 <div key={key}>
@@ -231,11 +228,11 @@ const Article = () => {
           )}
         </div>
         {/* selected items */}
-        <div className="border-secondary mt-8 overflow-hidden rounded-lg border p-4 shadow-sm">
+        <div className="border-accent-alt mt-8 overflow-hidden rounded-lg border p-4 shadow-md">
           <div className="mb-6 flex items-center justify-between">
-            <h3 className="text-xl font-semibold">
+            <h3 className="text-xl font-medium">
               Selected Items
-              <span className="text-accent ml-2 text-sm">
+              <span className="text-secondary-text ml-2 text-sm">
                 ({selectedItems.length})
               </span>
             </h3>
@@ -260,11 +257,11 @@ const Article = () => {
 
           {selectedItems.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-8">
-              <p className="text-primary-text flex items-center gap-2 text-sm">
+              <p className="text-secondary-text flex items-center gap-2 text-sm">
                 {" "}
                 <Pencil size={18} /> No items selected yet
               </p>
-              <p className="text-primary-text/60 text-xs">
+              <p className="text-secondary-text text-xs">
                 Choose services from above to get started
               </p>
             </div>
@@ -273,7 +270,7 @@ const Article = () => {
               {selectedItems.map((item, index) => (
                 <div
                   key={`${item.id}-${index}`}
-                  className="group/item border-secondary/50 bg-primary/50 hover:border-accent/30 group relative rounded-xl border p-5 shadow-sm backdrop-blur-sm transition-all duration-300 hover:shadow-md"
+                  className="group/item border-primary bg-primary/15 group relative rounded-xl border p-5 backdrop-blur-sm transition-all duration-300 hover:shadow-sm"
                 >
                   {/* Delete Button */}
                   <button
@@ -293,7 +290,7 @@ const Article = () => {
                       <h4 className="font-medium tracking-tight">
                         {item.name}
                       </h4>
-                      <p className="text-primary-text/80 text-xs">
+                      <p className="text-secondary-text text-xs">
                         {item.description}
                       </p>
                     </div>
@@ -301,14 +298,14 @@ const Article = () => {
                     {/* Options Section */}
                     {item.options &&
                       Object.keys(item.selectedOptions).length > 0 && (
-                        <div className="bg-primary mb-4 rounded-lg p-3">
+                        <div className="mb-4 rounded-lg p-3">
                           {Object.entries(item.options).map(
                             ([optionKey, optionValues]) => (
                               <div
                                 key={optionKey}
                                 className="relative mb-2 last:mb-0"
                               >
-                                <label className="text-accent mb-0.5 block text-xs font-medium tracking-wide">
+                                <label className="mb-0.5 block text-xs font-medium tracking-wide">
                                   {optionKey.charAt(0).toUpperCase() +
                                     optionKey.slice(1)}
                                 </label>
@@ -324,7 +321,7 @@ const Article = () => {
                                       setSelectedItems,
                                     })
                                   }
-                                  className="border-secondary bg-primary focus:border-accent relative w-full appearance-none rounded-md border px-3 py-1.5 text-xs transition-colors outline-none"
+                                  className="border-accent-alt bg-accent/10 focus:border-accent relative w-full appearance-none rounded-md border px-3 py-1.5 text-xs transition-colors outline-none"
                                 >
                                   {optionValues?.map((value) => (
                                     <option key={value} value={value}>
@@ -334,7 +331,7 @@ const Article = () => {
                                 </select>
                                 <div className="pointer-events-none absolute inset-y-0 top-5 right-2 flex items-center">
                                   <svg
-                                    className="text-primary-text h-4 w-4 fill-current"
+                                    className="text-secondary-text h-4 w-4 fill-current"
                                     viewBox="0 0 20 20"
                                   >
                                     <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
@@ -357,12 +354,12 @@ const Article = () => {
                               setSelectedItems,
                             })
                           }
-                          className="bg-secondary/50 hover:bg-secondary flex size-8 cursor-pointer items-center justify-center rounded-md transition-colors"
+                          className="bg-accent/80 text-background hover:bg-accent flex size-6 cursor-pointer items-center justify-center rounded-md transition-colors"
                         >
                           <Minus size={14} />
                         </button>
 
-                        <span className="text-primary-text/70 w-8 text-center font-medium">
+                        <span className="text-accent ring-primary w-8 rounded-md p-0.5 text-center font-medium ring">
                           {item.quantity}
                         </span>
 
@@ -374,7 +371,7 @@ const Article = () => {
                               setSelectedItems,
                             })
                           }
-                          className="bg-secondary/50 hover:bg-secondary flex h-8 w-8 cursor-pointer items-center justify-center rounded-md transition-colors"
+                          className="bg-accent/80 text-background hover:bg-accent flex size-6 cursor-pointer items-center justify-center rounded-md transition-colors"
                         >
                           <Plus size={14} />
                         </button>
@@ -393,11 +390,11 @@ const Article = () => {
                           }
                           min={item.basePrice}
                           step={0.1}
-                          className="border-secondary/30 focus:border-accent text-xs-sm max-w-18 rounded-md border bg-transparent p-2 text-center outline-none"
+                          className="bg-accent/10 ring-accent-alt text-accent focus:border-accent text-xs-sm max-w-18 rounded-md p-1.5 text-center font-medium ring outline-none"
                         />
                         <label
                           htmlFor=""
-                          className="text-primary-text ml-1 text-xs font-medium"
+                          className="text-secondary-text ml-1 rounded-r-lg text-xs font-medium"
                         >
                           / {item.unit}
                         </label>
@@ -406,7 +403,7 @@ const Article = () => {
 
                     {/* Total Amount */}
                     <div className="bg-accent/10 mt-4 flex items-center justify-between rounded-lg p-3">
-                      <span className="text-accent/80 text-xs font-medium uppercase">
+                      <span className="text-accent text-xs font-medium uppercase">
                         Item Total:
                       </span>
                       <span className="text-accent font-bold">
@@ -423,16 +420,18 @@ const Article = () => {
             </div>
           )}
           {selectedItems.length > 0 && (
-            <div className="border-secondary/20 mt-8 border-t pt-6">
+            <div className="border-accent-alt mt-8 border-t pt-6">
               <div className="flex flex-col items-end space-y-4">
                 <div className="flex items-center gap-2">
-                  <p className="text-text/60 font-medium">Total Amount:</p>
+                  <p className="text-secondary-text font-semibold">
+                    Total Amount:
+                  </p>
                   <p className="text-accent max-w-max text-2xl font-bold">
                     KShs. {totalAmount(selectedItems).toFixed(2)}
                   </p>
                 </div>
 
-                <button className="group bg-accent text-background relative cursor-pointer overflow-hidden rounded-full px-6 py-3 font-bold uppercase transition-all duration-300 hover:pr-8 hover:pl-4">
+                <button className="group bg-button text-background relative cursor-pointer overflow-hidden rounded-full px-6 py-3 font-medium uppercase transition-all duration-300 hover:pr-8 hover:pl-4">
                   <span className="z-10 transition-all duration-300 group-hover:-translate-x-1">
                     Submit Order
                   </span>

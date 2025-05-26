@@ -12,7 +12,7 @@ const Security = () => {
           {securityOptions.map((option) => (
             <div
               key={option.id}
-              className="border-secondary bg-primary/50 mb-2 rounded-lg border px-2.5 py-2"
+              className="border-primary mb-2 rounded-lg border-2 px-2.5 py-2"
             >
               <span className="text-secondary">{option.icon}</span>
               <h3 className="mb-2 text-xl font-medium">{option.title}</h3>

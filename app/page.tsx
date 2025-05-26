@@ -33,11 +33,11 @@ export default function Home() {
           triggerOnce
         >
           <p>
-            <Code size={24} className="text-secondary mb-1 inline-block" />{" "}
+            <Code size={24} className="text-accent mb-1 inline-block" />{" "}
             <span className="whitespace-nowrap">Web Development</span>
           </p>
           <p className="mt-2">
-            <Shield size={24} className="text-secondary mb-1 inline-block" />{" "}
+            <Shield size={24} className="text-accent mb-1 inline-block" />{" "}
             <span className="whitespace-nowrap">CCTV & Security</span>
           </p>
           <p className="mt-2">

@@ -22,7 +22,7 @@ const TechStack = () => {
             key={item.name}
             href={item.link}
             onClick={() => handleClick(item.link)}
-            className="bg-primary/70 flex flex-col items-center justify-center gap-1 rounded-lg p-2 shadow-sm transition-transform duration-200 hover:scale-105"
+            className="flex flex-col items-center justify-center gap-1 rounded-lg bg-[#e5e5e5] p-2 shadow-md transition-transform duration-200 hover:-translate-y-1"
             target="_blank"
           >
             {" "}
@@ -33,7 +33,9 @@ const TechStack = () => {
               height={50}
               className="mx-auto"
             />{" "}
-            <span className="text-center text-gray-500">{item.name}</span>
+            <span className="text-xs-sm text-center font-medium">
+              {item.name}
+            </span>
           </Link>
         ))}
       </Fade>

@@ -105,12 +105,12 @@ const About = () => {
         <Slide direction="right" duration={400} triggerOnce>
           <div className="w-full">
             {" "}
-            <div className="bg-primary inline-flex items-center justify-center gap-4 rounded-full p-1.5">
+            <div className="ring-secondary inline-flex items-center justify-center gap-4 rounded-lg p-0.5 ring-2">
               <button
                 onClick={() => setActiveTab("security")}
                 className={cn(
                   "hover:bg-secondary/50 cursor-pointer rounded-full px-4 py-2 transition-colors",
-                  activeTab === "security" ? "bg-secondary text-white" : "",
+                  activeTab === "security" ? "bg-secondary" : "",
                 )}
               >
                 Security
@@ -119,7 +119,7 @@ const About = () => {
                 onClick={() => setActiveTab("web")}
                 className={cn(
                   "hover:bg-secondary/50 cursor-pointer rounded-full px-4 py-2 transition-colors",
-                  activeTab === "web" ? "bg-secondary text-white" : "",
+                  activeTab === "web" ? "bg-secondary" : "",
                 )}
               >
                 Web Dev
@@ -127,7 +127,7 @@ const About = () => {
             </div>
           </div>{" "}
         </Slide>
-        <div className="bg-primary/50 my-4 mb-8 overflow-hidden rounded-md p-2">
+        <div className="bg-accent my-4 mb-8 overflow-hidden rounded-md p-2">
           {activeTab === "security" ? <Security /> : <WebDev />}
         </div>
         <Slide direction="up" duration={500} triggerOnce>

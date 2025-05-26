@@ -185,15 +185,12 @@ function Contact() {
         <div className="relative mb-10">
           <Fade direction="left" cascade triggerOnce duration={300}>
             <div className="flex items-center gap-2 whitespace-nowrap">
-              <MessageCircleCode
-                size={45}
-                className="text-secondary shrink-0"
-              />
+              <MessageCircleCode size={45} className="text-primary shrink-0" />
               <h1 className="text-[3.65rem] font-bold tracking-tight whitespace-nowrap">
-                <span className="text-secondary">Contact </span>
+                <span className="text-accent">Contact </span>
                 <span className="relative">
                   Me
-                  <span className="bg-secondary absolute right-0 bottom-0 h-1 w-full" />
+                  <span className="bg-accent absolute right-0 bottom-0 h-1 w-full" />
                 </span>
               </h1>
             </div>
@@ -269,9 +266,9 @@ function Contact() {
               className="flex flex-col gap-4 p-4 md:gap-6"
             >
               {/* Name Input Field */}
-              <div className="space-y-2">
+              <div className="space-y-1">
                 <label htmlFor="name" className="flex items-center gap-2">
-                  <User size={18} className="text-secondary" />
+                  <User size={18} className="text-primary" />
                   Your Name
                 </label>
                 <div className="relative">
@@ -286,8 +283,8 @@ function Contact() {
                     aria-describedby="name-error"
                     autoFocus={true}
                     className={cn(
-                      "ring-secondary w-full rounded-lg px-3 py-3 ring transition-all",
-                      errors.name ? "ring-error" : "focus:ring-secondary",
+                      "ring-primary focus:ring-accent-alt placeholder:text-secondary-text w-full rounded-lg px-3 py-2 shadow-md ring transition-all",
+                      errors.name ? "ring-error" : "focus:ring-accent-alt",
                       submissionStatus === "submitting"
                         ? "pointer-events-none"
                         : "",
@@ -309,9 +306,9 @@ function Contact() {
               </div>
 
               {/* Email Input Field */}
-              <div className="space-y-2">
+              <div className="space-y-1">
                 <label htmlFor="email" className="flex items-center gap-2">
-                  <Mail size={18} className="text-secondary" />
+                  <Mail size={18} className="text-primary" />
                   Email
                 </label>
                 <div className="relative">
@@ -325,8 +322,8 @@ function Contact() {
                     placeholder="your.email@example.com"
                     autoComplete="email"
                     className={cn(
-                      "ring-secondary w-full rounded-lg px-3 py-3 ring transition-all",
-                      errors.email ? "ring-error" : "focus:ring-secondary",
+                      "ring-primary focus:ring-accent-alt placeholder:text-secondary-text w-full rounded-lg px-3 py-2 shadow-md ring transition-all",
+                      errors.name ? "ring-error" : "focus:ring-accent-alt",
                       submissionStatus === "submitting"
                         ? "pointer-events-none"
                         : "",
@@ -348,9 +345,9 @@ function Contact() {
               </div>
 
               {/* Mobile Input (optional) */}
-              <div className="space-y-2">
+              <div className="space-y-1">
                 <label htmlFor="mobile" className="flex items-center gap-2">
-                  <Phone size={18} className="text-secondary" />
+                  <Phone size={18} className="text-primary" />
                   Phone (optional)
                 </label>
                 <div className="relative">
@@ -365,8 +362,8 @@ function Contact() {
                     title="Format: 700-000-000"
                     placeholder="+254 700 000 000"
                     className={cn(
-                      "ring-secondary w-full rounded-lg px-3 py-3 ring transition-all",
-                      errors.mobile ? "ring-error" : "focus:ring-secondary",
+                      "ring-primary focus:ring-accent-alt placeholder:text-secondary-text w-full rounded-lg px-3 py-2 shadow-md ring transition-all",
+                      errors.name ? "ring-error" : "focus:ring-accent-alt",
                       submissionStatus === "submitting"
                         ? "pointer-events-none"
                         : "",
@@ -388,12 +385,12 @@ function Contact() {
               </div>
 
               {/* Service Type  */}
-              <div className="relative space-y-2">
+              <div className="relative space-y-1">
                 <label
                   htmlFor="serviceType"
                   className="flex items-center gap-2"
                 >
-                  <Settings size={18} className="text-secondary" />
+                  <Settings size={18} className="text-primary" />
                   Service Needed
                 </label>
                 <select
@@ -403,8 +400,8 @@ function Contact() {
                   aria-invalid={errors.serviceType ? "true" : "false"}
                   aria-describedby="service-type-error"
                   className={cn(
-                    "bg-primary custom-select text-xs-sm w-full rounded-lg px-5 py-3 ring transition-all",
-                    errors.serviceType ? "ring-error" : "ring-secondary",
+                    "ring-primary bg-secondary text-xs-sm focus:ring-accent-alt w-full appearance-none rounded-lg px-3 py-2 font-medium shadow-md ring transition-all",
+                    errors.name ? "ring-error" : "focus:ring-accent-alt",
                     submissionStatus === "submitting"
                       ? "pointer-events-none"
                       : "",
@@ -446,7 +443,7 @@ function Contact() {
                   id="isUrgent"
                   checked={isUrgentChecked}
                   onChange={(e) => setIsUrgentChecked(e.target.checked)}
-                  className="border-secondary bg-primary peer checked:bg-secondary custom-select relative size-5 cursor-pointer rounded-md border-2 transition-all duration-200"
+                  className="border-primary bg-secondary peer checked:bg-secondary custom-select relative size-5 cursor-pointer rounded-md border-2 shadow-md transition-all duration-200"
                 />
                 {/* custom checkmark */}
                 <span className="pointer-events-none absolute ml-0.5">
@@ -474,13 +471,13 @@ function Contact() {
                     duration={400}
                   >
                     {isUrgentChecked ? (
-                      <div className="text-warning ml-3 flex items-center gap-1 text-xs">
+                      <div className="ml-3 flex items-center gap-1 text-xs font-medium">
                         <AlertCircle size={18} className="text-error" />
                         This request will be marked as urgent!
                       </div>
                     ) : (
                       <div className="ml-3 flex items-center gap-1 text-xs">
-                        <CheckCircle size={18} className="text-secondary" />
+                        <CheckCircle size={18} className="text-accent" />
                         Mark as urgent
                       </div>
                     )}
@@ -489,9 +486,9 @@ function Contact() {
               </div>
 
               {/* Message textarea field */}
-              <div className="space-y-2">
+              <div className="space-y-1">
                 <label htmlFor="textarea" className="flex items-center gap-2">
-                  <MessageSquare size={18} className="text-secondary" />
+                  <MessageSquare size={18} className="text-primary" />
                   Message
                 </label>
                 <div className="relative">
@@ -505,8 +502,8 @@ function Contact() {
                     aria-describedby="textarea-error"
                     placeholder="What would you like to discuss?"
                     className={cn(
-                      "ring-secondary w-full resize-none rounded-lg px-5 py-3 ring transition-all focus:outline-none",
-                      errors.textarea ? "ring-error" : "focus:ring-secondary",
+                      "ring-primary focus:ring-accent-alt placeholder:text-secondary-text w-full resize-none rounded-lg px-3 py-2 shadow-md ring transition-all",
+                      errors.name ? "ring-error" : "focus:ring-accent-alt",
                       submissionStatus === "submitting"
                         ? "pointer-events-none"
                         : "",
@@ -536,7 +533,7 @@ function Contact() {
                   isDelayAfterSuccess
                 }
                 className={cn(
-                  "disabled:bg-primary/50 disabled:text-text/40 mt-4 inline-flex cursor-pointer items-center justify-center gap-2 rounded-full p-3.5 transition-all duration-200 ease-in-out hover:-translate-y-1 disabled:translate-0 md:ml-auto",
+                  "disabled:bg-primary/50 disabled:text-text/40 relative mt-4 inline-flex cursor-pointer items-center justify-center gap-2 rounded-full p-3.5 uppercase transition-all duration-200 ease-in-out hover:-translate-y-1 disabled:translate-0 md:ml-auto",
                   isSubmitting
                     ? "bg-primary/50"
                     : Object.keys(errors).length > 0 || isDelayAfterSuccess
