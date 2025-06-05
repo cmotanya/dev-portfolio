@@ -26,7 +26,7 @@ const Projects = () => {
         </Fade>
       </div>
 
-      <div className="grid gap-3">
+      <div className="grid grid-cols-2 gap-3">
         <Fade damping={0.5} cascade triggerOnce duration={400}>
           {projects.map((project: Project) => (
             <div
@@ -47,17 +47,22 @@ const Projects = () => {
               {/* Project Details */}
               <div className="flex flex-grow flex-col p-2">
                 <h3 className="mb-3 text-xl font-semibold">{project.name}</h3>
-                <p className="text-xs-sm flex-grow text-gray-700">
-                  {project.description}
-                </p>
+                <div className="mb-2 flex flex-grow flex-col space-y-2">
+                  <span className="text-secondary-text line-clamp-2 flex-grow text-xs">
+                    {project.description}
+                  </span>
+                  <button className="bg-accent-alt flex max-w-max items-center gap-1 rounded-lg p-1 text-xs">
+                    Read More
+                  </button>
+                </div>
 
                 {/* technologies used */}
                 <div className="mb-4 flex flex-wrap gap-2">
-                  <Fade cascade direction="up" triggerOnce duration={300}>
+                  <Fade cascade direction="up" triggerOnce duration={250}>
                     {project.tags.map((tag, tagIndex) => (
                       <span
                         key={tagIndex}
-                        className="bg-secondary text-text/50 rounded-full px-1.5 py-1 text-xs"
+                        className="text-secondary-text bg-secondary rounded-full px-1.5 py-1 text-xs"
                       >
                         {tag}
                       </span>
@@ -72,7 +77,7 @@ const Projects = () => {
                       href={project.liveLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="ring-secondary bg-primary flex items-center gap-1 rounded-full p-1.5 text-xs ring transition-all duration-200 ease-in-out hover:-translate-y-0.5"
+                      className="ring-primary bg-secondary flex items-center gap-1 rounded-full p-1.5 text-xs ring transition-all duration-200 ease-in-out hover:-translate-y-0.5"
                       aria-label={`View live demo of ${project.name}`}
                     >
                       <ExternalLink size={15} />
@@ -84,7 +89,7 @@ const Projects = () => {
                       href={project.githubLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="ring-secondary bg-primary flex items-center gap-1 rounded-full p-1.5 text-xs ring transition-all duration-200 ease-in-out hover:-translate-y-0.5"
+                      className="ring-primary bg-secondary flex items-center gap-1 rounded-full p-1.5 text-xs ring transition-all duration-200 ease-in-out hover:-translate-y-0.5"
                       aria-label={`View source code for ${project.name}`}
                     >
                       <Github size={15} />

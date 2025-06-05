@@ -1,4 +1,7 @@
-import { Caveat_Brush as Caveat, Inter } from "next/font/google";
+import {
+  Caveat_Brush as Caveat,
+  Fira_Sans_Condensed as Inter,
+} from "next/font/google";
 
 export const caveat = Caveat({
   variable: "--font-geist-mono",

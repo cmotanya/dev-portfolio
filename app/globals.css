@@ -1,10 +1,13 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #edafb8;
-  --color-secondary: #f7e1d7;
-  --color-accent: #219ebc;
-  --color-accent-alt: #b0c4b1;
+  --color-primary: #023047;
+
+  --color-secondary: #219ebc;
+  --color-secondary-alt: #8ecae6;
+
+  --color-accent: #fb8500;
+  --color-accent-alt: #ffb703;
 
   --color-background: #ffffff;
   --color-primary-text: #000000; /* Light text */
@@ -13,13 +16,13 @@
   --color-warning: #f1fa8c;
   --color-error: oklch(63.7% 0.237 25.331);
 
-  --color-button: #023047;
+  /* --color-button: #4c3acc; */
   --color-button-text: #ffffff;
 
   --color-secondary-text: oklch(55.1% 0.027 264.364);
 
   --text-xs-sm: 0.8rem;
-  /* --width: min(100ch, calc(100% - 2rem)); */
+  /* --width: min(80ch, calc(100% - 2rem)); */
 }
 
 * {
@@ -41,8 +44,7 @@ body {
 }
 
 section {
-  width: var(--width);
-  padding-block-end: 5rem;
+  padding-block: 8rem 3rem;
 }
 
 p {
@@ -82,4 +84,81 @@ select:-webkit-autofill {
   75% {
     transform: translateX(1.5px);
   }
+}
+
+@keyframes letter-drop {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px) rotateX(90deg);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(10px) rotateX(0deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotateX(0deg);
+  }
+}
+
+@keyframes underline-grow {
+  0% {
+    opacity: 0;
+    width: 0%;
+  }
+  100% {
+    opacity: 1;
+    width: 100%;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-letter-drop {
+  animation: letter-drop 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.animate-underline-grow {
+  animation: underline-grow 1s ease-out;
+}
+
+.animate-fade-in {
+  animation: fade-in 1s ease-out;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s ease-out;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.2s ease-out;
 }
