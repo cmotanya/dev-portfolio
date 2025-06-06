@@ -16,10 +16,12 @@ export default function Home() {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 3000,
-    initialSlide: 1,
+    autoplaySpeed: 5000,
+    pauseOnHover: true,
     arrows: false,
     waitForAnimate: false,
+    // Custom dot styling
+    dotsClass: "slick-dots custom-dots",
   };
   return (
     <section className="relative mx-auto min-h-screen w-full max-w-4xl overflow-hidden px-2">
@@ -145,12 +147,14 @@ export default function Home() {
                 <h3 className="text-primary text-lg font-semibold uppercase">
                   {service.title}
                 </h3>
-                <p>{service.description}</p>
+                <p className="text-secondary-text leading-relaxed">
+                  {service.description}
+                </p>
                 <ul className="flex flex-wrap gap-2">
-                  {service.tags.map((tag, index) => (
+                  {service.tags.map((tag, tagIndex) => (
                     <li
-                      key={index}
-                      className="bg-accent-alt text-secondary rounded-lg p-1 text-xs font-medium transition-colors duration-300"
+                      key={tagIndex}
+                      className="bg-accent-alt/30 text-secondary rounded-full px-1.5 py-1 text-xs font-medium transition-colors duration-300"
                     >
                       {tag}
                     </li>
