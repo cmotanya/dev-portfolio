@@ -1,15 +1,16 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #023047;
+  --color-primary: #1b4965;
 
   --color-secondary: #219ebc;
-  --color-secondary-alt: #8ecae6;
 
-  --color-accent: #fb8500;
-  --color-accent-alt: #ffb703;
+  --color-accent: #8ecae6;
+  --color-accent-alt: #a8dadc;
 
-  --color-background: #ffffff;
+  --color-tertiary: #e63946;
+
+  --color-background: #f1faee;
   --color-primary-text: #000000; /* Light text */
 
   --color-success: #22c55e;
@@ -160,5 +161,26 @@ select:-webkit-autofill {
 }
 
 .animate-fade-in {
-  animation: fade-in 0.2s ease-out;
+  animation: fade-in 0.5s ease-out;
+}
+
+@keyframes gradient-x {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }

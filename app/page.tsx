@@ -15,7 +15,7 @@ export default function Home() {
             <div className="group relative">
               <span className="from-accent via-primary to-secondary absolute -inset-2 rounded-xl bg-gradient-to-r opacity-40 blur-sm transition-opacity duration-500 group-hover:opacity-100" />
               <span className="bg-background/80 relative block rounded-xl border border-white/10 px-6 py-3 font-medium shadow-2xl backdrop-blur-md">
-                <span className="from-accent to-primary bg-gradient-to-r bg-clip-text font-semibold text-transparent">
+                <span className="from-accent via-tertiary to-primary animate-[gradient-x_5s_ease-in-out_infinite] bg-gradient-to-r bg-[length:200%_100%] bg-clip-text font-semibold text-transparent before:absolute before:inset-0 before:animate-[slide-in_3s_ease-out] before:bg-inherit">
                   Welcome to my portfolio
                 </span>
               </span>
@@ -37,7 +37,7 @@ export default function Home() {
                           style={{
                             animationDelay: `${200 + index * 100}ms`,
                             animationFillMode: "forwards",
-                            color: `hsl(${220 + index * 15}, 70%, ${60 + index * 4}%)`,
+                            color: `hsl(${200 + index * 15}, 50%, ${45 + index * 4}%)`,
                           }}
                         >
                           {letter}
@@ -58,10 +58,10 @@ export default function Home() {
                 <p className="text-foreground/80 mx-auto max-w-2xl text-lg leading-relaxed md:text-xl">
                   A tech-savvy innovator with expertise in{" "}
                   <span className="group relative inline-block cursor-pointer font-semibold">
-                    <span className="text-accent group-hover:text-accent-alt relative z-10 transition-colors duration-300">
+                    <span className="text-tertiary relative z-10 transition-colors duration-300">
                       Web Development, CCTV Security & Networking
                     </span>
-                    <span className="bg-accent/20 group-hover:bg-accent/30 absolute inset-x-0 bottom-0 h-3 -skew-x-12 transform transition-all duration-500 group-hover:h-5" />
+                    <span className="bg-tertiary/20 group-hover:bg-tertiary/25 absolute inset-x-0 bottom-0 h-3 -skew-x-12 transform transition-all duration-500 group-hover:h-5" />
                   </span>
                 </p>
               </div>
@@ -76,21 +76,22 @@ export default function Home() {
               >
                 <Link
                   href="/contact"
-                  className="group from-primary to-accent relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-gradient-to-r px-5 py-3 font-medium text-white uppercase shadow-2xl transition-all duration-300 hover:-translate-y-1"
+                  className="group bg-primary text-accent-alt relative inline-flex items-center gap-3 overflow-hidden rounded-full px-5 py-3 font-medium uppercase shadow-2xl transition-all duration-300 hover:-translate-y-1"
                 >
-                  <span className="relative z-10">Let&apos;s Talk</span>
+                  <span className="relative z-10 tracking-widest">
+                    Let&apos;s Talk
+                  </span>
                   <ArrowRightIcon
-                    size={20}
+                    size={15}
                     className="relative z-10 transition-transform duration-300 group-hover:translate-x-2"
                   />
-                  <div className="from-primary to-accent absolute inset-0 bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 </Link>
 
                 <Link
                   href="/about"
-                  className="group border-accent/50 hover:border-accent hover:shadow-accent/20 bg-background/20 relative inline-flex items-center gap-3 overflow-hidden rounded-full border-2 px-5 py-3 uppercase backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                  className="group border-secondary bg-accent-alt text-primary relative inline-flex items-center gap-3 overflow-hidden rounded-full border-2 px-5 py-3 uppercase backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
                 >
-                  <span className="relative z-10 font-semibold">
+                  <span className="relative z-10 font-medium tracking-widest">
                     Learn More
                   </span>
                   <div className="from-accent/10 to-primary/10 absolute inset-0 bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
@@ -110,9 +111,9 @@ export default function Home() {
             </span>
             <p className="text-4xl font-bold md:text-5xl">
               What I{" "}
-              <span className="text-accent relative">
+              <span className="text-tertiary relative">
                 Do
-                <span className="from-accent to-primary absolute -bottom-2 left-0 h-1 w-full -skew-x-12 transform bg-gradient-to-r"></span>
+                <span className="bg-secondary absolute -bottom-2 left-0 h-1 w-full -skew-x-12 transform"></span>
               </span>
             </p>
           </h2>
@@ -248,56 +249,41 @@ export default function Home() {
       </div>
 
       <div className="container mx-auto px-4 py-20">
-        <div className="relative">
-          {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-5">
-            <div className="grid h-full grid-cols-8 gap-4">
-              {Array.from({ length: 64 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="bg-accent h-2 w-2 animate-pulse rounded-full"
-                  style={{ animationDelay: `${i * 100}ms` }}
-                />
-              ))}
-            </div>
+        <Fade direction="up" duration={500} triggerOnce delay={300}>
+          <div className="relative z-10 mb-16 text-center">
+            <span className="mb-4 block text-sm font-medium tracking-wider uppercase">
+              Tools & Technologies
+            </span>
+            <h2 className="mb-6 text-4xl font-bold md:text-5xl">
+              <span className="from-accent via-tertiary to-secondary bg-gradient-to-r bg-clip-text text-transparent">
+                Powered by Innovation
+              </span>
+            </h2>
+            <p className="text-foreground/70 mx-auto max-w-2xl text-lg">
+              Leveraging cutting-edge technologies to build exceptional digital
+              experiences
+            </p>
           </div>
 
-          <Fade direction="up" duration={500} triggerOnce delay={300}>
-            <div className="relative z-10 mb-16 text-center">
-              <span className="text-foreground/60 mb-4 block text-sm font-medium tracking-wider uppercase">
-                Tools & Technologies
-              </span>
-              <h2 className="mb-6 text-4xl font-bold md:text-5xl">
-                <span className="from-accent via-primary to-secondary bg-gradient-to-r bg-clip-text text-transparent">
-                  Powered by Innovation
-                </span>
-              </h2>
-              <p className="text-foreground/70 mx-auto max-w-2xl text-lg">
-                Leveraging cutting-edge technologies to build exceptional
-                digital experiences
-              </p>
-            </div>
+          {/* Tech Stack Grid */}
+          <div className="flex items-center justify-center">
+            <TechStack />
+          </div>
 
-            {/* Tech Stack Grid */}
-            <div className="flex items-center justify-center">
-              <TechStack />
-            </div>
-
-            {/* Call to Action */}
-            <div className="mt-16 text-center">
-              <Link
-                href="/projects"
-                className="text-accent border-accent/40 hover:border-secondary/40 hover:text-secondary group inline-flex items-center gap-2 rounded-full border p-2 font-semibold transition-colors duration-300"
-              >
-                See These in Action
-                <ArrowRightIcon
-                  size={16}
-                  className="transition-transform duration-300 group-hover:translate-x-1"
-                />
-              </Link>
-            </div>
-          </Fade>
-        </div>
+          {/* Call to Action */}
+          <div className="mt-16 text-center">
+            <Link
+              href="/projects"
+              className="bg-primary text-accent-alt group inline-flex items-center gap-2 rounded-full p-2.5 font-medium tracking-wider transition-all duration-300 hover:-translate-y-0.5"
+            >
+              See These in Action
+              <ArrowRightIcon
+                size={14}
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              />
+            </Link>
+          </div>
+        </Fade>
       </div>
     </section>
   );

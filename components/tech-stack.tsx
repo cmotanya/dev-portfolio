@@ -18,13 +18,13 @@ const TechStack = () => {
 
   return (
     <div className="grid w-full max-w-xl grid-cols-3 items-center justify-center gap-6 md:grid-cols-4">
-      <Fade direction="up" cascade triggerOnce duration={300} delay={100}>
+      <Fade direction="up" cascade triggerOnce duration={200} delay={100}>
         {tech_stack.map((item, index) => (
           <Link
             key={item.name}
             href={item.link}
             onClick={() => handleClick(item.link)}
-            className="group shadow-accent/20 border-accent/30 relative flex flex-col items-center justify-center gap-3 rounded-xl border p-5 shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+            className="group shadow-accent/20 border-accent-alt/50 relative flex flex-col items-center justify-center gap-3 rounded-xl border p-5 shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
             target="_blank"
             onMouseEnter={() => setHoveredItem(item.name)}
             onMouseLeave={() => setHoveredItem(null)}
@@ -33,11 +33,11 @@ const TechStack = () => {
             }}
           >
             {/* Glow Effect */}
-            <div className="from-accent/10 via-primary/5 to-secondary/10 absolute inset-0 rounded-2xl bg-gradient-to-br opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+            <div className="bg-accent-alt/20 absolute inset-0 rounded-2xl bg-gradient-to-br opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
             {/* External Link Icon */}
-            <div className="absolute top-2 right-2 opacity-0 transition-all duration-300 group-hover:opacity-60">
-              <ExternalLinkIcon size={12} className="text-accent" />
+            <div className="absolute top-2 right-2 opacity-0 transition-all duration-200 group-hover:opacity-60">
+              <ExternalLinkIcon size={12} className="text-tertiary" />
             </div>
 
             {/* Tech Icon */}
@@ -61,11 +61,11 @@ const TechStack = () => {
             </span>
 
             {/* Animated underline */}
-            <div className="from-accent to-primary absolute bottom-3 left-1/2 h-0.5 w-0 -translate-x-1/2 transform bg-gradient-to-r transition-all duration-500 group-hover:w-12" />
+            <div className="from-secondary to-tertiary absolute bottom-3 left-1/2 h-0.5 w-0 -translate-x-1/2 transform bg-gradient-to-r transition-all duration-500 group-hover:w-12" />
 
             {/* Tooltip on hover */}
             {hoveredItem === item.name && (
-              <div className="animate-fade-in border-accent/30 text-primary-text/90 absolute -top-10 left-1/2 z-20 w-full -translate-x-1/2 transform rounded-lg border px-3 py-1 text-xs font-medium shadow-lg backdrop-blur-md">
+              <div className="animate-fade-in border-accent-alt text-primary-text/90 absolute -top-10 left-1/2 z-20 w-full -translate-x-1/2 transform rounded-lg border px-3 py-1 text-xs font-medium shadow-lg backdrop-blur-md">
                 Click to learn more
                 <div className="border-t-background/90 absolute top-full left-1/2 h-0 w-0 -translate-x-1/2 transform border-t-4 border-r-4 border-l-4 border-transparent" />
               </div>

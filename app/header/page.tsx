@@ -7,6 +7,7 @@ import Image from "next/image";
 import { FileUser } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { Fade } from "react-awesome-reveal";
 
 const Header = () => {
   const pathname = usePathname();
@@ -27,21 +28,23 @@ const Header = () => {
       className={cn(
         "fixed top-0 left-1/2 z-50 w-full -translate-x-1/2 overflow-hidden shadow-md backdrop-blur-sm transition-all duration-300 ease-in-out",
         isScrolled
-          ? "bg-secondary/25 top-4 w-full rounded-full p-2.5 md:w-[90%]"
+          ? "bg-accent-alt top-4 w-full rounded-full p-2.5 text-base font-medium md:w-[90%]"
           : "top-0 w-full p-4",
       )}
     >
-      <div className="flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/">
-          <Image
-            src="/avatar.png"
-            alt="Cornelius Motanya"
-            width={60}
-            height={60}
-            className="rounded-full object-cover object-center"
-          />
-        </Link>
+      <div className="relative flex items-center justify-between">
+        <Fade direction="left" duration={500} triggerOnce>
+          {/* Logo */}
+          <Link href="/" role="button">
+            <Image
+              src="/avatar.png"
+              alt="Cornelius Motanya"
+              width={60}
+              height={60}
+              className="rounded-full object-cover object-center"
+            />
+          </Link>
+        </Fade>
 
         {/* Navigation */}
         <nav>
@@ -49,33 +52,61 @@ const Header = () => {
             {nav.map((item, index) => {
               const active = pathname === item.link;
               return (
-                <li
+                <Fade
+                  direction="up"
+                  cascade
+                  delay={index * 100}
+                  duration={500}
+                  triggerOnce
                   key={item.name + index}
-                  className={cn(
-                    "cursor-pointer rounded-full transition-all duration-100 ease-in-out",
-                    active ? "bg-secondary scale-105" : "",
-                  )}
                 >
-                  <Link
-                    href={item.link}
+                  <li
                     className={cn(
-                      "flex items-center gap-1 px-4 py-2.5 uppercase transition-all",
-                      active ? "text-background" : "",
+                      "hover:bg-accent-alt group cursor-pointer rounded-full transition-all duration-200 ease-in-out hover:-translate-y-1",
+                      active
+                        ? "bg-secondary hover:bg-secondary scale-105 hover:translate-y-0"
+                        : "",
                     )}
                   >
-                    {item.name} {item.icon}
-                  </Link>
-                </li>
+                    <Link
+                      href={item.link}
+                      role="button"
+                      className={cn(
+                        "flex items-center gap-1 px-4 py-2.5 tracking-wider uppercase transition-all",
+                        active ? "text-background" : "",
+                      )}
+                    >
+                      <span>{item.name}</span>
+                      <span
+                        className={cn(
+                          "transition-transform duration-200 ease-in-out group-hover:rotate-5",
+                          active ? "group-hover:rotate-0" : "",
+                        )}
+                      >
+                        {item.icon}
+                      </span>
+                    </Link>
+                  </li>
+                </Fade>
               );
             })}
           </ul>
         </nav>
 
         {/* Resume */}
-        <button className="border-secondary bg-secondary/60 flex justify-center gap-2 rounded-full border p-2.5">
-          <Link href="/resume">View Resume</Link>
-          <FileUser />
-        </button>
+        <Fade direction="right" duration={500} triggerOnce>
+          <button
+            className={cn(
+              "bg-primary border-secondary flex justify-center gap-2 rounded-full border px-3 py-2.5 font-medium tracking-wider",
+              isScrolled ? "text-accent-alt" : "text-accent-alt",
+            )}
+          >
+            <Link href="/resume" role="button">
+              View Resume
+            </Link>
+            <FileUser />
+          </button>
+        </Fade>
       </div>
     </header>
   );
