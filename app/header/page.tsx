@@ -26,10 +26,7 @@ const Header = () => {
   return (
     <header
       className={cn(
-        "fixed top-0 left-1/2 z-50 w-full -translate-x-1/2 overflow-hidden shadow-md backdrop-blur-sm transition-all duration-300 ease-in-out",
-        isScrolled
-          ? "bg-accent-alt top-4 w-full rounded-full p-2.5 text-base font-medium md:w-[90%]"
-          : "top-0 w-full p-4",
+        "fixed top-0 left-1/2 z-50 w-full -translate-x-1/2 overflow-hidden p-4 shadow-md backdrop-blur-sm transition-all duration-300 ease-in-out",
       )}
     >
       <div className="relative flex items-center justify-between">
@@ -72,7 +69,7 @@ const Header = () => {
                       href={item.link}
                       role="button"
                       className={cn(
-                        "flex items-center gap-1 px-4 py-2.5 tracking-wider uppercase transition-all",
+                        "text-primary flex items-center gap-1 px-4 py-2.5 font-semibold tracking-wider uppercase transition-all",
                         active ? "text-background" : "",
                       )}
                     >
@@ -97,7 +94,7 @@ const Header = () => {
         <Fade direction="right" duration={500} triggerOnce>
           <button
             className={cn(
-              "bg-primary border-secondary flex justify-center gap-2 rounded-full border px-3 py-2.5 font-medium tracking-wider",
+              "bg-primary border-secondary flex justify-center gap-2 rounded-full border px-3 py-2.5 text-base font-medium tracking-wider",
               isScrolled ? "text-accent-alt" : "text-accent-alt",
             )}
           >

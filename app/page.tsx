@@ -4,11 +4,26 @@ import TechStack from "@/components/tech-stack";
 import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
 import { Fade, Slide } from "react-awesome-reveal";
+import { WhatIDo } from "./data/what-I-do";
+import Slider from "react-slick";
 
 export default function Home() {
+  const settings = {
+    dots: true,
+    fade: true,
+    infinite: true,
+    speed: 800,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    initialSlide: 1,
+    arrows: false,
+    waitForAnimate: false,
+  };
   return (
-    <section className="relative mx-auto min-h-screen w-full overflow-hidden md:max-w-4xl">
-      <div className="relative z-10 container mx-auto px-4">
+    <section className="relative mx-auto min-h-screen w-full max-w-4xl overflow-hidden px-2">
+      <div className="relative z-10 container mx-auto pt-14 md:pt-10">
         <Slide direction="down" triggerOnce duration={400}>
           <div className="relative flex flex-col items-center justify-center space-y-8">
             {/* Enhanced Welcome Badge */}
@@ -55,7 +70,7 @@ export default function Home() {
                   animationFillMode: "forwards",
                 }}
               >
-                <p className="text-foreground/80 mx-auto max-w-2xl text-lg leading-relaxed md:text-xl">
+                <p className="text-foreground/80 mx-auto text-lg leading-relaxed md:max-w-2xl md:text-xl">
                   A tech-savvy innovator with expertise in{" "}
                   <span className="group relative inline-block cursor-pointer font-semibold">
                     <span className="text-tertiary relative z-10 transition-colors duration-300">
@@ -68,7 +83,7 @@ export default function Home() {
 
               {/* Enhanced CTA Buttons */}
               <div
-                className="animate-fade-in-up mt-16 flex flex-wrap items-center justify-center gap-8 opacity-0"
+                className="animate-fade-in-up mt-16 flex w-full flex-col flex-wrap items-center justify-center gap-8 px-6 opacity-0 md:flex-row md:px-0"
                 style={{
                   animationDelay: "1500ms",
                   animationFillMode: "forwards",
@@ -76,7 +91,7 @@ export default function Home() {
               >
                 <Link
                   href="/contact"
-                  className="group bg-primary text-accent-alt relative inline-flex items-center gap-3 overflow-hidden rounded-full px-5 py-3 font-medium uppercase shadow-2xl transition-all duration-300 hover:-translate-y-1"
+                  className="group bg-primary text-accent-alt relative flex w-full items-center justify-center gap-3 overflow-hidden rounded-full px-5 py-4 font-medium uppercase shadow-2xl transition-all duration-300 hover:-translate-y-1 md:max-w-max"
                 >
                   <span className="relative z-10 tracking-widest">
                     Let&apos;s Talk
@@ -89,7 +104,7 @@ export default function Home() {
 
                 <Link
                   href="/about"
-                  className="group border-secondary bg-accent-alt text-primary relative inline-flex items-center gap-3 overflow-hidden rounded-full border-2 px-5 py-3 uppercase backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                  className="group border-secondary bg-accent-alt text-primary relative inline-flex w-full items-center justify-center gap-3 overflow-hidden rounded-full border-2 px-5 py-4 uppercase backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg md:max-w-max"
                 >
                   <span className="relative z-10 font-medium tracking-widest">
                     Learn More
@@ -103,9 +118,9 @@ export default function Home() {
       </div>
 
       {/* Enhanced Services Section */}
-      <div className="container px-4 pt-20">
+      <div className="container pt-20">
         <Fade direction="up" duration={500} triggerOnce delay={500}>
-          <h2 className="mb-14 text-center">
+          <h2 className="mb-10 text-center md:mb-14">
             <span className="text-foreground/60 mb-4 block text-sm font-medium tracking-wider uppercase">
               Services
             </span>
@@ -119,138 +134,37 @@ export default function Home() {
           </h2>
         </Fade>
 
-        <div className="grid gap-8 md:grid-cols-3">
-          {/* Web Development Service */}
-          <Fade direction="up" duration={600} triggerOnce delay={200}>
-            <div className="group bg-background/40 hover:shadow-accent/20 relative overflow-hidden rounded-2xl border border-white/10 p-8 backdrop-blur-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
-              <div className="from-accent/10 to-primary/5 absolute inset-0 bg-gradient-to-br opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-              <div className="relative z-10">
-                <div className="from-accent to-primary mb-6 flex h-16 w-16 items-center justify-center rounded-xl bg-gradient-to-br shadow-lg">
-                  <svg
-                    className="h-8 w-8 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
-                    />
-                  </svg>
-                </div>
-                <h3 className="text-foreground mb-4 text-xl font-bold">
-                  Web Development
+        {/* Web Development Service */}
+        <Fade direction="up" duration={600} triggerOnce delay={200}>
+          <Slider
+            {...settings}
+            className="border-accent-alt mx-auto w-full rounded-lg border p-6 md:max-w-xl"
+          >
+            {WhatIDo.map((service, index) => (
+              <div key={index} className="space-y-4">
+                <h3 className="text-primary text-lg font-semibold uppercase">
+                  {service.title}
                 </h3>
-                <p className="text-foreground/70 leading-relaxed">
-                  Crafting modern, responsive websites and web applications that
-                  engage users and drive results.
-                </p>
-                <div className="mt-6 flex flex-wrap gap-2">
-                  <span className="bg-accent/20 text-accent rounded-full px-3 py-1 text-xs">
-                    React
-                  </span>
-                  <span className="bg-primary/20 text-primary rounded-full px-3 py-1 text-xs">
-                    Next.js
-                  </span>
-                  <span className="bg-secondary/20 text-secondary rounded-full px-3 py-1 text-xs">
-                    TypeScript
-                  </span>
-                </div>
+                <p>{service.description}</p>
+                <ul className="flex flex-wrap gap-2">
+                  {service.tags.map((tag, index) => (
+                    <li
+                      key={index}
+                      className="bg-accent-alt text-secondary rounded-lg p-1 text-xs font-medium transition-colors duration-300"
+                    >
+                      {tag}
+                    </li>
+                  ))}
+                </ul>
               </div>
-            </div>
-          </Fade>
-
-          {/* CCTV Security Service */}
-          <Fade direction="up" duration={600} triggerOnce delay={400}>
-            <div className="group bg-background/40 hover:shadow-accent/20 relative overflow-hidden rounded-2xl border border-white/10 p-8 backdrop-blur-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
-              <div className="from-accent/10 to-primary/5 absolute inset-0 bg-gradient-to-br opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-              <div className="relative z-10">
-                <div className="from-accent to-primary mb-6 flex h-16 w-16 items-center justify-center rounded-xl bg-gradient-to-br shadow-lg">
-                  <svg
-                    className="h-8 w-8 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
-                    />
-                  </svg>
-                </div>
-                <h3 className="text-foreground mb-4 text-xl font-bold">
-                  CCTV Security Systems
-                </h3>
-                <p className="text-foreground/70 leading-relaxed">
-                  Professional security systems with IP cameras, cloud storage,
-                  and 24/7 remote monitoring.
-                </p>
-                <div className="mt-6 flex flex-wrap gap-2">
-                  <span className="bg-accent/20 text-accent rounded-full px-3 py-1 text-xs">
-                    IP Cameras
-                  </span>
-                  <span className="bg-primary/20 text-primary rounded-full px-3 py-1 text-xs">
-                    Cloud Storage
-                  </span>
-                  <span className="bg-secondary/20 text-secondary rounded-full px-3 py-1 text-xs">
-                    Remote Access
-                  </span>
-                </div>
-              </div>
-            </div>
-          </Fade>
-
-          {/* Networking Service */}
-          <Fade direction="up" duration={300} triggerOnce delay={600}>
-            <div className="group bg-background/40 hover:shadow-accent/20 relative overflow-hidden rounded-2xl border border-white/10 p-8 backdrop-blur-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
-              <div className="from-accent/10 to-primary/5 absolute inset-0 bg-gradient-to-br opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-              <div className="relative z-10">
-                <div className="from-accent to-primary mb-6 flex h-16 w-16 items-center justify-center rounded-xl bg-gradient-to-br shadow-lg">
-                  <svg
-                    className="h-8 w-8 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"
-                    />
-                  </svg>
-                </div>
-                <h3 className="text-foreground mb-4 text-xl font-bold">
-                  Network Infrastructure
-                </h3>
-                <p className="text-foreground/70 leading-relaxed">
-                  Robust network infrastructure with optimal Wi-Fi, security,
-                  and seamless connectivity solutions.
-                </p>
-                <div className="mt-6 flex flex-wrap gap-2">
-                  <span className="bg-accent/20 text-accent rounded-full px-3 py-1 text-xs">
-                    WiFi Setup
-                  </span>
-                  <span className="bg-primary/20 text-primary rounded-full px-3 py-1 text-xs">
-                    LAN/WAN
-                  </span>
-                  <span className="bg-secondary/20 text-secondary rounded-full px-3 py-1 text-xs">
-                    Firewalls
-                  </span>
-                </div>
-              </div>
-            </div>
-          </Fade>
-        </div>
+            ))}
+          </Slider>
+        </Fade>
       </div>
 
-      <div className="container mx-auto px-4 py-20">
+      <div className="container mx-auto py-20">
         <Fade direction="up" duration={500} triggerOnce delay={300}>
-          <div className="relative z-10 mb-16 text-center">
+          <div className="relative z-10 mb-4 text-center md:mb-16">
             <span className="mb-4 block text-sm font-medium tracking-wider uppercase">
               Tools & Technologies
             </span>

@@ -17,7 +17,7 @@ const TechStack = () => {
   };
 
   return (
-    <div className="grid w-full max-w-xl grid-cols-3 items-center justify-center gap-6 md:grid-cols-4">
+    <div className="grid w-full max-w-xl grid-cols-2 items-center justify-center gap-2 md:grid-cols-4 md:gap-6">
       <Fade direction="up" cascade triggerOnce duration={200} delay={100}>
         {tech_stack.map((item, index) => (
           <Link
