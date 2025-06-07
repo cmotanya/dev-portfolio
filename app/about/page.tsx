@@ -44,10 +44,10 @@ const About = () => {
   return (
     <section
       id="about"
-      className="mx-auto max-w-5xl px-4 py-16 text-lg md:py-24"
+      className="max-w-5xl px-4 py-16 text-lg md:mx-auto md:py-24"
     >
       {/* --- Section Title --- */}
-      <Slide direction="down" duration={400} triggerOnce>
+      <Slide direction="down" duration={300} triggerOnce>
         <div className="relative mb-12 flex items-center justify-center gap-4 md:justify-start">
           <User
             size={55}
@@ -60,8 +60,8 @@ const About = () => {
       </Slide>
 
       {/* --- Personal Introduction & Location --- */}
-      <Fade direction="up" delay={200} duration={500} triggerOnce>
-        <div className="text-textColor/90 mb-16 space-y-6 text-center leading-relaxed md:text-left">
+      <Fade direction="up" delay={200} duration={300} triggerOnce>
+        <div className="text-textColor/90 mb-16 space-y-6 leading-relaxed md:text-left">
           <div className="text-secondary-text mb-4 flex items-center justify-center gap-2 text-lg md:justify-start">
             <MapPin className="h-5 w-5 animate-pulse" />
             <span className="font-medium">Based in Mombasa, Kenya</span>
@@ -76,7 +76,7 @@ const About = () => {
             <strong>network infrastructure</strong>, I craft comprehensive
             digital solutions that are both secure and functional.
           </p>
-          <p className="text-textColor/70 text-lg">
+          <p className="text-secondary-text text-lg">
             My journey in technology is driven by a commitment to creating
             intuitive, accessible, and robust systems that truly serve people.
             From designing surveillance solutions to revealing actionable
@@ -87,13 +87,13 @@ const About = () => {
       </Fade>
 
       {/* --- Core Values --- */}
-      <Fade direction="up" delay={400} duration={500} triggerOnce>
+      <Fade direction="up" delay={400} duration={300} triggerOnce>
         <div className="mb-16">
-          <h2 className="text-secondary-text mb-10 text-center text-3xl font-bold uppercase md:text-left">
-            <Coffee className="text-secondary mr-3 inline-block h-8 w-8 -translate-y-1 transform" />
+          <h2 className="text-secondary-text mb-4 text-3xl font-bold uppercase md:mb-10 md:text-left">
+            <Coffee className="text-secondary mr-3 inline-block size-8 -translate-y-1 transform" />
             What Drives Me
           </h2>
-          <div className="grid gap-8 md:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-3 md:gap-8">
             {values.map((value, index) => (
               <div
                 key={index}
@@ -117,9 +117,9 @@ const About = () => {
       </Fade>
 
       {/* --- Skills Overview --- */}
-      <Fade direction="up" delay={600} duration={500} triggerOnce>
+      <Fade direction="up" delay={600} duration={300} triggerOnce>
         <div className="mb-16">
-          <h2 className="text-secondary-text mb-10 text-center text-3xl font-bold uppercase md:text-left">
+          <h2 className="text-secondary-text mb-4 text-3xl font-bold uppercase md:mb-10 md:text-left">
             <Code className="text-secondary mr-3 inline-block h-8 w-8 -translate-y-1 transform" />
             Technical Expertise
           </h2>
@@ -137,13 +137,13 @@ const About = () => {
       </Fade>
 
       {/* --- Personal Touch & Call to Action --- */}
-      <Fade direction="up" delay={800} duration={500} triggerOnce>
-        <div className="text-textColor/90 space-y-6 text-center leading-relaxed md:text-left">
-          <h2 className="text-secondary-text mb-6 text-3xl font-bold uppercase">
-            <Lightbulb className="text-secondary mr-3 inline-block h-8 w-8 -translate-y-1 transform" />
+      <Fade direction="up" delay={800} duration={300} triggerOnce>
+        <div className="space-y-2 leading-relaxed md:space-y-6 md:text-left">
+          <h2 className="text-secondary-text text-3xl font-bold uppercase md:mb-6">
+            <Lightbulb className="text-secondary mr-3 inline-block size-8 -translate-y-1 transform" />
             Beyond Code
           </h2>
-          <p className="text-textColor/70 text-lg">
+          <p className="text-secondary-text text-lg">
             When I&apos;m not immersed in code, you&apos;ll often find me
             exploring new coffee shops, delving into emerging tech trends, or
             contributing to open-source projects. I believe a well-rounded
