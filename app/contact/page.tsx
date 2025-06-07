@@ -17,7 +17,6 @@ import {
   MessageSquare,
   Phone,
   Send,
-  Settings,
   User,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
@@ -180,18 +179,14 @@ function Contact() {
   const showForm = submissionStatus !== "limit_exceeded";
 
   return (
-    <section id="contact" className="mx-auto max-w-4xl">
+    <section id="contact" className="mx-auto max-w-4xl px-4">
       <div className="md:max-w-xl">
         <div className="relative mb-10">
           <Fade direction="left" cascade triggerOnce duration={300}>
             <div className="flex items-center gap-2 whitespace-nowrap">
               <MessageCircleCode size={45} className="text-primary shrink-0" />
-              <h1 className="text-[3.65rem] font-bold tracking-tight whitespace-nowrap">
-                <span className="text-accent">Contact </span>
-                <span className="relative">
-                  Me
-                  <span className="bg-accent absolute right-0 bottom-0 h-1 w-full" />
-                </span>
+              <h1 className="from-accent via-tertiary to-secondary bg-gradient-to-r bg-clip-text text-6xl font-bold tracking-wider text-transparent">
+                Contact Me
               </h1>
             </div>
 
@@ -263,12 +258,12 @@ function Contact() {
               method="post"
               onSubmit={handleSubmit(onSubmit)}
               noValidate
-              className="flex flex-col gap-4 p-4 md:gap-6"
+              className="flex flex-col gap-4 md:gap-6"
             >
               {/* Name Input Field */}
               <div className="space-y-1">
                 <label htmlFor="name" className="flex items-center gap-2">
-                  <User size={18} className="text-primary" />
+                  <User size={18} className="text-tertiary" />
                   Your Name
                 </label>
                 <div className="relative">
@@ -283,8 +278,8 @@ function Contact() {
                     aria-describedby="name-error"
                     autoFocus={true}
                     className={cn(
-                      "ring-primary focus:ring-accent-alt placeholder:text-secondary-text w-full rounded-lg px-3 py-2 shadow-md ring transition-all",
-                      errors.name ? "ring-error" : "focus:ring-accent-alt",
+                      "ring-accent-alt focus:ring-accent placeholder:text-secondary-text w-full rounded-lg px-3 py-2 shadow-sm ring transition-all",
+                      errors.name && "ring-error",
                       submissionStatus === "submitting"
                         ? "pointer-events-none"
                         : "",
@@ -296,7 +291,7 @@ function Contact() {
                     <span
                       id="name-error"
                       role="alert"
-                      className="text-error -mt-1 flex items-center gap-1 text-xs font-medium md:text-xs"
+                      className="text-error flex items-center gap-1 text-xs font-medium md:text-xs"
                     >
                       <AlertCircle size={14} />
                       {errors.name.message}
@@ -308,7 +303,7 @@ function Contact() {
               {/* Email Input Field */}
               <div className="space-y-1">
                 <label htmlFor="email" className="flex items-center gap-2">
-                  <Mail size={18} className="text-primary" />
+                  <Mail size={18} className="text-tertiary" />
                   Email
                 </label>
                 <div className="relative">
@@ -322,8 +317,8 @@ function Contact() {
                     placeholder="your.email@example.com"
                     autoComplete="email"
                     className={cn(
-                      "ring-primary focus:ring-accent-alt placeholder:text-secondary-text w-full rounded-lg px-3 py-2 shadow-md ring transition-all",
-                      errors.name ? "ring-error" : "focus:ring-accent-alt",
+                      "ring-accent-alt focus:ring-accent-alt placeholder:text-secondary-text w-full rounded-lg px-3 py-2 shadow-sm ring transition-all",
+                      errors.email && "ring-error",
                       submissionStatus === "submitting"
                         ? "pointer-events-none"
                         : "",
@@ -335,7 +330,7 @@ function Contact() {
                     <span
                       role="alert"
                       id="email-error"
-                      className="text-error -mt-1 flex items-center gap-1 text-sm font-medium md:text-xs"
+                      className="text-error flex items-center gap-1 text-sm font-medium md:text-xs"
                     >
                       <AlertCircle size={14} />
                       {errors.email.message}
@@ -347,7 +342,7 @@ function Contact() {
               {/* Mobile Input (optional) */}
               <div className="space-y-1">
                 <label htmlFor="mobile" className="flex items-center gap-2">
-                  <Phone size={18} className="text-primary" />
+                  <Phone size={18} className="text-tertiary" />
                   Phone (optional)
                 </label>
                 <div className="relative">
@@ -362,8 +357,8 @@ function Contact() {
                     title="Format: 700-000-000"
                     placeholder="+254 700 000 000"
                     className={cn(
-                      "ring-primary focus:ring-accent-alt placeholder:text-secondary-text w-full rounded-lg px-3 py-2 shadow-md ring transition-all",
-                      errors.name ? "ring-error" : "focus:ring-accent-alt",
+                      "ring-accent-alt focus:ring-accent-alt placeholder:text-secondary-text w-full rounded-lg px-3 py-2 shadow-sm ring transition-all",
+                      errors.mobile && "ring-error",
                       submissionStatus === "submitting"
                         ? "pointer-events-none"
                         : "",
@@ -382,57 +377,6 @@ function Contact() {
                     </span>
                   </Fade>
                 )}
-              </div>
-
-              {/* Service Type  */}
-              <div className="relative space-y-1">
-                <label
-                  htmlFor="serviceType"
-                  className="flex items-center gap-2"
-                >
-                  <Settings size={18} className="text-primary" />
-                  Service Needed
-                </label>
-                <select
-                  {...register("serviceType")}
-                  name="serviceType"
-                  id="serviceType"
-                  aria-invalid={errors.serviceType ? "true" : "false"}
-                  aria-describedby="service-type-error"
-                  className={cn(
-                    "ring-primary bg-secondary text-xs-sm focus:ring-accent-alt w-full appearance-none rounded-lg px-3 py-2 font-medium shadow-md ring transition-all",
-                    errors.name ? "ring-error" : "focus:ring-accent-alt",
-                    submissionStatus === "submitting"
-                      ? "pointer-events-none"
-                      : "",
-                  )}
-                >
-                  <option value="" disabled>
-                    Select a service...
-                  </option>
-                  <option value="security">🔒 Security Consulting</option>
-                  <option value="networking">🌐 Networking Solutions</option>
-                  <option value="support">🛠️ Ongoing Support</option>
-                  <option value="other">Other (please specify)</option>
-                </select>
-
-                {/* custom down arrow */}
-                <span className="pointer-event-none absolute top-1/2 right-2">
-                  <svg
-                    width="18"
-                    height="18"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M6 9l6 6 6-6"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </span>
               </div>
 
               {/* Urgent checkbox */}
@@ -488,7 +432,7 @@ function Contact() {
               {/* Message textarea field */}
               <div className="space-y-1">
                 <label htmlFor="textarea" className="flex items-center gap-2">
-                  <MessageSquare size={18} className="text-primary" />
+                  <MessageSquare size={18} className="text-tertiary" />
                   Message
                 </label>
                 <div className="relative">
@@ -502,8 +446,8 @@ function Contact() {
                     aria-describedby="textarea-error"
                     placeholder="What would you like to discuss?"
                     className={cn(
-                      "ring-primary focus:ring-accent-alt placeholder:text-secondary-text w-full resize-none rounded-lg px-3 py-2 shadow-md ring transition-all",
-                      errors.name ? "ring-error" : "focus:ring-accent-alt",
+                      "ring-accent-alt focus:ring-accent-alt placeholder:text-secondary-text w-full resize-none rounded-lg px-3 py-2 shadow-sm ring transition-all",
+                      errors.textarea && "ring-error",
                       submissionStatus === "submitting"
                         ? "pointer-events-none"
                         : "",
@@ -515,7 +459,7 @@ function Contact() {
                     <span
                       role="alert"
                       id="textarea-error"
-                      className="text-error -mt-2 flex items-center gap-1 text-sm font-medium md:text-xs"
+                      className="text-error -mt-1 flex items-center gap-1 text-sm font-medium md:text-xs"
                     >
                       <AlertCircle size={14} />
                       {errors.textarea.message}
@@ -533,12 +477,8 @@ function Contact() {
                   isDelayAfterSuccess
                 }
                 className={cn(
-                  "disabled:bg-primary/50 disabled:text-text/40 relative mt-4 inline-flex cursor-pointer items-center justify-center gap-2 rounded-full p-3.5 uppercase transition-all duration-200 ease-in-out hover:-translate-y-1 disabled:translate-0 md:ml-auto",
-                  isSubmitting
-                    ? "bg-primary/50"
-                    : Object.keys(errors).length > 0 || isDelayAfterSuccess
-                      ? "bg-primary/50 cursor-not-allowed select-none"
-                      : "bg-button text-button-text",
+                  "disabled:bg-primary/40 bg-primary text-background disabled:text-secondary-text relative mt-4 inline-flex cursor-pointer items-center justify-center gap-2 rounded-full p-3.5 uppercase transition-all duration-200 ease-in-out hover:-translate-y-1 disabled:translate-0 disabled:cursor-not-allowed md:ml-auto",
+                  isSubmitting && "bg-primary/40 text-secondary-text",
                 )}
               >
                 {submissionStatus === "submitting" ? (
