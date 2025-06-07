@@ -16,7 +16,7 @@ export default function Home() {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 5000,
+    autoplaySpeed: 3000,
     pauseOnHover: true,
     arrows: false,
     waitForAnimate: false,
@@ -25,14 +25,14 @@ export default function Home() {
   };
   return (
     <section className="relative mx-auto min-h-screen w-full max-w-4xl overflow-hidden px-2">
-      <div className="relative z-10 container mx-auto pt-14 md:pt-10">
+      <div className="relative z-10 container mx-auto pt-14 md:pt-6">
         <Slide direction="down" triggerOnce duration={400}>
           <div className="relative flex flex-col items-center justify-center space-y-8">
             {/* Enhanced Welcome Badge */}
             <div className="group relative">
-              <span className="from-accent via-primary to-secondary absolute -inset-2 rounded-xl bg-gradient-to-r opacity-40 blur-sm transition-opacity duration-500 group-hover:opacity-100" />
-              <span className="bg-background/80 relative block rounded-xl border border-white/10 px-6 py-3 font-medium shadow-2xl backdrop-blur-md">
-                <span className="from-accent via-tertiary to-primary animate-[gradient-x_5s_ease-in-out_infinite] bg-gradient-to-r bg-[length:200%_100%] bg-clip-text font-semibold text-transparent before:absolute before:inset-0 before:animate-[slide-in_3s_ease-out] before:bg-inherit">
+              <span className="from-accent via-tertiary to-primary absolute -inset-2 animate-[gradient-x_8s_ease-in-out_infinite] rounded-xl bg-gradient-to-r bg-[length:200%_100%] opacity-40 blur-sm transition-opacity duration-500 group-hover:opacity-60" />
+              <span className="bg-background relative block rounded-xl px-6 py-3 font-medium shadow-2xl backdrop-blur-md">
+                <span className="from-secondary via-tertiary to-primary animate-[gradient-x_8s_ease-in-out_infinite] bg-gradient-to-r bg-[length:200%_100%] bg-clip-text font-semibold text-transparent before:absolute before:inset-0 before:animate-[slide-in_3s_ease-out] before:bg-inherit">
                   Welcome to my portfolio
                 </span>
               </span>
@@ -111,7 +111,6 @@ export default function Home() {
                   <span className="relative z-10 font-medium tracking-widest">
                     Learn More
                   </span>
-                  <div className="from-accent/10 to-primary/10 absolute inset-0 bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 </Link>
               </div>
             </div>
@@ -122,39 +121,37 @@ export default function Home() {
       {/* Enhanced Services Section */}
       <div className="container pt-20">
         <Fade direction="up" duration={500} triggerOnce delay={500}>
-          <h2 className="mb-10 text-center md:mb-14">
-            <span className="text-foreground/60 mb-4 block text-sm font-medium tracking-wider uppercase">
+          <div className="mb-10 text-center md:mb-6">
+            <span className="text-secondary-text mb-4 block text-sm font-medium tracking-wider uppercase">
               Services
             </span>
-            <p className="text-4xl font-bold md:text-5xl">
-              What I{" "}
-              <span className="text-tertiary relative">
-                Do
-                <span className="bg-secondary absolute -bottom-2 left-0 h-1 w-full -skew-x-12 transform"></span>
+            <h2 className="text-4xl font-bold md:text-5xl">
+              <span className="from-accent via-tertiary to-secondary bg-gradient-to-r bg-clip-text text-transparent">
+                What I Offer to My Clients
               </span>
-            </p>
-          </h2>
+            </h2>
+          </div>
         </Fade>
 
         {/* Web Development Service */}
         <Fade direction="up" duration={600} triggerOnce delay={200}>
           <Slider
             {...settings}
-            className="border-accent-alt mx-auto w-full rounded-lg border p-6 md:max-w-xl"
+            className="bg-tertiary/10 mx-auto w-full rounded-lg p-6 shadow-sm md:max-w-xl"
           >
             {WhatIDo.map((service, index) => (
-              <div key={index} className="space-y-4">
-                <h3 className="text-primary text-lg font-semibold uppercase">
+              <div key={index} className="grid justify-between space-y-4">
+                <h3 className="text-primary text-2xl font-semibold uppercase">
                   {service.title}
                 </h3>
-                <p className="text-secondary-text leading-relaxed">
+                <p className="text-primary-text/70 leading-relaxed font-semibold">
                   {service.description}
                 </p>
                 <ul className="flex flex-wrap gap-2">
                   {service.tags.map((tag, tagIndex) => (
                     <li
                       key={tagIndex}
-                      className="bg-accent-alt/30 text-secondary rounded-full px-1.5 py-1 text-xs font-medium transition-colors duration-300"
+                      className="bg-accent-alt text-secondary text-xs-sm rounded-full px-1.5 py-1 font-medium transition-colors duration-300"
                     >
                       {tag}
                     </li>
@@ -169,7 +166,7 @@ export default function Home() {
       <div className="container mx-auto py-20">
         <Fade direction="up" duration={500} triggerOnce delay={300}>
           <div className="relative z-10 mb-4 text-center md:mb-16">
-            <span className="mb-4 block text-sm font-medium tracking-wider uppercase">
+            <span className="text-secondary-text mb-4 block text-sm font-medium tracking-wider uppercase">
               Tools & Technologies
             </span>
             <h2 className="mb-6 text-4xl font-bold md:text-5xl">

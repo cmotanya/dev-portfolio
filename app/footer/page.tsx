@@ -11,8 +11,8 @@ import React from "react";
  */
 const Footer = () => {
   return (
-    <footer className="border-secondary mx-auto w-full max-w-4xl border-t">
-      <div className="text-text/50 flex flex-col items-center justify-between gap-2 p-3 text-xs md:flex-row md:justify-around">
+    <footer className="border-accent-alt mx-auto w-full max-w-4xl border-t">
+      <div className="text-secondary-text text-xs-sm flex flex-col items-center justify-between gap-2 p-3 font-bold md:flex-row md:justify-around">
         <div className="flex items-center space-x-2">
           <span className="font-medium">© {new Date().getFullYear()}</span>
           <span>All rights reserved</span>
