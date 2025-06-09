@@ -2,12 +2,11 @@
 
 import {
   sendEmailSchema,
-  SUBMISSION_LIMIT,
-  SUBMISSION_STORAGE_KEY,
   SubmissionStatus,
   TSendEmailSchema,
 } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   AlertCircle,
   CheckCircle,
@@ -19,164 +18,62 @@ import {
   Send,
   User,
 } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
+import { Fade } from "react-awesome-reveal";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Fade, Slide } from "react-awesome-reveal";
-import {
-  getLocalStorageData,
-  updateLocalStorageData,
-} from "@/lib/local-storage";
 
-function Contact() {
+const ContactPage = () => {
   const {
     register,
     handleSubmit,
     reset,
-    clearErrors,
-    formState: { errors, isSubmitting, isSubmitSuccessful },
+    formState: { errors, isSubmitting },
   } = useForm<TSendEmailSchema>({
     resolver: zodResolver(sendEmailSchema),
   });
 
+  const [message, setMessage] = useState("");
   const [submissionStatus, setSubmissionStatus] =
     useState<SubmissionStatus>("idle");
-  const [message, setMessage] = useState("");
-  const [countSubmissions, setCountSubmissions] = useState(SUBMISSION_LIMIT);
-  const [isDelayAfterSuccess, setIsDelayAfterSuccess] = useState(false);
-  const [isUrgentChecked, setIsUrgentChecked] = useState(false);
-
-  // Load submission count from localStorage - only on initial mount
-  useEffect(() => {
-    const { count, date } = getLocalStorageData();
-    const lastSubmissionDate = date ? new Date(date).toDateString() : null;
-    const today = new Date().toDateString();
-
-    if (lastSubmissionDate === today) {
-      // If the last submission was today, set the count
-      const submissionsLeft = SUBMISSION_LIMIT - count;
-      setCountSubmissions(Math.max(submissionsLeft, 0));
-
-      if (count >= SUBMISSION_LIMIT) {
-        setSubmissionStatus("limit_exceeded");
-        setMessage(
-          `You have reached the daily limit of ${SUBMISSION_LIMIT} messages`,
-        );
-      }
-    } else {
-      // If it's a new day, reset the count
-      setCountSubmissions(SUBMISSION_LIMIT);
-      setSubmissionStatus("idle");
-      setMessage(`You have ${SUBMISSION_LIMIT} submissions available today`);
-
-      if (date) {
-        // Update localStorage with the new date
-        localStorage.removeItem(SUBMISSION_STORAGE_KEY);
-      }
-    }
-
-    clearErrors(); // Clear errors to reset the form state
-  }, [clearErrors]);
-
-  // Effect to clear success message after delay
-  useEffect(() => {
-    if (isSubmitSuccessful && submissionStatus === "success") {
-      setIsDelayAfterSuccess(true); // Start the delay state
-      const timer = setTimeout(() => {
-        setSubmissionStatus("idle");
-        setMessage("");
-        reset();
-      }, 1000);
-
-      return () => {
-        clearTimeout(timer);
-        setIsDelayAfterSuccess(false); // End the delay state
-      };
-    }
-  }, [isSubmitSuccessful, submissionStatus, reset]);
 
   const onSubmit: SubmitHandler<TSendEmailSchema> = async (data) => {
-    // Check submission limit FIRST
-    const { count: currentCount, date: lastSubmissionDate } =
-      getLocalStorageData();
-    const today = new Date().toDateString();
+    try {
+      setSubmissionStatus("submitting");
+      setMessage("Sending your message...");
 
-    if (
-      lastSubmissionDate &&
-      lastSubmissionDate.toDateString() === today &&
-      currentCount >= SUBMISSION_LIMIT
-    ) {
-      setSubmissionStatus("limit_exceeded");
-      setMessage(
-        `You have reached the daily limit of ${SUBMISSION_LIMIT} messages.`,
+      const formData = new FormData();
+      formData.append(
+        "access_key",
+        process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ?? "",
       );
 
-      setCountSubmissions(0);
-      clearErrors(); // Clear errors to reset the form state
-      return;
-    }
+      Object.entries(data).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
 
-    // Set the submission status to submitting, if limit is not exceeded
-    setSubmissionStatus("submitting");
-    setMessage("Sending your message...");
-
-    const formData = new FormData();
-    formData.append(
-      "access_key",
-      process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ?? "",
-    );
-
-    for (const [key, value] of Object.entries(data)) {
-      formData.append(key, value);
-    }
-
-    // try...await function that checks for response and errors from the server
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      const res = await fetch("https://api.web3forms.com/submit", {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         body: formData,
-      }).then((res) => res.json());
+      });
 
-      if (res.success) {
-        console.log("Success", res);
+      const result = await response.json();
+
+      if (result.success) {
         setSubmissionStatus("success");
-        setMessage(res.message || "Message sent successfully!");
+        setMessage("Message sent successfully!");
 
-        // Only on SUCCESS, increment the logic
-        const {
-          count: currentCountAfterSend,
-          date: lastSubmissionDateAfterSend,
-        } = getLocalStorageData();
-        const today = new Date().toDateString();
-
-        const countBeforeIncrement =
-          lastSubmissionDateAfterSend &&
-          lastSubmissionDateAfterSend.toDateString() === today
-            ? currentCountAfterSend
-            : 0;
-
-        const newCount = countBeforeIncrement + 1;
-        updateLocalStorageData(newCount, new Date());
-        setCountSubmissions(SUBMISSION_LIMIT - newCount);
+        setTimeout(() => {
+          reset();
+          setSubmissionStatus("idle");
+          setMessage("");
+        }, 2000);
       } else {
-        console.error("Submission Error", res);
-        setSubmissionStatus("error");
-        setMessage(res.message || "Oops, something went wrong!");
-        setCountSubmissions(SUBMISSION_LIMIT);
+        throw new Error(result.message);
       }
-    } catch (err) {
-      console.error("Network or Fetch Error", err);
-      setSubmissionStatus("error");
-      setMessage(
-        "Network error: Please check your internet connection and try again.",
-      );
+    } catch (error) {
+      console.error("Error sending message:", error);
     }
   };
-
-  // Determine if the form should be displayed or only the limit exceeded message
-  const showForm = submissionStatus !== "limit_exceeded";
 
   return (
     <section id="contact" className="mx-auto max-w-4xl px-4">
@@ -190,324 +87,265 @@ function Contact() {
               </h1>
             </div>
 
-            <p className="mt-4">
+            <p className="text-secondary-text mt-4">
               Drop me a message and I&apos;ll get back to you!
             </p>
           </Fade>
         </div>
-        {/* Submission Status Message */}
-        {(submissionStatus === "success" || submissionStatus === "error") && (
-          <Fade direction="up" duration={300} triggerOnce>
-            <div
+
+        <Fade direction="up" duration={400} triggerOnce>
+          {/* submission status success  */}
+          {submissionStatus === "success" && (
+            <div className="bg-success/20 mb-4 flex items-center justify-center gap-2 rounded-lg p-4 shadow-lg">
+              <CheckCircle className="text-success" />
+              <span className="text-success font-semibold">{message}</span>
+            </div>
+          )}
+
+          {/* submission status error */}
+          {submissionStatus === "error" && (
+            <div className="bg-error/10 mb-4 flex items-center justify-center gap-2 rounded-lg p-4 shadow-lg">
+              <AlertCircle className="text-error" />
+              <span className="text-error font-semibold">{message}</span>
+            </div>
+          )}
+
+          {/* submission status submitting */}
+          {submissionStatus === "submitting" && (
+            <div className="bg-accent-alt mb-4 flex items-center justify-center gap-2 rounded-lg p-4 shadow-lg">
+              <Loader2 className="text-secondary animate-spin" />
+              <span className="text-primary font-semibold">{message}</span>
+            </div>
+          )}
+        </Fade>
+
+        <Fade triggerOnce duration={300} delay={500}>
+          <form
+            method="post"
+            onSubmit={handleSubmit(onSubmit)}
+            noValidate
+            className="flex flex-col gap-4 md:gap-6"
+          >
+            {/* name input */}
+            <div className="space-y-1">
+              <label
+                htmlFor="name"
+                className="text-secondary-text flex items-center gap-2 font-bold uppercase"
+              >
+                <User size={18} className="text-secondary" />
+                Name
+              </label>
+              <div className="relative">
+                <input
+                  {...register("name")}
+                  id="name"
+                  type="text"
+                  placeholder="Your name"
+                  name="name"
+                  autoComplete="name"
+                  className={cn(
+                    "border-primary/25 w-full rounded-lg border p-2.5 shadow-md transition-all duration-300 ease-in-out outline-none",
+                    errors.name && "border-error/50 bg-error/5",
+                    !errors.name && "focus:border-primary/20",
+                    isSubmitting && "pointer-events-none",
+                  )}
+                />
+              </div>
+              {errors.name && (
+                <span
+                  role="alert"
+                  className="text-error text-xs-sm flex items-center gap-1 font-medium"
+                >
+                  <AlertCircle size={14} />
+                  {errors.name.message}
+                </span>
+              )}
+            </div>
+
+            {/* email input */}
+            <div className="space-y-1">
+              <label
+                htmlFor="email"
+                className="text-secondary-text flex items-center gap-2 font-bold uppercase"
+              >
+                <Mail size={18} className="text-secondary" />
+                Email
+              </label>
+              <div className="relative">
+                <input
+                  {...register("email")}
+                  id="email"
+                  type="email"
+                  aria-invalid={errors.email ? "true" : "false"}
+                  aria-describedby="email-error"
+                  name="email"
+                  placeholder="your.email@example.com"
+                  autoComplete="email"
+                  className={cn(
+                    "border-primary/25 w-full rounded-lg border p-2.5 shadow-md transition-all duration-300 ease-in-out outline-none",
+                    errors.email && "border-error/50 bg-error/5",
+                    !errors.email && "focus:border-primary/20",
+                    isSubmitting && "pointer-events-none",
+                  )}
+                />
+              </div>
+              {errors.email && (
+                <Fade direction="up" duration={400} triggerOnce>
+                  <span
+                    role="alert"
+                    id="email-error"
+                    className="text-error text-xs-sm flex items-center gap-1 font-medium"
+                  >
+                    <AlertCircle size={14} />
+                    {errors.email.message}
+                  </span>
+                </Fade>
+              )}
+            </div>
+
+            {/* mobile input (optional) */}
+            <div className="space-y-1">
+              <label
+                htmlFor="mobile"
+                className="text-secondary-text flex items-center gap-2 font-bold uppercase"
+              >
+                <Phone size={18} className="text-secondary" />
+                Phone (optional)
+              </label>
+              <div className="relative">
+                <input
+                  {...register("mobile")}
+                  id="mobile"
+                  type="tel"
+                  name="mobile"
+                  aria-invalid={errors.mobile ? "true" : "false"}
+                  aria-describedby="mobile-error"
+                  autoComplete="tel"
+                  title="Format: 700-000-000"
+                  placeholder="+254 700 000 000"
+                  className={cn(
+                    "border-primary/25 w-full rounded-lg border p-2.5 shadow-md transition-all duration-300 ease-in-out outline-none",
+                    errors.mobile && "border-error/50 bg-error/5",
+                    !errors.mobile && "focus:border-primary/20",
+                    isSubmitting && "pointer-events-none",
+                  )}
+                />
+              </div>
+              {errors.mobile && (
+                <Fade direction="up" duration={400} triggerOnce>
+                  <span
+                    role="alert"
+                    id="mobile-error"
+                    className="text-error text-xs-sm flex items-center gap-1 font-medium"
+                  >
+                    <AlertCircle size={14} />
+                    {errors.mobile.message}
+                  </span>
+                </Fade>
+              )}
+            </div>
+
+            {/* message textarea */}
+            <div className="space-y-1">
+              <label
+                htmlFor="textarea"
+                className="text-secondary-text flex items-center gap-2 font-bold uppercase"
+              >
+                <MessageSquare size={18} className="text-secondary shadow-lg" />
+                Message
+              </label>
+              <div className="relative">
+                <textarea
+                  {...register("textarea")}
+                  id="textarea"
+                  cols={15}
+                  rows={5}
+                  name="textarea"
+                  aria-invalid={errors.textarea ? "true" : "false"}
+                  aria-describedby="textarea-error"
+                  placeholder="What would you like to discuss?"
+                  className={cn(
+                    "border-primary/25 w-full resize-none rounded-lg border p-2.5 shadow-md transition-all duration-300 ease-in-out outline-none",
+                    errors.textarea && "border-error/50 bg-error/5",
+                    !errors.textarea && "focus:border-primary/20",
+                    isSubmitting && "pointer-events-none",
+                  )}
+                />
+              </div>
+              {errors.textarea && (
+                <Fade direction="up" duration={400} triggerOnce>
+                  <span
+                    role="alert"
+                    id="textarea-error"
+                    className="text-error text-xs-sm -mt-1 flex items-center gap-1 text-sm font-medium"
+                  >
+                    <AlertCircle size={14} />
+                    {errors.textarea.message}
+                  </span>
+                </Fade>
+              )}
+            </div>
+
+            {/* button */}
+            <button
+              type="submit"
+              // onClick={handleSubmit(onSubmit)}
+              disabled={isSubmitting}
               className={cn(
-                "mb-6 rounded-md border p-3 font-medium",
-                submissionStatus === "success"
-                  ? "border-green-200 bg-green-100 text-green-700"
-                  : "border-red-200 bg-red-100 text-red-700",
+                "rounded-full p-4 uppercase transition-all duration-200 ease-in-out md:ml-auto md:p-3.5",
+
+                {
+                  // Default state
+                  "bg-primary text-background hover:-translate-y-1 hover:shadow-md":
+                    !isSubmitting,
+
+                  // Success delay state
+                  "bg-primary/40 text-secondary-text cursor-not-allowed hover:translate-none":
+                    Object.keys(errors).length > 0,
+
+                  // Submitting state
+                  "bg-primary/40 text-secondary-text cursor-wait": isSubmitting,
+                },
               )}
             >
-              <div className="flex gap-2">
-                {submissionStatus === "success" ? (
-                  <CheckCircle className="text-green-600" />
+              <span className="flex items-center justify-center">
+                {isSubmitting ? (
+                  <span className="flex items-center gap-2">
+                    <span className="uppercase">Submitting Message</span>
+                    <span className="">
+                      <svg className="h-5 w-5 animate-spin" viewBox="0 0 24 24">
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                          fill="none"
+                        />
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        />
+                      </svg>
+                    </span>
+                  </span>
                 ) : (
-                  <AlertCircle className="text-red-600" />
-                )}
-
-                <h2
-                  className={cn(
-                    "text-sm font-semibold uppercase",
-                    submissionStatus === "success"
-                      ? "text-green-700"
-                      : "text-red-700",
-                  )}
-                >
-                  {message}
-                </h2>
-              </div>
-            </div>
-          </Fade>
-        )}
-
-        {/* Submitting Status Message */}
-        {submissionStatus === "submitting" && (
-          <Slide direction="left" duration={300} triggerOnce>
-            <div className="text-primary bg-secondary/15 border-secondary/20 mb-6 flex items-center gap-2 rounded-md border p-3 font-medium">
-              <Loader2 className="text-secondary animate-spin" />
-              <h2 className="text-sm font-semibold">Sending your message...</h2>
-            </div>
-          </Slide>
-        )}
-
-        {/* Daily limit exceeded message shown only if limit is reached */}
-        {submissionStatus === "limit_exceeded" && (
-          <Fade direction="up" duration={300} triggerOnce>
-            <div className="space-y-3 rounded-lg border border-red-300 bg-red-100 p-2 font-bold text-red-500 shadow-md">
-              <div className="flex gap-2 rounded-sm font-medium text-red-600">
-                <AlertCircle className="size-6" />
-                <h2 className="font-bold">Message not sent</h2>
-              </div>
-              <p className="text-sm font-semibold">{message}</p>
-            </div>
-          </Fade>
-        )}
-
-        {/* FORM (Conditionally rendered) */}
-        {showForm && (
-          <Fade triggerOnce duration={300} delay={500}>
-            <form
-              method="post"
-              onSubmit={handleSubmit(onSubmit)}
-              noValidate
-              className="flex flex-col gap-4 md:gap-6"
-            >
-              {/* Name Input Field */}
-              <div className="space-y-1">
-                <label htmlFor="name" className="flex items-center gap-2">
-                  <User size={18} className="text-tertiary" />
-                  Your Name
-                </label>
-                <div className="relative">
-                  <input
-                    {...register("name")}
-                    id="name"
-                    type="text"
-                    placeholder="Your name"
-                    name="name"
-                    autoComplete="name"
-                    aria-invalid={errors.name ? "true" : "false"}
-                    aria-describedby="name-error"
-                    autoFocus={true}
-                    className={cn(
-                      "ring-accent-alt focus:ring-accent placeholder:text-secondary-text w-full rounded-lg px-3 py-2 shadow-sm ring transition-all",
-                      errors.name && "ring-error",
-                      submissionStatus === "submitting"
-                        ? "pointer-events-none"
-                        : "",
-                    )}
-                  />
-                </div>
-                {errors.name && (
-                  <Fade direction="up" duration={400} triggerOnce>
-                    <span
-                      id="name-error"
-                      role="alert"
-                      className="text-error flex items-center gap-1 text-xs font-medium md:text-xs"
-                    >
-                      <AlertCircle size={14} />
-                      {errors.name.message}
-                    </span>
-                  </Fade>
-                )}
-              </div>
-
-              {/* Email Input Field */}
-              <div className="space-y-1">
-                <label htmlFor="email" className="flex items-center gap-2">
-                  <Mail size={18} className="text-tertiary" />
-                  Email
-                </label>
-                <div className="relative">
-                  <input
-                    {...register("email")}
-                    id="email"
-                    type="email"
-                    aria-invalid={errors.email ? "true" : "false"}
-                    aria-describedby="email-error"
-                    name="email"
-                    placeholder="your.email@example.com"
-                    autoComplete="email"
-                    className={cn(
-                      "ring-accent-alt focus:ring-accent-alt placeholder:text-secondary-text w-full rounded-lg px-3 py-2 shadow-sm ring transition-all",
-                      errors.email && "ring-error",
-                      submissionStatus === "submitting"
-                        ? "pointer-events-none"
-                        : "",
-                    )}
-                  />
-                </div>
-                {errors.email && (
-                  <Fade direction="up" duration={400} triggerOnce>
-                    <span
-                      role="alert"
-                      id="email-error"
-                      className="text-error flex items-center gap-1 text-sm font-medium md:text-xs"
-                    >
-                      <AlertCircle size={14} />
-                      {errors.email.message}
-                    </span>
-                  </Fade>
-                )}
-              </div>
-
-              {/* Mobile Input (optional) */}
-              <div className="space-y-1">
-                <label htmlFor="mobile" className="flex items-center gap-2">
-                  <Phone size={18} className="text-tertiary" />
-                  Phone (optional)
-                </label>
-                <div className="relative">
-                  <input
-                    {...register("mobile")}
-                    id="mobile"
-                    type="tel"
-                    name="mobile"
-                    aria-invalid={errors.mobile ? "true" : "false"}
-                    aria-describedby="mobile-error"
-                    autoComplete="tel"
-                    title="Format: 700-000-000"
-                    placeholder="+254 700 000 000"
-                    className={cn(
-                      "ring-accent-alt focus:ring-accent-alt placeholder:text-secondary-text w-full rounded-lg px-3 py-2 shadow-sm ring transition-all",
-                      errors.mobile && "ring-error",
-                      submissionStatus === "submitting"
-                        ? "pointer-events-none"
-                        : "",
-                    )}
-                  />
-                </div>
-                {errors.mobile && (
-                  <Fade direction="up" duration={400} triggerOnce>
-                    <span
-                      role="alert"
-                      id="mobile-error"
-                      className="text-error -mt-1 flex items-center gap-1 text-xs font-medium"
-                    >
-                      <AlertCircle size={14} />
-                      {errors.mobile.message}
-                    </span>
-                  </Fade>
-                )}
-              </div>
-
-              {/* Urgent checkbox */}
-              <div className="flex items-center gap-4">
-                <input
-                  type="checkbox"
-                  name="isUrgent"
-                  id="isUrgent"
-                  checked={isUrgentChecked}
-                  onChange={(e) => setIsUrgentChecked(e.target.checked)}
-                  className="border-primary bg-secondary peer checked:bg-secondary custom-select relative size-5 cursor-pointer rounded-md border-2 shadow-md transition-all duration-200"
-                />
-                {/* custom checkmark */}
-                <span className="pointer-events-none absolute ml-0.5">
-                  {isUrgentChecked && (
-                    <svg
-                      className="text-text h-4 w-4"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth={3}
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                  )}
-                </span>
-                <label htmlFor="isUrgent">
-                  <Fade
-                    key={isUrgentChecked ? "urgent" : "not-urgent"}
-                    direction="up"
-                    triggerOnce={false}
-                    duration={400}
-                  >
-                    {isUrgentChecked ? (
-                      <div className="ml-3 flex items-center gap-1 text-xs font-medium">
-                        <AlertCircle size={18} className="text-error" />
-                        This request will be marked as urgent!
-                      </div>
-                    ) : (
-                      <div className="ml-3 flex items-center gap-1 text-xs">
-                        <CheckCircle size={18} className="text-accent" />
-                        Mark as urgent
-                      </div>
-                    )}
-                  </Fade>
-                </label>
-              </div>
-
-              {/* Message textarea field */}
-              <div className="space-y-1">
-                <label htmlFor="textarea" className="flex items-center gap-2">
-                  <MessageSquare size={18} className="text-tertiary" />
-                  Message
-                </label>
-                <div className="relative">
-                  <textarea
-                    {...register("textarea")}
-                    id="textarea"
-                    cols={15}
-                    rows={5}
-                    name="textarea"
-                    aria-invalid={errors.textarea ? "true" : "false"}
-                    aria-describedby="textarea-error"
-                    placeholder="What would you like to discuss?"
-                    className={cn(
-                      "ring-accent-alt focus:ring-accent-alt placeholder:text-secondary-text w-full resize-none rounded-lg px-3 py-2 shadow-sm ring transition-all",
-                      errors.textarea && "ring-error",
-                      submissionStatus === "submitting"
-                        ? "pointer-events-none"
-                        : "",
-                    )}
-                  />
-                </div>
-                {errors.textarea && (
-                  <Fade direction="up" duration={400} triggerOnce>
-                    <span
-                      role="alert"
-                      id="textarea-error"
-                      className="text-error -mt-1 flex items-center gap-1 text-sm font-medium md:text-xs"
-                    >
-                      <AlertCircle size={14} />
-                      {errors.textarea.message}
-                    </span>
-                  </Fade>
-                )}
-              </div>
-
-              {/* button */}
-              <button
-                type="submit"
-                disabled={
-                  isSubmitting ||
-                  Object.keys(errors).length > 0 ||
-                  isDelayAfterSuccess
-                }
-                className={cn(
-                  "disabled:bg-primary/40 bg-primary text-background disabled:text-secondary-text relative mt-4 inline-flex cursor-pointer items-center justify-center gap-2 rounded-full p-3.5 uppercase transition-all duration-200 ease-in-out hover:-translate-y-1 disabled:translate-0 disabled:cursor-not-allowed md:ml-auto",
-                  isSubmitting && "bg-primary/40 text-secondary-text",
-                )}
-              >
-                {submissionStatus === "submitting" ? (
-                  <>Sending...</>
-                ) : (
-                  <>
+                  <span className="flex items-center gap-2">
                     Submit message
-                    <Send size={17} />
-                  </>
+                    <Send
+                      size={17}
+                      className="transition-transform group-hover:translate-x-1"
+                    />
+                  </span>
                 )}
-              </button>
-
-              {/* Remaining Submission Count */}
-              <p
-                className={cn(
-                  "mt-2 text-center text-xs",
-                  countSubmissions < 2 ? "text-warning" : "",
-                )}
-              >
-                {countSubmissions <= 0
-                  ? "Daily submission limit reached"
-                  : `${countSubmissions} of ${SUBMISSION_LIMIT} submissions available today`}
-              </p>
-            </form>
-          </Fade>
-        )}
+              </span>
+            </button>
+          </form>
+        </Fade>
       </div>
     </section>
   );
-}
-
-export default Contact;
+};
+export default ContactPage;

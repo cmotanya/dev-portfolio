@@ -62,8 +62,6 @@ export const sendEmailSchema = z.object({
     .optional()
     .or(z.literal("")),
 
-  serviceType: z.string().min(1, "Required!"),
-
   textarea: z
     .string()
     .trim()

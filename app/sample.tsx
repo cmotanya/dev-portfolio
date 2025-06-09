@@ -1,268 +1,474 @@
-// "use client";
+"use client";
 
-// import React, { useState, useEffect } from "react";
-// import { nav } from "../data/nav";
-// import Link from "next/link";
-// import Image from "next/image";
-// import { ChevronRight, Menu, X, Sparkles } from "lucide-react";
-// import { cn } from "@/lib/utils";
-// import { caveat } from "../data/font";
-// import { usePathname } from "next/navigation";
+import {
+  sendEmailSchema,
+  SUBMISSION_LIMIT,
+  SUBMISSION_STORAGE_KEY,
+  SubmissionStatus,
+  TSendEmailSchema,
+} from "@/lib/types";
+import { cn } from "@/lib/utils";
+import {
+  AlertCircle,
+  CheckCircle,
+  Loader2,
+  Mail,
+  MessageCircleCode,
+  MessageSquare,
+  Phone,
+  Send,
+  User,
+} from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Fade, Slide } from "react-awesome-reveal";
+import {
+  getLocalStorageData,
+  updateLocalStorageData,
+} from "@/lib/local-storage";
 
-// const Header = () => {
-//   const [isMenuOpen, setIsMenuOpen] = useState(false);
-//   const [isScrolled, setIsScrolled] = useState(false);
-//   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-//   const pathname = usePathname();
+function Contact() {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    clearErrors,
+    formState: { errors, isSubmitting, isSubmitSuccessful },
+  } = useForm<TSendEmailSchema>({
+    resolver: zodResolver(sendEmailSchema),
+  });
 
-//   // Handle scroll effect with more sophisticated detection
-//   useEffect(() => {
-//     const handleScroll = () => {
-//       const scrolled = window.scrollY > 10;
-//       setIsScrolled(scrolled);
-//     };
-//     window.addEventListener("scroll", handleScroll);
-//     return () => window.removeEventListener("scroll", handleScroll);
-//   }, []);
+  const [submissionStatus, setSubmissionStatus] =
+    useState<SubmissionStatus>("idle");
+  const [message, setMessage] = useState("");
+  const [countSubmissions, setCountSubmissions] = useState(SUBMISSION_LIMIT);
+  const [isDelayAfterSuccess, setIsDelayAfterSuccess] = useState(false);
 
-//   // Mouse tracking for interactive effects
-//   useEffect(() => {
-//     const handleMouseMove = (e: MouseEvent) => {
-//       setMousePosition({ x: e.clientX, y: e.clientY });
-//     };
-//     window.addEventListener("mousemove", handleMouseMove);
-//     return () => window.removeEventListener("mousemove", handleMouseMove);
-//   }, []);
+  // Load submission count from localStorage - only on initial mount
+  useEffect(() => {
+    const { count, date } = getLocalStorageData();
+    const lastSubmissionDate = date ? new Date(date).toDateString() : null;
+    const today = new Date().toDateString();
 
-//   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-//   const handleCloseMenu = () => setIsMenuOpen(false);
+    if (lastSubmissionDate === today) {
+      // If the last submission was today, set the count
+      const submissionsLeft = SUBMISSION_LIMIT - count;
+      setCountSubmissions(Math.max(submissionsLeft, 0));
 
-//   return (
-//     <>
-//       {/* Floating header with glass morphism */}
-//       <header
-//         className={cn(
-//           "fixed top-0 left-1/2 z-50 -translate-x-1/2 transition-all duration-500 ease-out",
-//           isScrolled ? "top-4 w-[95%] max-w-6xl" : "top-0 w-full",
-//         )}
-//       >
-//         <div
-//           className={cn(
-//             "relative overflow-hidden transition-all duration-500 ease-out",
-//             isScrolled
-//               ? "rounded-2xl border border-white/10 bg-white/5 shadow-2xl backdrop-blur-2xl"
-//               : "border-secondary/50 border-b bg-transparent backdrop-blur-sm",
-//           )}
-//         >
-//           {/* Dynamic gradient background */}
-//           <div
-//             className="absolute inset-0 opacity-30 transition-opacity duration-700"
-//             style={{
-//               background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(59, 130, 246, 0.15), transparent 40%)`,
-//             }}
-//           />
+      if (count >= SUBMISSION_LIMIT) {
+        setSubmissionStatus("limit_exceeded");
+        setMessage(
+          `You have reached the daily limit of ${SUBMISSION_LIMIT} messages`,
+        );
+      }
+    } else {
+      // If it's a new day, reset the count
+      setCountSubmissions(SUBMISSION_LIMIT);
+      setSubmissionStatus("idle");
+      setMessage(`You have ${SUBMISSION_LIMIT} submissions available today`);
 
-//           {/* Animated border gradient */}
-//           <div
-//             className={cn(
-//               "absolute inset-0 opacity-0 transition-opacity duration-500",
-//               isScrolled && "opacity-100",
-//             )}
-//           >
-//             <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 p-[1px]">
-//               <div className="h-full w-full rounded-2xl bg-black/40" />
-//             </div>
-//           </div>
+      if (date) {
+        // Update localStorage with the new date
+        localStorage.removeItem(SUBMISSION_STORAGE_KEY);
+      }
+    }
 
-//           <div className="relative z-10 px-6 py-4">
-//             <div className="flex items-center justify-between">
-//               {/* Enhanced Logo Section */}
-//               <Link href="/" className="group flex items-center gap-4">
-//                 <div className="relative">
-//                   {/* Animated rings around avatar */}
-//                   <div className="absolute -inset-3 rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 p-[1px] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-//                     <div className="h-full w-full rounded-full bg-black" />
-//                     <div>
-//                       {/* Glow effect */}
-//                       <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-blue-400/50 via-purple-400/50 to-pink-400/50 opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-70" />
+    clearErrors(); // Clear errors to reset the form state
+  }, [clearErrors]);
 
-//                       <div className="relative">
-//                         <Image
-//                           src="/avatar.jpg"
-//                           alt="Cornelius Motanya"
-//                           width={50}
-//                           height={50}
-//                           className="relative rounded-full border-2 border-white/20 object-cover shadow-xl transition-all duration-300 group-hover:border-white/40"
-//                           priority
-//                         />
-//                         {/* Status indicator */}
-//                         <div className="absolute -right-1 -bottom-1 flex h-4 w-4 items-center justify-center">
-//                           <div className="absolute h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></div>
-//                           <div className="relative h-3 w-3 rounded-full bg-green-500 shadow-lg"></div>
-//                         </div>
-//                       </div>
-//                     </div>
-//                   </div>
+  // Effect to clear success message after delay
+  useEffect(() => {
+    if (isSubmitSuccessful && submissionStatus === "success") {
+      setIsDelayAfterSuccess(true); // Start the delay state
+      const timer = setTimeout(() => {
+        setSubmissionStatus("idle");
+        setMessage("");
+        reset();
+      }, 1000);
 
-//                   <div className="hidden sm:block">
-//                     <h1
-//                       className={cn(
-//                         "bg-gradient-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-2xl font-bold text-transparent",
-//                         caveat.className,
-//                       )}
-//                     >
-//                       Cornelius
-//                     </h1>
-//                     <p className="flex items-center gap-1 text-sm font-medium text-white/70">
-//                       <Sparkles className="h-3 w-3 text-yellow-400" />
-//                       Developer & Security Specialist
-//                     </p>
-//                   </div>
-//                 </div>
-//               </Link>
+      return () => {
+        clearTimeout(timer);
+        setIsDelayAfterSuccess(false); // End the delay state
+      };
+    }
+  }, [isSubmitSuccessful, submissionStatus, reset]);
 
-//               {/* Enhanced Desktop Navigation */}
-//               <nav className="hidden md:block">
-//                 <ul className="flex items-center gap-2">
-//                   {nav.map((item) => {
-//                     const isActive = pathname === item.link;
-//                     return (
-//                       <li key={item.link}>
-//                         <Link
-//                           href={item.link}
-//                           className="group relative overflow-hidden rounded-xl px-5 py-2.5 transition-all duration-300"
-//                         >
-//                           {/* Active state background */}
-//                           {isActive && (
-//                             <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/20 to-purple-500/20 shadow-lg" />
-//                           )}
+  const onSubmit: SubmitHandler<TSendEmailSchema> = async (data) => {
+    try {
+      // Set submitting state first
+      setSubmissionStatus("submitting");
+      setMessage("Sending your message...");
 
-//                           {/* Hover effect */}
-//                           <div className="absolute inset-0 rounded-xl bg-white/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+      const formData = new FormData();
+      formData.append(
+        "access_key",
+        process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ?? "",
+      );
 
-//                           {/* Shine effect */}
-//                           <div className="absolute inset-0 -translate-x-full rounded-xl bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+      // Add all form data
+      Object.entries(data).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
 
-//                           <span
-//                             className={cn(
-//                               "relative z-10 text-sm font-semibold tracking-wide uppercase transition-all duration-300",
-//                               isActive
-//                                 ? "text-white shadow-sm"
-//                                 : "text-white/80 group-hover:text-white",
-//                             )}
-//                           >
-//                             {item.name}
-//                           </span>
-//                         </Link>
-//                       </li>
-//                     );
-//                   })}
-//                 </ul>
-//               </nav>
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
 
-//               {/* Enhanced Right Side Actions */}
-//               <div className="flex items-center gap-4">
-//                 {/* Premium CTA Button */}
-//                 <div className="hidden sm:block">
-//                   <Link
-//                     href="/resume"
-//                     className="group relative overflow-hidden rounded-full bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 p-[1px] shadow-2xl transition-all duration-300 hover:shadow-blue-500/25"
-//                   >
-//                     <div className="flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-2.5 text-sm font-semibold text-white transition-all duration-300">
-//                       <span>Resume</span>
-//                       <div>
-//                         <ChevronRight className="h-4 w-4" />
-//                       </div>
-//                     </div>
+      const result = await response.json();
 
-//                     {/* Shine effect */}
-//                     <div className="absolute inset-0 -translate-x-full rounded-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-//                   </Link>
-//                 </div>
+      if (result.success) {
+        // Update counts first
+        const newCount = countSubmissions - 1;
+        setCountSubmissions(newCount);
+        updateLocalStorageData(SUBMISSION_LIMIT - newCount, new Date());
 
-//                 {/* Enhanced Mobile Menu Button */}
-//                 <button
-//                   onClick={toggleMenu}
-//                   className="group relative overflow-hidden rounded-full bg-white/10 p-3 backdrop-blur-sm transition-all duration-300 hover:bg-white/20 md:hidden"
-//                   aria-label="Toggle menu"
-//                 >
-//                   {isMenuOpen ? (
-//                     <div key="close">
-//                       <X className="h-5 w-5 text-white" />
-//                     </div>
-//                   ) : (
-//                     <div key="menu">
-//                       <Menu className="h-5 w-5 text-white" />
-//                     </div>
-//                   )}
-//                 </button>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       </header>
+        // Show success state
+        setSubmissionStatus("success");
+        setMessage("Message sent successfully!");
 
-//       {/* Enhanced Mobile Menu */}
-//       {isMenuOpen && (
-//         <>
-//           {/* Backdrop */}
-//           <div
-//             className="fixed inset-0 z-40 bg-black/60 backdrop-blur-md"
-//             onClick={handleCloseMenu}
-//           />
+        // Reset form after delay
+        setTimeout(() => {
+          reset();
+          setSubmissionStatus("idle");
+          setMessage("");
+        }, 2000);
+      } else {
+        throw new Error(result.message || "Submission failed");
+      }
+    } catch (error) {
+      console.error("Submission error:", error);
+      setSubmissionStatus("error");
+      setMessage("Failed to send message. Please try again.");
+    }
+  };
 
-//           {/* Menu Panel */}
-//           <nav className="fixed top-20 right-4 z-50 w-80 overflow-hidden rounded-2xl border border-white/10 bg-black/80 p-2 shadow-2xl backdrop-blur-2xl">
-//             {/* Menu gradient background */}
-//             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10" />
+  // Determine if the form should be displayed or only the limit exceeded message
+  const showForm = submissionStatus !== "limit_exceeded";
 
-//             <div className="relative z-10">
-//               <ul className="space-y-1">
-//                 {nav.map((item) => {
-//                   const isActive = pathname === item.link;
-//                   return (
-//                     <li key={item.link}>
-//                       <Link
-//                         href={item.link}
-//                         onClick={handleCloseMenu}
-//                         className={cn(
-//                           "group flex items-center gap-4 rounded-xl px-4 py-3 transition-all duration-300",
-//                           isActive
-//                             ? "bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-white shadow-lg"
-//                             : "text-white/80 hover:bg-white/10 hover:text-white",
-//                         )}
-//                       >
-//                         <span className="text-xl transition-transform duration-300 group-hover:scale-110">
-//                           {item.icon}
-//                         </span>
-//                         <span className="font-medium">{item.name}</span>
-//                         {isActive && (
-//                           <div className="ml-auto h-2 w-2 rounded-full bg-blue-400" />
-//                         )}
-//                       </Link>
-//                     </li>
-//                   );
-//                 })}
+  return (
+    <section id="contact" className="mx-auto max-w-4xl px-4">
+      <div className="md:max-w-xl">
+        <div className="relative mb-10">
+          <Fade direction="left" cascade triggerOnce duration={300}>
+            <div className="flex items-center gap-2 whitespace-nowrap">
+              <MessageCircleCode size={45} className="text-primary shrink-0" />
+              <h1 className="from-accent via-tertiary to-secondary bg-gradient-to-r bg-clip-text text-6xl font-bold tracking-wider text-transparent">
+                Contact Me
+              </h1>
+            </div>
 
-//                 {/* Resume link in mobile menu */}
-//                 <li className="border-t border-white/10 pt-2">
-//                   <Link
-//                     href="/resume"
-//                     onClick={handleCloseMenu}
-//                     className="group flex items-center gap-4 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-3 text-white transition-all duration-300 hover:from-blue-500 hover:to-purple-500"
-//                   >
-//                     <Sparkles className="h-5 w-5" />
-//                     <span className="font-semibold">View Resume</span>
-//                     <div className="ml-auto">
-//                       <ChevronRight className="h-4 w-4" />
-//                     </div>
-//                   </Link>
-//                 </li>
-//               </ul>
-//             </div>
-//           </nav>
-//         </>
-//       )}
-//     </>
-//   );
-// };
+            <p className="mt-4">
+              Drop me a message and I&apos;ll get back to you!
+            </p>
+          </Fade>
+        </div>
+        {/* Submission Status Message */}
+        {(submissionStatus === "success" || submissionStatus === "error") && (
+          <Fade direction="up" duration={300} triggerOnce>
+            <div
+              className={cn(
+                "mb-6 rounded-md border p-3 font-medium",
+                submissionStatus === "success"
+                  ? "border-green-200 bg-green-100 text-green-700"
+                  : "border-error/20 text-error bg-red-100",
+              )}
+            >
+              <div className="flex gap-2">
+                {submissionStatus === "success" ? (
+                  <CheckCircle className="text-green-600" />
+                ) : (
+                  <AlertCircle className="text-error" />
+                )}
+
+                <h2
+                  className={cn(
+                    "text-sm font-semibold uppercase",
+                    submissionStatus === "success"
+                      ? "text-green-700"
+                      : "text-error",
+                  )}
+                >
+                  {message}
+                </h2>
+              </div>
+            </div>
+          </Fade>
+        )}
+
+        {/* Submitting Status Message */}
+        {submissionStatus === "submitting" && (
+          <Slide direction="left" duration={300} triggerOnce>
+            <div className="text-primary bg-secondary/15 border-secondary/20 mb-6 flex items-center gap-2 rounded-md border p-3 font-medium">
+              <Loader2 className="text-secondary animate-spin" />
+              <h2 className="text-sm font-semibold">Sending your message...</h2>
+            </div>
+          </Slide>
+        )}
+
+        {/* Daily limit exceeded message shown only if limit is reached */}
+        {submissionStatus === "limit_exceeded" && (
+          <Fade direction="up" duration={300} triggerOnce>
+            <div className="border-error/20 text-error bg-error/10 space-y-3 rounded-lg border p-2 font-bold shadow-md">
+              <div className="text-error flex gap-2 rounded-sm font-medium">
+                <AlertCircle className="size-6" />
+                <h2 className="font-bold">Message not sent</h2>
+              </div>
+              <p className="text-sm font-semibold">{message}</p>
+            </div>
+          </Fade>
+        )}
+
+        {/* FORM (Conditionally rendered) */}
+        {showForm && (
+          <Fade triggerOnce duration={300} delay={500}>
+            <form
+              method="post"
+              onSubmit={handleSubmit(onSubmit)}
+              noValidate
+              className="flex flex-col gap-4 md:gap-6"
+            >
+              {/* Name Input Field */}
+              <div className="space-y-1">
+                <label
+                  htmlFor="name"
+                  className="text-secondary-text flex items-center gap-2 font-bold uppercase"
+                >
+                  <User size={18} className="text-secondary" />
+                  Name
+                </label>
+                <div className="relative">
+                  <input
+                    {...register("name")}
+                    id="name"
+                    type="text"
+                    placeholder="Your name"
+                    name="name"
+                    autoComplete="name"
+                    className={cn(
+                      "border-primary/25 w-full rounded-lg border p-2.5 shadow-md transition-all duration-300 ease-in-out outline-none",
+                      errors.name && "border-error/50 bg-error/5",
+                      !errors.name && "focus:border-primary/20",
+                      isSubmitting && "pointer-events-none",
+                    )}
+                  />
+                </div>
+                {errors.name && (
+                  <span
+                    role="alert"
+                    className="text-error text-xs-sm flex items-center gap-1 font-medium"
+                  >
+                    <AlertCircle size={14} />
+                    {errors.name.message}
+                  </span>
+                )}
+              </div>
+
+              {/* Email Input Field */}
+              <div className="space-y-1">
+                <label
+                  htmlFor="email"
+                  className="text-secondary-text flex items-center gap-2 font-bold uppercase"
+                >
+                  <Mail size={18} className="text-secondary" />
+                  Email
+                </label>
+                <div className="relative">
+                  <input
+                    {...register("email")}
+                    id="email"
+                    type="email"
+                    aria-invalid={errors.email ? "true" : "false"}
+                    aria-describedby="email-error"
+                    name="email"
+                    placeholder="your.email@example.com"
+                    autoComplete="email"
+                    className={cn(
+                      "border-primary/25 w-full rounded-lg border p-2.5 shadow-md transition-all duration-300 ease-in-out outline-none",
+                      errors.email && "border-error/50 bg-error/5",
+                      !errors.email && "focus:border-primary/20",
+                      isSubmitting && "pointer-events-none",
+                    )}
+                  />
+                </div>
+                {errors.email && (
+                  <Fade direction="up" duration={400} triggerOnce>
+                    <span
+                      role="alert"
+                      id="email-error"
+                      className="text-error text-xs-sm flex items-center gap-1 font-medium"
+                    >
+                      <AlertCircle size={14} />
+                      {errors.email.message}
+                    </span>
+                  </Fade>
+                )}
+              </div>
+
+              {/* Mobile Input (optional) */}
+              <div className="space-y-1">
+                <label
+                  htmlFor="mobile"
+                  className="text-secondary-text flex items-center gap-2 font-bold uppercase"
+                >
+                  <Phone size={18} className="text-secondary" />
+                  Phone (optional)
+                </label>
+                <div className="relative">
+                  <input
+                    {...register("mobile")}
+                    id="mobile"
+                    type="tel"
+                    name="mobile"
+                    aria-invalid={errors.mobile ? "true" : "false"}
+                    aria-describedby="mobile-error"
+                    autoComplete="tel"
+                    title="Format: 700-000-000"
+                    placeholder="+254 700 000 000"
+                    className={cn(
+                      "border-primary/25 w-full rounded-lg border p-2.5 shadow-md transition-all duration-300 ease-in-out outline-none",
+                      errors.mobile && "border-error/50 bg-error/5",
+                      !errors.mobile && "focus:border-primary/20",
+                      isSubmitting && "pointer-events-none",
+                    )}
+                  />
+                </div>
+                {errors.mobile && (
+                  <Fade direction="up" duration={400} triggerOnce>
+                    <span
+                      role="alert"
+                      id="mobile-error"
+                      className="text-error text-xs-sm flex items-center gap-1 font-medium"
+                    >
+                      <AlertCircle size={14} />
+                      {errors.mobile.message}
+                    </span>
+                  </Fade>
+                )}
+              </div>
+
+              {/* Message textarea field */}
+              <div className="space-y-1">
+                <label
+                  htmlFor="textarea"
+                  className="text-secondary-text flex items-center gap-2 font-bold uppercase"
+                >
+                  <MessageSquare
+                    size={18}
+                    className="text-secondary shadow-lg"
+                  />
+                  Message
+                </label>
+                <div className="relative">
+                  <textarea
+                    {...register("textarea")}
+                    id="textarea"
+                    cols={15}
+                    rows={5}
+                    name="textarea"
+                    aria-invalid={errors.textarea ? "true" : "false"}
+                    aria-describedby="textarea-error"
+                    placeholder="What would you like to discuss?"
+                    className={cn(
+                      "border-primary/25 w-full resize-none rounded-lg border p-2.5 shadow-md transition-all duration-300 ease-in-out outline-none",
+                      errors.textarea && "border-error/50 bg-error/5",
+                      !errors.textarea && "focus:border-primary/20",
+                      isSubmitting && "pointer-events-none",
+                    )}
+                  />
+                </div>
+                {errors.textarea && (
+                  <Fade direction="up" duration={400} triggerOnce>
+                    <span
+                      role="alert"
+                      id="textarea-error"
+                      className="text-error text-xs-sm -mt-1 flex items-center gap-1 text-sm font-medium"
+                    >
+                      <AlertCircle size={14} />
+                      {errors.textarea.message}
+                    </span>
+                  </Fade>
+                )}
+              </div>
+
+              {/* button */}
+              <button
+                type="submit"
+                disabled={isSubmitting || isDelayAfterSuccess}
+                className={cn(
+                  "rounded-full p-4 uppercase transition-all duration-200 ease-in-out md:ml-auto md:p-3.5",
+
+                  {
+                    // Default state
+                    "bg-primary text-background hover:-translate-y-1 hover:shadow-md":
+                      !isSubmitting && !isDelayAfterSuccess,
+
+                    // Success delay state
+                    "bg-primary/40 text-secondary-text cursor-not-allowed hover:translate-none":
+                      isDelayAfterSuccess || Object.keys(errors).length > 0,
+
+                    // Submitting state
+                    "bg-primary/70 text-secondary-text cursor-wait":
+                      isSubmitting,
+                  },
+                )}
+              >
+                <span className="flex items-center justify-center">
+                  {isSubmitting ? (
+                    <>
+                      <span className="opacity-0">Submitting Message</span>
+                      <span className="">
+                        <svg
+                          className="h-5 w-5 animate-spin"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                            fill="none"
+                          />
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          />
+                        </svg>
+                      </span>
+                    </>
+                  ) : (
+                    <span className="flex items-center gap-2">
+                      Submit message
+                      <Send
+                        size={17}
+                        className="transition-transform group-hover:translate-x-1"
+                      />
+                    </span>
+                  )}
+                </span>
+              </button>
+
+              {/* Remaining Submission Count */}
+              <p
+                className={cn(
+                  "text-secondary-text mt-2 text-center",
+                  countSubmissions < 2 ? "text-error" : "",
+                )}
+              >
+                {countSubmissions <= 0
+                  ? "Daily submission limit reached"
+                  : `${countSubmissions} of ${SUBMISSION_LIMIT} submissions available today`}
+              </p>
+            </form>
+          </Fade>
+        )}
+      </div>
+    </section>
+  );
+}
+
+export default Contact;
