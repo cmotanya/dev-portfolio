@@ -18,7 +18,7 @@ import {
   Send,
   User,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -35,6 +35,19 @@ const ContactPage = () => {
   const [message, setMessage] = useState("");
   const [submissionStatus, setSubmissionStatus] =
     useState<SubmissionStatus>("idle");
+  const [isDelay, setIsDelay] = useState(false);
+
+  useEffect(() => {
+    if (submissionStatus === "success") {
+      setIsDelay(true);
+
+      const timer = setTimeout(() => {
+        setIsDelay(false);
+        setMessage("");
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [submissionStatus, reset]);
 
   const onSubmit: SubmitHandler<TSendEmailSchema> = async (data) => {
     try {
@@ -297,14 +310,15 @@ const ContactPage = () => {
                 {
                   // Default state
                   "bg-primary text-background hover:-translate-y-1 hover:shadow-md":
-                    !isSubmitting,
+                    !isSubmitting && !isDelay,
 
-                  // Success delay state
+                  // Error state
                   "bg-primary/40 text-secondary-text cursor-not-allowed hover:translate-none":
                     Object.keys(errors).length > 0,
 
                   // Submitting state
-                  "bg-primary/40 text-secondary-text cursor-wait": isSubmitting,
+                  "bg-primary/40 text-secondary-text cursor-wait":
+                    isSubmitting || isDelay,
                 },
               )}
             >
