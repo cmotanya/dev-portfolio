@@ -24,9 +24,10 @@ export const getLocalStorageData = () => {
 };
 
 // Helper function to update localStorage data
-export const updateLocalStorageData = (newCount: number, date: Date) => {
+export const updateLocalStorage = (count: number) => {
+  const today = new Date().toISOString().split("T")[0];
   localStorage.setItem(
     SUBMISSION_STORAGE_KEY,
-    JSON.stringify({ count: newCount, date: new Date(date).toString() }),
+    JSON.stringify({ count, date: today }),
   );
 };

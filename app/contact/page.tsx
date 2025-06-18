@@ -1,7 +1,9 @@
 "use client";
 
+import { getLocalStorageData, updateLocalStorage } from "@/lib/local-storage";
 import {
   sendEmailSchema,
+  SUBMISSION_LIMIT,
   SubmissionStatus,
   TSendEmailSchema,
 } from "@/lib/types";
@@ -18,7 +20,7 @@ import {
   Send,
   User,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -35,6 +37,32 @@ const ContactPage = () => {
   const [message, setMessage] = useState("");
   const [submissionStatus, setSubmissionStatus] =
     useState<SubmissionStatus>("idle");
+  const [countSubmissions, setCountSubmissions] = useState(SUBMISSION_LIMIT);
+
+  // load submission count from localStorage
+  useEffect(() => {
+    const { count, date } = getLocalStorageData();
+    const today = new Date().toISOString().split("T")[0];
+
+    // console.log("count", count, "date", date, "today", today);
+
+    if (date && date.toDateString() === today) {
+      // Same day - use existing count
+      const submissionsLeft = SUBMISSION_LIMIT - count;
+      setCountSubmissions(Math.max(submissionsLeft, 0));
+
+      if (count >= SUBMISSION_LIMIT) {
+        setSubmissionStatus("limit_exceeded");
+      }
+    } else {
+      // New day - reset count
+      setCountSubmissions(SUBMISSION_LIMIT);
+      setSubmissionStatus("idle");
+
+      // Reset localStorage for new day
+      updateLocalStorage(0);
+    }
+  }, []);
 
   const onSubmit: SubmitHandler<TSendEmailSchema> = async (data) => {
     try {
@@ -59,13 +87,36 @@ const ContactPage = () => {
       const result = await response.json();
 
       if (result.success) {
+        // Update submission count
+        const { count: currentCount } = getLocalStorageData();
+        const newCount = currentCount + 1;
+        const newSubmissionsLeft = SUBMISSION_LIMIT - newCount;
+
+        // update localStorage
+        updateLocalStorage(newCount);
+
+        // update state
+        setCountSubmissions(Math.max(newSubmissionsLeft, 0));
         setSubmissionStatus("success");
         setMessage("Message sent successfully!");
 
+        // check if limit reached after this submission
+        if (newCount >= SUBMISSION_LIMIT) {
+          setTimeout(() => {
+            setSubmissionStatus("limit_exceeded");
+            setMessage(
+              "You have reached the maximum number of submissions for today. Please try again tomorrow.",
+            );
+          }, 2000);
+        } else {
+          setTimeout(() => {
+            setSubmissionStatus("idle");
+          }, 2000);
+        }
+
+        // Reset form
         setTimeout(() => {
           reset();
-          setSubmissionStatus("idle");
-          setMessage("");
         }, 2000);
       } else {
         throw new Error(result.message);
@@ -74,6 +125,12 @@ const ContactPage = () => {
       console.error("Error sending message:", error);
       setSubmissionStatus("error");
       setMessage("Failed to send message. Please try again later.");
+
+      // Reset to idle state after error
+      setTimeout(() => {
+        setSubmissionStatus("idle");
+        setMessage(`You have ${countSubmissions} submissions left.`);
+      }, 3000);
     }
   };
 
@@ -119,6 +176,14 @@ const ContactPage = () => {
               <span className="text-primary font-semibold">{message}</span>
             </div>
           )}
+
+          {/* submission limit exceeded */}
+          {submissionStatus === "limit_exceeded" && (
+            <div className="bg-error/10 mb-4 flex items-center justify-center gap-2 rounded-lg p-4 shadow-lg">
+              <AlertCircle className="text-error" />
+              <span className="text-error font-semibold">{message}</span>
+            </div>
+          )}
         </Fade>
 
         <Fade triggerOnce duration={300} delay={500}>
@@ -145,11 +210,13 @@ const ContactPage = () => {
                   placeholder="Your name"
                   name="name"
                   autoComplete="name"
+                  disabled={countSubmissions <= 0}
                   className={cn(
                     "border-secondary/70 w-full rounded-lg border p-2.5 shadow-md transition-all duration-300 ease-in-out outline-none",
                     errors.name && "border-error/50 bg-error/5",
                     !errors.name && "focus:border-secondary/50",
-                    isSubmitting && "pointer-events-none",
+                    (isSubmitting || countSubmissions <= 0) &&
+                      "pointer-events-none opacity-50",
                   )}
                 />
               </div>
@@ -183,11 +250,13 @@ const ContactPage = () => {
                   name="email"
                   placeholder="your.email@example.com"
                   autoComplete="email"
+                  disabled={countSubmissions <= 0}
                   className={cn(
                     "border-secondary/70 w-full rounded-lg border p-2.5 shadow-md transition-all duration-300 ease-in-out outline-none",
                     errors.email && "border-error/50 bg-error/5",
                     !errors.email && "focus:border-secondary/50",
-                    isSubmitting && "pointer-events-none",
+                    (isSubmitting || countSubmissions <= 0) &&
+                      "pointer-events-none opacity-50",
                   )}
                 />
               </div>
@@ -225,11 +294,13 @@ const ContactPage = () => {
                   autoComplete="tel"
                   title="Format: 700-000-000"
                   placeholder="+254 700 000 000"
+                  disabled={countSubmissions <= 0}
                   className={cn(
                     "border-secondary/70 w-full rounded-lg border p-2.5 shadow-md transition-all duration-300 ease-in-out outline-none",
                     errors.mobile && "border-error/50 bg-error/5",
                     !errors.mobile && "focus:border-secondary/50",
-                    isSubmitting && "pointer-events-none",
+                    (isSubmitting || countSubmissions <= 0) &&
+                      "pointer-events-none opacity-50",
                   )}
                 />
               </div>
@@ -266,11 +337,13 @@ const ContactPage = () => {
                   aria-invalid={errors.textarea ? "true" : "false"}
                   aria-describedby="textarea-error"
                   placeholder="What would you like to discuss?"
+                  disabled={countSubmissions <= 0}
                   className={cn(
                     "border-secondary/70 w-full resize-none rounded-lg border p-2.5 shadow-md transition-all duration-300 ease-in-out outline-none",
                     errors.textarea && "border-error/50 bg-error/5",
                     !errors.textarea && "focus:border-secondary/50",
-                    isSubmitting && "pointer-events-none",
+                    (isSubmitting || countSubmissions <= 0) &&
+                      "pointer-events-none opacity-50",
                   )}
                 />
               </div>
@@ -291,19 +364,20 @@ const ContactPage = () => {
             {/* button */}
             <button
               type="submit"
-              // onClick={handleSubmit(onSubmit)}
-              disabled={isSubmitting}
+              disabled={isSubmitting || countSubmissions <= 0}
               className={cn(
                 "cursor-pointer rounded-full p-4 uppercase transition-all duration-200 ease-in-out md:ml-auto md:p-3.5",
 
                 {
                   // Default state
                   "bg-primary text-background hover:-translate-y-1 hover:shadow-md":
-                    !isSubmitting,
+                    !isSubmitting &&
+                    countSubmissions > 0 &&
+                    Object.keys(errors).length === 0,
 
-                  // Error state
+                  // Error state or no submissions left
                   "bg-primary/40 text-secondary-text cursor-not-allowed hover:translate-none":
-                    Object.keys(errors).length > 0,
+                    Object.keys(errors).length > 0 || countSubmissions <= 0,
 
                   // Submitting state
                   "bg-primary/40 text-secondary-text cursor-wait": isSubmitting,
@@ -333,6 +407,8 @@ const ContactPage = () => {
                       </svg>
                     </span>
                   </span>
+                ) : countSubmissions <= 0 ? (
+                  <span>Limit Reached</span>
                 ) : (
                   <span className="flex items-center gap-2">
                     Submit message
