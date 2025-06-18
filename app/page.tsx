@@ -85,7 +85,7 @@ export default function Home() {
 
               {/* Enhanced CTA Buttons */}
               <div
-                className="animate-fade-in-up mt-16 flex w-full flex-col flex-wrap items-center justify-center gap-8 px-6 opacity-0 md:flex-row md:px-0"
+                className="animate-fade-in-up mt-16 flex items-center justify-center gap-8 px-6 opacity-0 md:px-0"
                 style={{
                   animationDelay: "1500ms",
                   animationFillMode: "forwards",
@@ -93,9 +93,9 @@ export default function Home() {
               >
                 <Link
                   href="/contact"
-                  className="group bg-primary text-accent-alt relative flex w-full items-center justify-center gap-3 overflow-hidden rounded-full px-5 py-4 font-medium uppercase shadow-2xl transition-all duration-300 hover:-translate-y-1 md:max-w-max"
+                  className="group bg-primary text-background relative flex w-full items-center justify-center gap-3 overflow-hidden rounded-full p-4.5 text-xl uppercase transition-all duration-300 hover:-translate-y-1"
                 >
-                  <span className="relative z-10 tracking-widest">
+                  <span className="relative z-10 tracking-wide">
                     Let&apos;s Talk
                   </span>
                   <ArrowRightIcon
@@ -106,7 +106,7 @@ export default function Home() {
 
                 <Link
                   href="/about"
-                  className="group border-secondary bg-accent-alt text-primary relative inline-flex w-full items-center justify-center gap-3 overflow-hidden rounded-full border-2 px-5 py-4 uppercase backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg md:max-w-max"
+                  className="group border-secondary relative inline-flex w-full items-center justify-center gap-3 overflow-hidden rounded-full border-2 px-5 py-4 text-xl uppercase backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
                 >
                   <span className="relative z-10 font-medium tracking-widest">
                     Learn More
@@ -189,12 +189,12 @@ export default function Home() {
           <div className="mt-16 text-center">
             <Link
               href="/projects"
-              className="bg-primary text-accent-alt group inline-flex items-center gap-2 rounded-full p-2.5 font-medium tracking-wider transition-all duration-300 hover:-translate-y-0.5"
+              className="bg-primary text-background group hover:bg-primary/90 inline-flex items-center gap-2 rounded-full p-3.5 tracking-wider uppercase transition-all duration-300 hover:-translate-y-0.5"
             >
               See These in Action
               <ArrowRightIcon
                 size={14}
-                className="transition-transform duration-300 group-hover:translate-x-1"
+                className="transition-transform duration-300 group-hover:translate-x-0.5"
               />
             </Link>
           </div>

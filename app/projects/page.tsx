@@ -15,12 +15,8 @@ const Projects = () => {
         <Fade direction="down" triggerOnce duration={300}>
           <div className="flex items-center gap-4 whitespace-nowrap">
             <FolderCode size={45} className="text-secondary shrink-0" />
-            <h1 className="text-6xl leading-tight font-bold tracking-tight md:text-7xl">
-              <span className="relative">
-                My
-                <span className="bg-secondary absolute right-0 bottom-0 h-1 w-full" />
-              </span>{" "}
-              <span className="text-secondary"> Project</span>
+            <h1 className="from-accent via-tertiary to-secondary bg-gradient-to-r bg-clip-text text-6xl leading-tight font-bold tracking-tight text-transparent md:text-7xl">
+              My Project
             </h1>
           </div>
         </Fade>
@@ -31,7 +27,7 @@ const Projects = () => {
           {projects.map((project: Project) => (
             <div
               key={project.id}
-              className="border-primary flex flex-col overflow-hidden rounded-lg border shadow-md transition-transform duration-300 md:max-w-xl"
+              className="border-secondary/50 from-secondary/10 to-secondary/20 flex flex-col overflow-hidden rounded-lg border bg-gradient-to-b shadow-xl transition-transform duration-300 md:max-w-xl"
             >
               {/* Project Image */}
               <div className="relative aspect-video w-full">
@@ -48,12 +44,9 @@ const Projects = () => {
               <div className="flex flex-grow flex-col p-2">
                 <h3 className="mb-3 text-xl font-semibold">{project.name}</h3>
                 <div className="mb-2 flex flex-grow flex-col space-y-2">
-                  <span className="text-secondary-text line-clamp-2 flex-grow text-xs">
+                  <span className="text-xs-sm text-secondary-text flex-grow font-medium">
                     {project.description}
                   </span>
-                  <button className="bg-accent-alt flex max-w-max items-center gap-1 rounded-lg p-1 text-xs">
-                    Read More
-                  </button>
                 </div>
 
                 {/* technologies used */}
@@ -62,7 +55,7 @@ const Projects = () => {
                     {project.tags.map((tag, tagIndex) => (
                       <span
                         key={tagIndex}
-                        className="text-secondary-text bg-secondary rounded-full px-1.5 py-1 text-xs"
+                        className="text-primary bg-secondary/50 rounded-full px-1.5 py-1 text-xs font-medium"
                       >
                         {tag}
                       </span>
@@ -77,11 +70,11 @@ const Projects = () => {
                       href={project.liveLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="ring-primary bg-secondary flex items-center gap-1 rounded-full p-1.5 text-xs ring transition-all duration-200 ease-in-out hover:-translate-y-0.5"
+                      className="bg-secondary/30 border-secondary text-secondary-text text-xs-sm flex items-center gap-1 rounded-full border p-1.5 transition-all duration-200 ease-in-out hover:-translate-y-0.5"
                       aria-label={`View live demo of ${project.name}`}
                     >
                       <ExternalLink size={15} />
-                      <span>Live Demo</span>
+                      <span className="font-semibold">Live Demo</span>
                     </Link>
                   )}
                   {project.githubLink && (
@@ -89,11 +82,11 @@ const Projects = () => {
                       href={project.githubLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="ring-primary bg-secondary flex items-center gap-1 rounded-full p-1.5 text-xs ring transition-all duration-200 ease-in-out hover:-translate-y-0.5"
+                      className="bg-secondary/30 border-secondary text-secondary-text text-xs-sm flex items-center gap-1 rounded-full border p-1.5 transition-all duration-200 ease-in-out hover:-translate-y-0.5"
                       aria-label={`View source code for ${project.name}`}
                     >
                       <Github size={15} />
-                      <span>Github</span>
+                      <span className="font-semibold">Github</span>
                       <ArrowUpRight size={15} />
                     </Link>
                   )}

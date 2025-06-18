@@ -72,6 +72,8 @@ const ContactPage = () => {
       }
     } catch (error) {
       console.error("Error sending message:", error);
+      setSubmissionStatus("error");
+      setMessage("Failed to send message. Please try again later.");
     }
   };
 
@@ -112,8 +114,8 @@ const ContactPage = () => {
 
           {/* submission status submitting */}
           {submissionStatus === "submitting" && (
-            <div className="bg-accent-alt mb-4 flex items-center justify-center gap-2 rounded-lg p-4 shadow-lg">
-              <Loader2 className="text-secondary animate-spin" />
+            <div className="bg-secondary/50 mb-4 flex items-center justify-center gap-2 rounded-lg p-4 shadow-lg">
+              <Loader2 className="text-primary animate-spin" />
               <span className="text-primary font-semibold">{message}</span>
             </div>
           )}
@@ -144,9 +146,9 @@ const ContactPage = () => {
                   name="name"
                   autoComplete="name"
                   className={cn(
-                    "border-primary/25 w-full rounded-lg border p-2.5 shadow-md transition-all duration-300 ease-in-out outline-none",
+                    "border-secondary/70 w-full rounded-lg border p-2.5 shadow-md transition-all duration-300 ease-in-out outline-none",
                     errors.name && "border-error/50 bg-error/5",
-                    !errors.name && "focus:border-primary/20",
+                    !errors.name && "focus:border-secondary/50",
                     isSubmitting && "pointer-events-none",
                   )}
                 />
@@ -182,9 +184,9 @@ const ContactPage = () => {
                   placeholder="your.email@example.com"
                   autoComplete="email"
                   className={cn(
-                    "border-primary/25 w-full rounded-lg border p-2.5 shadow-md transition-all duration-300 ease-in-out outline-none",
+                    "border-secondary/70 w-full rounded-lg border p-2.5 shadow-md transition-all duration-300 ease-in-out outline-none",
                     errors.email && "border-error/50 bg-error/5",
-                    !errors.email && "focus:border-primary/20",
+                    !errors.email && "focus:border-secondary/50",
                     isSubmitting && "pointer-events-none",
                   )}
                 />
@@ -224,9 +226,9 @@ const ContactPage = () => {
                   title="Format: 700-000-000"
                   placeholder="+254 700 000 000"
                   className={cn(
-                    "border-primary/25 w-full rounded-lg border p-2.5 shadow-md transition-all duration-300 ease-in-out outline-none",
+                    "border-secondary/70 w-full rounded-lg border p-2.5 shadow-md transition-all duration-300 ease-in-out outline-none",
                     errors.mobile && "border-error/50 bg-error/5",
-                    !errors.mobile && "focus:border-primary/20",
+                    !errors.mobile && "focus:border-secondary/50",
                     isSubmitting && "pointer-events-none",
                   )}
                 />
@@ -265,9 +267,9 @@ const ContactPage = () => {
                   aria-describedby="textarea-error"
                   placeholder="What would you like to discuss?"
                   className={cn(
-                    "border-primary/25 w-full resize-none rounded-lg border p-2.5 shadow-md transition-all duration-300 ease-in-out outline-none",
+                    "border-secondary/70 w-full resize-none rounded-lg border p-2.5 shadow-md transition-all duration-300 ease-in-out outline-none",
                     errors.textarea && "border-error/50 bg-error/5",
-                    !errors.textarea && "focus:border-primary/20",
+                    !errors.textarea && "focus:border-secondary/50",
                     isSubmitting && "pointer-events-none",
                   )}
                 />
@@ -292,7 +294,7 @@ const ContactPage = () => {
               // onClick={handleSubmit(onSubmit)}
               disabled={isSubmitting}
               className={cn(
-                "rounded-full p-4 uppercase transition-all duration-200 ease-in-out md:ml-auto md:p-3.5",
+                "cursor-pointer rounded-full p-4 uppercase transition-all duration-200 ease-in-out md:ml-auto md:p-3.5",
 
                 {
                   // Default state
