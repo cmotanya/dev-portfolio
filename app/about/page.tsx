@@ -97,15 +97,13 @@ const About = () => {
             {values.map((value, index) => (
               <div
                 key={index}
-                className="group from-tertiary/15 to-tertiary/20 hover:shadow-tertiary/20 relative overflow-hidden rounded-xl bg-gradient-to-br p-8 text-center shadow-md transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-xl md:text-left"
+                className="group from-tertiary/8 via-tertiary/10 to-tertiary/15 border border-tertiary/20 hover:shadow-tertiary/20 relative overflow-hidden rounded-xl bg-gradient-to-b p-8 text-center shadow-md transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-xl md:text-left"
               >
                 <div className="text-tertiary mb-4 flex justify-center text-5xl md:justify-start">
                   {value.icon}
                 </div>
-                <h3 className="text-secondary-text mb-3 text-xl font-semibold">
-                  {value.title}
-                </h3>
-                <p className="text-textColor/80 text-base leading-relaxed">
+                <h3 className="mb-3 text-xl font-semibold">{value.title}</h3>
+                <p className="text-secondary-text text-xs-sm text-base leading-relaxed font-medium">
                   {value.description}
                 </p>
                 {/* Subtle background glow on hover */}

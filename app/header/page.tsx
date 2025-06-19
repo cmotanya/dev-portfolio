@@ -67,16 +67,14 @@ const Header = () => {
 
         {/* Resume */}
         <Fade direction="right" duration={500} triggerOnce>
-          <button
-            className={cn(
-              "bg-primary text-background flex justify-center gap-2 rounded-full px-4 py-3",
-            )}
+          <Link
+            href="/resume"
+            role="button"
+            className="bg-primary text-background flex cursor-pointer justify-center gap-2 rounded-full px-4 py-3"
           >
-            <Link href="/resume" role="button">
-              View Resume
-            </Link>
+            View Resume
             <FileUser />
-          </button>
+          </Link>
         </Fade>
       </div>
     </header>
