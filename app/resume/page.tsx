@@ -46,7 +46,7 @@ export default function Resume() {
         onClick={handleClick}
         aria-label="Go Back to previous page"
         className={cn(
-          "bg-primary group text-background sticky flex cursor-pointer items-center gap-2 rounded-full px-3 py-2",
+          "bg-primary group text-background sticky ml-4 flex cursor-pointer items-center gap-2 rounded-full px-3 py-2 md:ml-0",
           isLoading ? "scale-75 opacity-0" : "scale-100 opacity-100",
         )}
       >
@@ -60,7 +60,7 @@ export default function Resume() {
       <div className="mt-5">
         <div
           className={cn(
-            "mb-12 transform text-center transition-all duration-300 ease-out",
+            "mb-4 transform text-center transition-all duration-300 ease-out md:mb-12",
             isLoading
               ? "translate-y-12 opacity-0"
               : "translate-y-0 opacity-100",
@@ -76,10 +76,10 @@ export default function Resume() {
 
         {/* timeline container */}
         <div className="relative">
-          <div className="from-secondary via-tertiary to-accent absolute top-0 bottom-0 left-8 w-0.5 bg-gradient-to-b md:left-1/2 md:-translate-x-px md:transform" />
+          <div className="from-secondary via-tertiary to-accent absolute top-0 bottom-0 left-2 hidden w-0.5 bg-gradient-to-b md:left-1/2 md:block md:-translate-x-px md:transform" />
 
           {/* timeline items */}
-          <div>
+          <div className="p-4">
             {resumeCV.map((item, index) => {
               const isEven = index % 2;
               const isVisible = visibleItems.has(index);
@@ -87,10 +87,10 @@ export default function Resume() {
               return (
                 <div
                   key={item.id}
-                  className="relative mb-10 ml-4 flex items-center md:ml-0 md:justify-center"
+                  className="relative mb-10 flex items-center md:justify-center"
                 >
                   {/* timeline dot */}
-                  <div className="absolute left-8 z-50 md:left-1/2 md:-translate-x-1/2 md:transform">
+                  <div className="absolute z-50 hidden md:left-1/2 md:block md:-translate-x-1/2 md:transform">
                     <div
                       className={cn(
                         "border-background bg-secondary size-4 transform rounded-full border-4 transition-all duration-300 ease-in-out",
@@ -102,7 +102,7 @@ export default function Resume() {
                   {/* timeline content */}
                   <article
                     className={cn(
-                      "border-secondary/20 relative w-5/12 transform overflow-hidden rounded-2xl border shadow-lg backdrop-blur-md transition-all duration-300 ease-out md:ml-0 md:p-6",
+                      "border-secondary/20 relative transform overflow-hidden rounded-2xl border p-4 shadow-lg backdrop-blur-md transition-all duration-300 ease-out md:ml-0 md:w-5/12 md:p-6",
                       isEven ? "md:mr-auto" : "md:ml-auto",
                       isVisible
                         ? "translate-x-0 scale-100 opacity-100"
@@ -168,7 +168,7 @@ export default function Resume() {
       </div>
 
       {/* bottom decoration */}
-      <div className="mt-10 flex justify-center">
+      <div className="flex justify-center md:mt-10">
         <div className="text-primary-text/70 bg-secondary/20 flex items-center justify-center rounded-lg p-1.5 text-sm font-medium">
           Career Journey Complete
         </div>
