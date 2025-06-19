@@ -9,7 +9,7 @@ export const projects: Project[] = [
       "A modern, responsive portfolio website built with Next.js and TypeScript. Features include dynamic project showcasing, smooth animations, dark theme, and a contact form with email integration. Implemented best practices for accessibility and performance optimization.",
     image: "/images/project-portfolio.jpg",
     tags: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
-    liveLink: "https://cmotanya.dev",
+    liveLink: "https://motanya-devportfolio.vercel.app/projects",
     githubLink: "https://github.com/cmotanya/dev-portfolio",
   },
 
