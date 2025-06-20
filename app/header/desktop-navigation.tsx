@@ -18,10 +18,10 @@ const DesktopNavigation = () => {
               <li
                 key={item.name + index}
                 className={cn(
-                  "hover:bg-secondary group cursor-pointer rounded-full transition-all duration-100 ease-in-out",
+                  "group cursor-pointer rounded-full transition-all duration-100 ease-in-out",
                   active
-                    ? "hover:bg-secondary bg-primary text-xl hover:translate-y-0"
-                    : "hover:-translate-y-1",
+                    ? "bg-primary text-xl hover:translate-y-0"
+                    : "hover:bg-secondary/50 hover:-translate-y-1",
                 )}
               >
                 <Link

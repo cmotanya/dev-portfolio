@@ -38,10 +38,10 @@ const Header = () => {
           <Link
             href="/resume"
             role="button"
-            className="bg-primary text-background hidden cursor-pointer items-center gap-2 rounded-full px-4 py-3 md:flex"
+            className="bg-primary group text-background hidden cursor-pointer items-center gap-2 rounded-full px-4 py-3 md:flex"
           >
             View Resume
-            <FileUser />
+            <FileUser className="transform transition-all duration-200 ease-out group-hover:-translate-y-1 group-active:-translate-y-1.5" />
           </Link>
         </Fade>
 
