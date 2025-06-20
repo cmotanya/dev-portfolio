@@ -373,13 +373,13 @@ const ContactPage = () => {
 
                 {
                   // Default state
-                  "bg-primary text-background hover:-translate-y-1 hover:shadow-md":
+                  "bg-primary text-background hover:shadow-md":
                     !isSubmitting &&
                     countSubmissions > 0 &&
                     Object.keys(errors).length === 0,
 
                   // Error state or no submissions left
-                  "bg-primary/40 text-secondary-text cursor-not-allowed hover:translate-none":
+                  "bg-primary/40 text-secondary-text cursor-not-allowed":
                     Object.keys(errors).length > 0 || countSubmissions <= 0,
 
                   // Submitting state
@@ -413,11 +413,15 @@ const ContactPage = () => {
                 ) : countSubmissions <= 0 ? (
                   <span>Limit Reached</span>
                 ) : (
-                  <span className="flex items-center gap-2">
+                  <span className="group flex items-center gap-2">
                     Submit message
                     <Send
                       size={17}
-                      className="transition-transform group-hover:translate-x-1"
+                      className={cn(
+                        "transition-all duration-300 ease-out group-hover:translate-x-1.5 group-active:translate-x-1.5",
+                        Object.keys(errors).length > 0 &&
+                          "group-hover:translate-x-0 group-active:translate-x-0",
+                      )}
                     />
                   </span>
                 )}
