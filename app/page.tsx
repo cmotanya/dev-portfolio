@@ -25,9 +25,9 @@ export default function Home() {
   };
   return (
     <section className="relative mx-auto min-h-screen w-full max-w-4xl overflow-hidden px-2">
-      <div className="relative z-10 container mx-auto pt-14 md:pt-6">
+      <div className="relative z-10 container -mt-24 flex min-h-dvh items-center justify-center md:mx-auto md:pt-6">
         <Slide direction="down" triggerOnce duration={400}>
-          <div className="relative flex flex-col items-center justify-center space-y-8">
+          <div className="relative flex flex-col items-center justify-center gap-26 md:gap-14">
             {/* Enhanced Welcome Badge */}
             <div className="group relative">
               <span className="from-accent via-tertiary to-primary absolute -inset-2 animate-[gradient-x_8s_ease-in-out_infinite] rounded-xl bg-gradient-to-r bg-[length:200%_100%] opacity-40 blur-sm transition-opacity duration-500 group-hover:opacity-60" />
@@ -52,7 +52,7 @@ export default function Home() {
                           key={index}
                           className="animate-letter-drop inline-block translate-y-8 transform opacity-0"
                           style={{
-                            animationDelay: `${200 + index * 100}ms`,
+                            animationDelay: `${100 + index * 60}ms`,
                             animationFillMode: "forwards",
                             color: `hsl(${200 + index * 15}, 50%, ${45 + index * 4}%)`,
                           }}
@@ -68,7 +68,7 @@ export default function Home() {
               <div
                 className="animate-fade-in-up opacity-0"
                 style={{
-                  animationDelay: "1000ms",
+                  animationDelay: "600ms",
                   animationFillMode: "forwards",
                 }}
               >
@@ -85,9 +85,9 @@ export default function Home() {
 
               {/* Enhanced CTA Buttons */}
               <div
-                className="animate-fade-in-up mt-16 flex items-center justify-center gap-8 px-6 opacity-0 md:px-0"
+                className="animate-fade-in-up mt-28 flex flex-col items-center justify-center gap-4 px-6 opacity-0 md:mt-16 md:flex-row md:gap-8 md:px-0"
                 style={{
-                  animationDelay: "1500ms",
+                  animationDelay: "800ms",
                   animationFillMode: "forwards",
                 }}
               >
@@ -119,7 +119,7 @@ export default function Home() {
       </div>
 
       {/* Enhanced Services Section */}
-      <div className="container pt-20">
+      <div className="container">
         <Fade direction="up" duration={500} triggerOnce delay={500}>
           <div className="mb-10 text-center md:mb-6">
             <span className="text-secondary-text mb-4 block text-sm font-medium tracking-wider uppercase">
