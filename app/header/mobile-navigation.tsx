@@ -114,7 +114,7 @@ const MobileNavigation = () => {
               <Link
                 href="/resume"
                 role="button"
-                className="bg-primary text-background mt-10 flex items-center cursor-pointer justify-center gap-2 rounded-full p-4 text-2xl uppercase"
+                className="bg-primary text-background mt-10 flex cursor-pointer items-center justify-center gap-2 rounded-full p-4 text-2xl uppercase"
               >
                 View Resume
                 <FileUser />
