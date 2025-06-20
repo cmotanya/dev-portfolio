@@ -35,7 +35,7 @@ export default function Home() {
     <section className="relative mx-auto min-h-screen w-full max-w-4xl overflow-hidden px-2">
       <div className="relative z-10 container -mt-24 flex min-h-dvh items-center justify-center md:mx-auto md:pt-6">
         <Slide direction="down" triggerOnce duration={400}>
-          <div className="relative flex flex-col items-center justify-center gap-26 md:gap-14">
+          <div className="relative flex flex-col items-center justify-center gap-26 md:gap-7">
             {/* Enhanced Welcome Badge */}
             <div className="group relative">
               <span className="from-accent via-tertiary to-primary absolute -inset-2 animate-[gradient-x_8s_ease-in-out_infinite] rounded-xl bg-gradient-to-r bg-[length:200%_100%] opacity-40 blur-sm transition-opacity duration-500 group-hover:opacity-60" />
@@ -47,13 +47,13 @@ export default function Home() {
             </div>
 
             {/* Enhanced Hero Content */}
-            <div className="relative z-10 space-y-14 text-center">
+            <div className="relative z-10 space-y-8 text-center">
               <div>
                 <h3 className="animate-fade-in block text-xl font-medium tracking-tight opacity-80 md:text-3xl">
                   hey there! I&apos;m
                 </h3>
                 <span className="relative inline-block">
-                  <h1 className="block text-3xl font-bold md:text-4xl lg:text-7xl">
+                  <h1 className="block text-8xl font-bold md:text-9xl">
                     <span className="relative inline-block">
                       {Array.from("Cornelius").map((letter, index) => (
                         <span
@@ -80,7 +80,7 @@ export default function Home() {
                   animationFillMode: "forwards",
                 }}
               >
-                <p className="text-foreground/80 mx-auto text-lg leading-relaxed md:max-w-2xl md:text-xl">
+                <p className="text-foreground/80 mx-auto text-xl leading-relaxed md:max-w-2xl md:text-2xl">
                   A tech-savvy innovator with expertise in{" "}
                   <span className="group relative inline-block cursor-pointer font-semibold">
                     <span className="text-tertiary relative z-10 transition-colors duration-300">
@@ -93,7 +93,7 @@ export default function Home() {
 
               {/* Enhanced CTA Buttons */}
               <div
-                className="animate-fade-in-up mt-28 flex flex-col items-center justify-center gap-4 px-6 opacity-0 md:mt-16 md:flex-row md:gap-8 md:px-0"
+                className="animate-fade-in-up mt-28 flex flex-col items-center justify-center gap-4 opacity-0 md:mt-16 md:flex-row md:gap-8 md:px-0"
                 style={{
                   animationDelay: "800ms",
                   animationFillMode: "forwards",
@@ -101,9 +101,9 @@ export default function Home() {
               >
                 <Link
                   href="/contact"
-                  className="group bg-primary text-background relative flex w-full items-center justify-center gap-3 overflow-hidden rounded-full p-4.5 text-xl uppercase transition-all duration-300 hover:-translate-y-1"
+                  className="group bg-primary text-background relative flex w-full items-center justify-center gap-3 overflow-hidden rounded-full p-5 text-xl uppercase transition-all duration-300 hover:-translate-y-1"
                 >
-                  <span className="relative z-10 tracking-wide">
+                  <span className="relative z-10 text-2xl font-bold tracking-wide">
                     Let&apos;s Talk
                   </span>
                   <ArrowRightIcon
@@ -114,9 +114,9 @@ export default function Home() {
 
                 <Link
                   href="/about"
-                  className="group border-secondary relative inline-flex w-full items-center justify-center gap-3 overflow-hidden rounded-full border-2 px-5 py-4 text-xl uppercase backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                  className="group border-secondary/40 relative inline-flex w-full items-center justify-center gap-3 overflow-hidden rounded-full border p-5 text-xl uppercase backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
                 >
-                  <span className="relative z-10 font-medium tracking-widest">
+                  <span className="text-primary relative z-10 text-2xl font-bold tracking-widest">
                     Learn More
                   </span>
                 </Link>
@@ -213,7 +213,7 @@ export default function Home() {
           <div className="mt-16 items-center justify-center md:flex">
             <Link
               href="/projects"
-              className="bg-primary text-background group flex items-center justify-center gap-2 rounded-full p-5 uppercase transition-all duration-300 md:inline-flex md:p-4"
+              className="bg-primary text-background group flex items-center justify-center gap-2 rounded-full p-5 text-lg uppercase transition-all duration-300 md:inline-flex md:p-4"
             >
               See These in Action
               <ArrowRightIcon
