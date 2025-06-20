@@ -43,13 +43,13 @@ export default function Resume() {
   }, []);
 
   return (
-    <section className="mx-auto -mt-22 max-w-4xl">
+    <section className="mx-auto -mt-22 max-w-4xl p-4">
       <div className="flex items-center justify-between">
         <button
           onClick={handleClick}
           aria-label="Go Back to previous page"
           className={cn(
-            "bg-primary group text-background sticky z-50 ml-4 flex cursor-pointer items-center gap-2 rounded-full p-3 uppercase md:ml-0",
+            "bg-primary group text-background sticky z-50 flex cursor-pointer items-center gap-2 rounded-full p-3 uppercase md:ml-0",
             isLoading ? "scale-75 opacity-0" : "scale-100 opacity-100",
           )}
         >
@@ -117,7 +117,7 @@ export default function Resume() {
           <div className="from-secondary via-tertiary to-accent absolute top-0 bottom-0 left-2 hidden w-0.5 bg-gradient-to-b md:left-1/2 md:block md:-translate-x-px md:transform" />
 
           {/* timeline items */}
-          <div className="p-4">
+          <div>
             {resumeCV.map((item, index) => {
               const isEven = index % 2;
               const isVisible = visibleItems.has(index);
