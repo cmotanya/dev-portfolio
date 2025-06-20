@@ -48,12 +48,9 @@ const About = () => {
     >
       {/* --- Section Title --- */}
       <Slide direction="down" duration={300} triggerOnce>
-        <div className="relative mb-12 flex items-center justify-center gap-4 md:justify-start">
-          <User
-            size={55}
-            className="text-secondary shrink-0 rotate-6 transform transition-transform duration-300 ease-in-out hover:rotate-0"
-          />
-          <h1 className="from-accent via-tertiary to-secondary bg-gradient-to-r bg-clip-text text-center text-5xl font-extrabold tracking-tight text-transparent md:text-7xl">
+        <div className="flex items-center justify-center gap-4 md:justify-start">
+          <User size={45} className="text-secondary shrink-0 -rotate-6" />
+          <h1 className="from-accent via-tertiary to-secondary bg-gradient-to-r bg-clip-text text-6xl leading-tight font-bold tracking-tight text-transparent md:text-7xl">
             About Me
           </h1>
         </div>
@@ -62,7 +59,7 @@ const About = () => {
       {/* --- Personal Introduction & Location --- */}
       <Fade direction="up" delay={200} duration={300} triggerOnce>
         <div className="text-textColor/90 mb-16 space-y-6 leading-relaxed md:text-left">
-          <div className="text-secondary-text mb-4 flex items-center justify-center gap-2 text-lg md:justify-start">
+          <div className="text-secondary-text mb-12 flex items-center justify-center gap-2 text-lg md:justify-start">
             <MapPin className="h-5 w-5 animate-pulse" />
             <span className="font-medium">Based in Mombasa, Kenya</span>
           </div>
@@ -97,7 +94,7 @@ const About = () => {
             {values.map((value, index) => (
               <div
                 key={index}
-                className="group from-tertiary/8 via-tertiary/10 to-tertiary/15 border border-tertiary/20 hover:shadow-tertiary/20 relative overflow-hidden rounded-xl bg-gradient-to-b p-8 text-center shadow-md transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-xl md:text-left"
+                className="group from-tertiary/8 via-tertiary/10 to-tertiary/15 border-tertiary/20 hover:shadow-tertiary/20 relative overflow-hidden rounded-xl border bg-gradient-to-b p-8 text-center shadow-md transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-xl md:text-left"
               >
                 <div className="text-tertiary mb-4 flex justify-center text-5xl md:justify-start">
                   {value.icon}

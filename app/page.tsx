@@ -6,10 +6,15 @@ import Link from "next/link";
 import { Fade, Slide } from "react-awesome-reveal";
 import { WhatIDo } from "./data/what-I-do";
 import Slider from "react-slick";
+import { useRef, useState } from "react";
+import { cn } from "@/lib/utils";
 
 export default function Home() {
+  const sliderRef = useRef<Slider | null>(null);
+  const [current, setCurrent] = useState(0);
+
   const settings = {
-    dots: true,
+    dots: false,
     fade: true,
     infinite: true,
     speed: 800,
@@ -20,9 +25,12 @@ export default function Home() {
     pauseOnHover: true,
     arrows: false,
     waitForAnimate: false,
-    // Custom dot styling
+
     dotsClass: "slick-dots custom-dots",
+
+    beforeChange: (_: number, next: number) => setCurrent(next),
   };
+
   return (
     <section className="relative mx-auto min-h-screen w-full max-w-4xl overflow-hidden px-2">
       <div className="relative z-10 container -mt-24 flex min-h-dvh items-center justify-center md:mx-auto md:pt-6">
@@ -135,35 +143,53 @@ export default function Home() {
 
         {/* Web Development Service */}
         <Fade direction="up" duration={600} triggerOnce delay={200}>
-          <Slider
-            {...settings}
-            className="bg-tertiary/10 mx-auto w-full rounded-lg p-6 shadow-sm md:max-w-xl"
-          >
-            {WhatIDo.map((service, index) => (
-              <div key={index} className="grid justify-between space-y-4">
-                <h3 className="text-primary text-2xl font-semibold uppercase">
-                  {service.title}
-                </h3>
-                <p className="text-primary-text/70 leading-relaxed font-semibold">
-                  {service.description}
-                </p>
-                <ul className="flex flex-wrap gap-2">
-                  {service.tags.map((tag, tagIndex) => (
-                    <li
-                      key={tagIndex}
-                      className="bg-accent-alt text-secondary text-xs-sm rounded-full px-1.5 py-1 font-medium transition-colors duration-300"
-                    >
-                      {tag}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </Slider>
+          <div className="relative z-10 container mx-auto pb-12">
+            <Slider
+              {...settings}
+              className="bg-secondary/5 border-secondary/20 sh mx-auto w-full rounded-lg border p-6 shadow-xl md:max-w-xl"
+            >
+              {WhatIDo.map((service, index) => (
+                <div key={index} className="grid justify-between space-y-4">
+                  <h3 className="text-primary text-2xl font-semibold uppercase">
+                    {service.title}
+                  </h3>
+                  <p className="text-primary-text/70">
+                    {service.description}
+                  </p>
+                  <ul className="flex flex-wrap gap-2">
+                    {service.tags.map((tag, tagIndex) => (
+                      <li
+                        key={tagIndex}
+                        className="bg-secondary/20 text-primary text-sm rounded-full px-1.5 py-1 font-medium transition-colors duration-300"
+                      >
+                        {tag}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </Slider>
+
+            {/* custom dots */}
+            <div className="absolute -bottom-0 flex w-full justify-center gap-3">
+              {WhatIDo.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => sliderRef.current?.slickGoTo(index)}
+                  className={cn(
+                    "size-3 rounded-full transition-all duration-300 ease-in-out",
+                    current === index
+                      ? "from-accent to-tertiary border-secondary scale-125 bg-gradient-to-r shadow-[0_0_3px_2.5px_var(--color-secondary)]"
+                      : "bg-secondary/30",
+                  )}
+                ></button>
+              ))}
+            </div>
+          </div>
         </Fade>
       </div>
 
-      <div className="container mx-auto py-20">
+      <div className="container mx-auto py-10">
         <Fade direction="up" duration={500} triggerOnce delay={300}>
           <div className="relative z-10 mb-4 text-center md:mb-16">
             <span className="text-secondary-text mb-4 block text-sm font-medium tracking-wider uppercase">
@@ -189,12 +215,12 @@ export default function Home() {
           <div className="mt-16 text-center">
             <Link
               href="/projects"
-              className="bg-primary text-background group hover:bg-primary/90 inline-flex items-center gap-2 rounded-full p-3.5 tracking-wider uppercase transition-all duration-300 hover:-translate-y-0.5"
+              className="bg-primary text-background group group inline-flex items-center gap-2 rounded-full p-3.5 uppercase transition-all duration-300"
             >
               See These in Action
               <ArrowRightIcon
                 size={14}
-                className="transition-transform duration-300 group-hover:translate-x-0.5"
+                className="transition-transform duration-300 group-hover:translate-x-1"
               />
             </Link>
           </div>

@@ -6,7 +6,7 @@ import {
   Newspaper,
 } from "lucide-react";
 
-export const nav = [
+export const navigationLinks = [
   { icon: <LayoutGrid />, name: "Home", link: "/" },
   { icon: <FileUser />, name: "About", link: "/about" },
   { icon: <BriefcaseBusiness />, name: "Projects", link: "/projects" },

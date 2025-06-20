@@ -9,12 +9,12 @@ const Projects = () => {
   return (
     <section
       id="projects"
-      className="mx-auto max-w-4xl py-16 md:px-12 md:py-24"
+      className="mx-auto max-w-4xl px-4 py-16 md:px-12 md:py-24"
     >
       <div className="relative mb-12">
         <Fade direction="down" triggerOnce duration={300}>
-          <div className="flex items-center gap-4 whitespace-nowrap">
-            <FolderCode size={45} className="text-secondary shrink-0" />
+          <div className="flex items-center justify-center gap-4 md:justify-start">
+            <FolderCode size={45} className="text-secondary shrink-0 -rotate-6" />
             <h1 className="from-accent via-tertiary to-secondary bg-gradient-to-r bg-clip-text text-6xl leading-tight font-bold tracking-tight text-transparent md:text-7xl">
               My Project
             </h1>
@@ -22,7 +22,7 @@ const Projects = () => {
         </Fade>
       </div>
 
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
         <Fade damping={0.5} cascade triggerOnce duration={400}>
           {projects.map((project: Project) => (
             <div

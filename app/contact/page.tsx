@@ -139,9 +139,12 @@ const ContactPage = () => {
       <div className="md:max-w-xl">
         <div className="relative mb-10">
           <Fade direction="left" cascade triggerOnce duration={300}>
-            <div className="flex items-center gap-2 whitespace-nowrap">
-              <MessageCircleCode size={45} className="text-primary shrink-0" />
-              <h1 className="from-accent via-tertiary to-secondary bg-gradient-to-r bg-clip-text text-6xl font-bold tracking-wider text-transparent">
+            <div className="flex items-center justify-center gap-4 md:justify-start">
+              <MessageCircleCode
+                size={45}
+                className="text-secondary shrink-0"
+              />
+              <h1 className="from-accent via-tertiary to-secondary bg-gradient-to-r bg-clip-text text-6xl leading-tight font-bold tracking-tight text-transparent md:text-7xl">
                 Contact Me
               </h1>
             </div>
