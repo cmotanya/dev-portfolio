@@ -153,14 +153,12 @@ export default function Home() {
                   <h3 className="text-primary text-2xl font-semibold uppercase">
                     {service.title}
                   </h3>
-                  <p className="text-primary-text/70">
-                    {service.description}
-                  </p>
+                  <p className="text-primary-text/70">{service.description}</p>
                   <ul className="flex flex-wrap gap-2">
                     {service.tags.map((tag, tagIndex) => (
                       <li
                         key={tagIndex}
-                        className="bg-secondary/20 text-primary text-sm rounded-full px-1.5 py-1 font-medium transition-colors duration-300"
+                        className="bg-secondary/20 text-primary rounded-full px-1.5 py-1 text-sm font-medium transition-colors duration-300"
                       >
                         {tag}
                       </li>
@@ -212,15 +210,15 @@ export default function Home() {
           </div>
 
           {/* Call to Action */}
-          <div className="mt-16 text-center">
+          <div className="mt-16 items-center justify-center md:flex">
             <Link
               href="/projects"
-              className="bg-primary text-background group group inline-flex items-center gap-2 rounded-full p-3.5 uppercase transition-all duration-300"
+              className="bg-primary text-background group flex items-center justify-center gap-2 rounded-full p-5 uppercase transition-all duration-300 md:inline-flex md:p-4"
             >
               See These in Action
               <ArrowRightIcon
                 size={14}
-                className="transition-transform duration-300 group-hover:translate-x-1"
+                className="transition-transform duration-400 group-hover:translate-x-1.5 group-active:translate-x-2"
               />
             </Link>
           </div>

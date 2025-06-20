@@ -94,7 +94,7 @@ const About = () => {
             {values.map((value, index) => (
               <div
                 key={index}
-                className="group from-tertiary/8 via-tertiary/10 to-tertiary/15 border-tertiary/20 hover:shadow-tertiary/20 relative overflow-hidden rounded-xl border bg-gradient-to-b p-8 text-center shadow-md transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-xl md:text-left"
+                className="group hover:shadow-secondary/20 bg-secondary/5 border-secondary/30 relative overflow-hidden rounded-xl border p-8 text-center shadow-md transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-xl md:text-left"
               >
                 <div className="text-tertiary mb-4 flex justify-center text-5xl md:justify-start">
                   {value.icon}
@@ -104,7 +104,7 @@ const About = () => {
                   {value.description}
                 </p>
                 {/* Subtle background glow on hover */}
-                <span className="animate-pulse-slow from-tertiary/0 via-tertiary/20 to-tertiary/0 absolute -inset-full rounded-xl bg-gradient-to-r opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                <span className="animate-pulse-slow from-secondary/0 via-secondary/20 to-secondary/0 absolute -inset-full rounded-xl bg-gradient-to-r opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
               </div>
             ))}
           </div>
