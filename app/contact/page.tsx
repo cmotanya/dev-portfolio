@@ -369,7 +369,7 @@ const ContactPage = () => {
               type="submit"
               disabled={isSubmitting || countSubmissions <= 0}
               className={cn(
-                "cursor-pointer rounded-full p-4 uppercase transition-all duration-200 ease-in-out md:ml-auto md:p-3.5",
+                "cursor-pointer rounded-full p-5 uppercase transition-all duration-200 ease-in-out md:ml-auto md:p-4",
 
                 {
                   // Default state
