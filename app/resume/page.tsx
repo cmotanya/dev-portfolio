@@ -7,6 +7,8 @@ import {
   MapPin,
   Building2,
   Briefcase,
+  Loader,
+  Download,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -42,20 +44,56 @@ export default function Resume() {
 
   return (
     <section className="mx-auto -mt-22 max-w-4xl">
-      <button
-        onClick={handleClick}
-        aria-label="Go Back to previous page"
+      <div className="flex items-center justify-between">
+        <button
+          onClick={handleClick}
+          aria-label="Go Back to previous page"
+          className={cn(
+            "bg-primary group text-background sticky z-50 ml-4 flex cursor-pointer items-center gap-2 rounded-full p-3 uppercase md:ml-0",
+            isLoading ? "scale-75 opacity-0" : "scale-100 opacity-100",
+          )}
+        >
+          <ArrowLeft
+            size={15}
+            className="transition-transform duration-300 ease-out group-hover:-translate-x-1.5 active:-translate-x-1.5"
+          />
+          Go Back
+        </button>
+
+        {/* download button */}
+        <button
+          onClick={() => window.open("/resume.pdf", "_blank")}
+          aria-label="Download Resume"
+          className={cn(
+            "bg-primary group text-background sticky z-50 ml-4 flex cursor-pointer items-center gap-2 rounded-full p-3 uppercase md:ml-0",
+            isLoading ? "scale-75 opacity-0" : "scale-100 opacity-100",
+          )}
+        >
+          Download PDF
+          <Download
+            size={15}
+            className="transition-transform duration-300 ease-out group-hover:-translate-y-1.5 active:-translate-y-1.5"
+          />
+        </button>
+      </div>
+
+      {/* loading screen */}
+      <div
         className={cn(
-          "bg-primary group text-background sticky ml-4 flex cursor-pointer items-center gap-2 rounded-full p-3 uppercase md:ml-0",
-          isLoading ? "scale-75 opacity-0" : "scale-100 opacity-100",
+          "bg-background/80 fixed inset-0 z-50 flex items-center justify-center backdrop-blur-md duration-500 ease-in-out",
+          isLoading
+            ? "pointer-events-auto opacity-100"
+            : "pointer-events-none opacity-0",
         )}
       >
-        <ArrowLeft
-          size={15}
-          className="transition-transform duration-300 ease-out group-hover:-translate-x-1.5 active:-translate-x-1.5"
-        />
-        Go Back
-      </button>
+        <div className="animate-fade-in flex flex-col items-center gap-4">
+          <Loader className="text-primary size-12 animate-spin" />
+          <h1 className="text-primary text-3xl font-bold">
+            Loading my resume...
+          </h1>
+          <p className="text-primary-text/50 text-sm">Please wait a moment</p>
+        </div>
+      </div>
 
       <div className="mt-5">
         <div
@@ -90,7 +128,7 @@ export default function Resume() {
                   className="relative mb-10 flex items-center md:justify-center"
                 >
                   {/* timeline dot */}
-                  <div className="absolute z-50 hidden md:left-1/2 md:block md:-translate-x-1/2 md:transform">
+                  <div className="absolute z-30 hidden md:left-1/2 md:block md:-translate-x-1/2 md:transform">
                     <div
                       className={cn(
                         "border-background bg-secondary size-4 transform rounded-full border-4 transition-all duration-300 ease-in-out",
