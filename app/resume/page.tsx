@@ -46,13 +46,13 @@ export default function Resume() {
         onClick={handleClick}
         aria-label="Go Back to previous page"
         className={cn(
-          "bg-primary group text-background sticky ml-4 flex cursor-pointer items-center gap-2 rounded-full px-3 py-2 md:ml-0",
+          "bg-primary group text-background sticky ml-4 flex cursor-pointer items-center gap-2 rounded-full p-3 uppercase md:ml-0",
           isLoading ? "scale-75 opacity-0" : "scale-100 opacity-100",
         )}
       >
         <ArrowLeft
           size={15}
-          className="transition-transform group-hover:-translate-x-1"
+          className="transition-transform duration-300 ease-out group-hover:-translate-x-1.5 active:-translate-x-1.5"
         />
         Go Back
       </button>
