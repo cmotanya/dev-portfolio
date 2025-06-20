@@ -35,7 +35,7 @@ const NotFoundPage = () => {
       >
         <ArrowLeftCircle
           size={20}
-          className="transition-all duration-300 ease-in-out group-hover:-translate-x-1.5"
+          className="transition-all duration-300 ease-in-out group-hover:-translate-x-1.5 group-active:-translate-x-1.5"
         />
         Go back home
       </Link>
