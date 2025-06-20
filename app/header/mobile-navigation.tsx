@@ -88,6 +88,12 @@ const MobileNavigation = () => {
               </h2>
               <ul className="text-primary-text/70 space-y-3 text-base font-bold">
                 <li className="flex items-center">
+                  <PhoneIcon className="text-tertiary mr-3" />
+                  <a href="tel:+254712909475" className="hover:underline">
+                    (+254) 712-909-475
+                  </a>
+                </li>
+                <li className="flex items-center">
                   <Mail className="text-tertiary mr-3" />
                   <a
                     href="mailto:motanyac@gmail.com"
@@ -96,12 +102,7 @@ const MobileNavigation = () => {
                     motanyac@gmail.com
                   </a>
                 </li>
-                <li className="flex items-center">
-                  <PhoneIcon className="text-tertiary mr-3" />
-                  <a href="tel:+254712909475" className="hover:underline">
-                    (+254) 712-909-475
-                  </a>
-                </li>
+
                 <li className="flex items-center capitalize">
                   <Map className="text-tertiary mr-3" />
                   <span>Mombasa, Kenya</span>
