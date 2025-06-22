@@ -1,20 +1,29 @@
+"use client";
+
 import { ArrowUpRight, ExternalLink, FolderCode, Github } from "lucide-react";
 import Image from "next/image";
 import { projects } from "../data/projects";
 import { Project } from "@/lib/types";
 import Link from "next/link";
 import { Fade } from "react-awesome-reveal";
+import { useRouter } from "next/navigation";
 
 const Projects = () => {
+  const router = useRouter();
+
+  const handleClick = (href: string) => {
+    router.push(href);
+  };
+
   return (
-    <section
-      id="projects"
-      className="mx-auto max-w-4xl px-4 py-16 md:px-12 md:py-24"
-    >
+    <section id="projects" className="max-w-5xl px-4 md:mx-auto">
       <div className="relative mb-12">
         <Fade direction="down" triggerOnce duration={300}>
           <div className="flex items-center justify-center gap-4 md:justify-start">
-            <FolderCode size={45} className="text-secondary shrink-0 -rotate-6" />
+            <FolderCode
+              size={45}
+              className="text-secondary shrink-0 -rotate-6"
+            />
             <h1 className="from-accent via-tertiary to-secondary bg-gradient-to-r bg-clip-text text-6xl leading-tight font-bold tracking-tight text-transparent md:text-7xl">
               My Project
             </h1>
@@ -94,6 +103,23 @@ const Projects = () => {
               </div>
             </div>
           ))}
+        </Fade>
+      </div>
+
+      {/* button to quotation page */}
+      <div className="mt-12 flex items-center justify-center">
+        <Fade direction="up" triggerOnce duration={300}>
+          <button
+            onClick={() => handleClick("/quotation")}
+            className="bg-primary border-secondary text-background group flex cursor-pointer items-center gap-2 rounded-full p-4"
+            aria-label="Request a quotation page"
+          >
+            <span className="text-xl uppercase">Request a quotation</span>
+            <ArrowUpRight
+              size={15}
+              className="transition-all duration-200 ease-in-out group-hover:translate-x-1.5 group-active:translate-x-1.5"
+            />
+          </button>
         </Fade>
       </div>
     </section>

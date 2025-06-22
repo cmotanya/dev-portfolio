@@ -14,14 +14,7 @@ export type ServiceData = {
   category: string;
 };
 
-export type SubmissionStatus =
-  | "idle"
-  | "submitting"
-  | "success"
-  | "error"
-  | "limit_exceeded";
-
-// types/index.ts or types/Project.d.ts
+// types/Project.d.ts
 export interface Project {
   id: number;
   name: string;
@@ -31,7 +24,6 @@ export interface Project {
   liveLink?: string;
   githubLink?: string;
 }
-
 export interface SolutionOption {
   id: string;
   title: string;
@@ -39,6 +31,36 @@ export interface SolutionOption {
   icon: React.ReactNode;
 }
 
+// types/Quotation.d.ts
+export type QService = {
+  id: string;
+  name: string;
+  description: string;
+  icon: React.ElementType;
+};
+export interface QItem {
+  id: string;
+  name: string;
+  description: string;
+  unit: string;
+}
+export interface QSelectedItem extends QItem {
+  quantity: number;
+}
+
+export interface QCategory extends QService {
+  items: QItem[];
+}
+
+// types/Contact.d.ts
+export type SubmissionStatus =
+  | "idle"
+  | "submitting"
+  | "success"
+  | "error"
+  | "limit_exceeded";
+
+// types/Contact.d.ts
 export const sendEmailSchema = z.object({
   name: z
     .string()

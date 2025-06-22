@@ -182,7 +182,7 @@ export default function Resume() {
 
                       <div className="text-secondary-text flex items-center gap-2">
                         <Briefcase size={16} className="text-tertiary" />
-                        <span className="font-semibold">
+                        <span className="text-accent font-semibold">
                           Key Responsibilities
                         </span>
                       </div>
@@ -190,7 +190,7 @@ export default function Resume() {
                         {item.description.map((desc) => (
                           <li
                             key={desc}
-                            className="text-primary-text/80 flex items-start gap-1 text-sm leading-relaxed"
+                            className="text-secondary-text flex items-start gap-1 text-sm leading-relaxed"
                           >
                             ✅<span>{desc}</span>
                           </li>

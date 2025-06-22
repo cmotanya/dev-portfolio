@@ -1,5 +1,5 @@
 import { SolutionOption } from "@/lib/types";
-import { Globe, Shield } from "lucide-react";
+import { Code, Globe, Lightbulb, Shield, Target } from "lucide-react";
 
 export const about = [
   {
@@ -68,4 +68,40 @@ export const webDevProcess = [
   { description: "Creating mockups and wireframes" },
   { description: "Building your custom solution" },
   { description: "Going live with ongoing support" },
+];
+
+export const skills = [
+  "React & Next.js",
+  "TypeScript",
+  "Node.js",
+  "Python",
+  "CCTV Systems",
+  "Data Analysis",
+  "Network Administration",
+  "Cloud Architecture",
+  "DevOps",
+  "UI/UX Design",
+  "Database Design",
+  "Security Systems",
+];
+
+export const values = [
+  {
+    icon: <Target className="h-6 w-6" />,
+    title: "User-Centered Design",
+    description:
+      "Every solution starts with understanding real user needs and pain points, ensuring intuitive and effective products.",
+  },
+  {
+    icon: <Code className="h-6 w-6" />,
+    title: "Clean Code & Scalability",
+    description:
+      "Writing maintainable, well-documented code that is scalable and easily understood by other developers.",
+  },
+  {
+    icon: <Lightbulb className="h-6 w-6" />,
+    title: "Continuous Learning",
+    description:
+      "Staying curious and actively adapting to new technologies, methodologies, and industry best practices.",
+  },
 ];

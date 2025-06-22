@@ -32,7 +32,7 @@ export default function Home() {
   };
 
   return (
-    <section className="relative mx-auto min-h-screen w-full max-w-4xl overflow-hidden px-2">
+    <section className="relative min-h-screen max-w-5xl overflow-hidden px-4 md:mx-auto">
       <div className="relative z-10 container -mt-24 flex min-h-dvh items-center justify-center md:mx-auto md:pt-6">
         <Slide direction="down" triggerOnce duration={400}>
           <div className="relative flex flex-col items-center justify-center gap-26 md:gap-7">

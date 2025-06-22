@@ -1,51 +1,13 @@
 "use client";
 
-import { User, Code, Target, Lightbulb, Coffee, MapPin } from "lucide-react";
+import { User, Code, Lightbulb, Coffee, MapPin } from "lucide-react";
 import React from "react";
-import { Fade, Slide } from "react-awesome-reveal"; // For scroll-based animations
+import { Fade, Slide } from "react-awesome-reveal";
+import { skills, values } from "../data/about";
 
 const About = () => {
-  const skills = [
-    "React & Next.js",
-    "TypeScript",
-    "Node.js",
-    "Python",
-    "CCTV Systems",
-    "Data Analysis",
-    "Network Administration",
-    "Cloud Architecture",
-    "DevOps",
-    "UI/UX Design",
-    "Database Design",
-    "Security Systems",
-  ];
-
-  const values = [
-    {
-      icon: <Target className="h-6 w-6" />,
-      title: "User-Centered Design",
-      description:
-        "Every solution starts with understanding real user needs and pain points, ensuring intuitive and effective products.",
-    },
-    {
-      icon: <Code className="h-6 w-6" />,
-      title: "Clean Code & Scalability",
-      description:
-        "Writing maintainable, well-documented code that is scalable and easily understood by other developers.",
-    },
-    {
-      icon: <Lightbulb className="h-6 w-6" />,
-      title: "Continuous Learning",
-      description:
-        "Staying curious and actively adapting to new technologies, methodologies, and industry best practices.",
-    },
-  ];
-
   return (
-    <section
-      id="about"
-      className="max-w-5xl px-4 py-16 text-lg md:mx-auto md:py-24"
-    >
+    <section id="about" className="max-w-5xl px-4 md:mx-auto">
       {/* --- Section Title --- */}
       <Slide direction="down" duration={300} triggerOnce>
         <div className="flex items-center justify-center gap-4 md:justify-start">
@@ -86,10 +48,12 @@ const About = () => {
       {/* --- Core Values --- */}
       <Fade direction="up" delay={400} duration={300} triggerOnce>
         <div className="mb-16">
-          <h2 className="text-secondary-text mb-4 text-3xl font-bold uppercase md:mb-10 md:text-left">
+          <div className="mb-4 flex items-center justify-center gap-2 md:mb-8 md:justify-start">
             <Coffee className="text-secondary mr-3 inline-block size-8 -translate-y-1 transform" />
-            What Drives Me
-          </h2>
+            <h2 className="from-accent via-tertiary to-secondary bg-gradient-to-r bg-clip-text text-4xl font-bold text-transparent uppercase">
+              What Drives Me
+            </h2>
+          </div>
           <div className="grid gap-4 md:grid-cols-3 md:gap-8">
             {values.map((value, index) => (
               <div
@@ -114,10 +78,12 @@ const About = () => {
       {/* --- Skills Overview --- */}
       <Fade direction="up" delay={600} duration={300} triggerOnce>
         <div className="mb-16">
-          <h2 className="text-secondary-text mb-4 text-3xl font-bold uppercase md:mb-10 md:text-left">
-            <Code className="text-secondary mr-3 inline-block h-8 w-8 -translate-y-1 transform" />
-            Technical Expertise
-          </h2>
+          <div className="mb-4 flex items-center justify-center gap-2 md:mb-8 md:justify-start">
+            <Code className="text-secondary mr-3 inline-block size-8 -translate-y-1 transform" />
+            <h2 className="from-accent via-tertiary to-secondary bg-gradient-to-r bg-clip-text text-4xl font-bold text-transparent uppercase">
+              Technical Expertise
+            </h2>
+          </div>
           <div className="flex flex-wrap justify-center gap-4 md:justify-start">
             {skills.map((skill, index) => (
               <span
@@ -134,10 +100,12 @@ const About = () => {
       {/* --- Personal Touch & Call to Action --- */}
       <Fade direction="up" delay={800} duration={300} triggerOnce>
         <div className="space-y-2 leading-relaxed md:space-y-6 md:text-left">
-          <h2 className="text-secondary-text text-3xl font-bold uppercase md:mb-6">
+          <div className="mb-4 flex items-center justify-center gap-2 md:mb-8 md:justify-start">
             <Lightbulb className="text-secondary mr-3 inline-block size-8 -translate-y-1 transform" />
-            Beyond Code
-          </h2>
+            <h2 className="from-accent via-tertiary to-secondary bg-gradient-to-r bg-clip-text text-4xl font-bold text-transparent uppercase">
+              Beyond Code
+            </h2>
+          </div>
           <p className="text-secondary-text text-lg">
             When I&apos;m not immersed in code, you&apos;ll often find me
             exploring new coffee shops, delving into emerging tech trends, or

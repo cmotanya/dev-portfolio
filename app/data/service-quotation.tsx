@@ -236,19 +236,3 @@ export const serviceData = {
     },
   ],
 };
-
-export interface ServiceItem {
-  id: string;
-  name: string;
-  description: string;
-  basePrice: number;
-  unit: string;
-  category: string;
-  options?: Partial<Record<string, string[]>>;
-}
-
-export interface SelectedItem extends ServiceItem {
-  quantity: number;
-  selectedOptions: Record<string, string>;
-  customPrice?: number;
-}

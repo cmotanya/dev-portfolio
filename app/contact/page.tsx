@@ -86,7 +86,7 @@ const ContactPage = () => {
   };
 
   return (
-    <section id="contact" className="mx-auto max-w-4xl px-4">
+    <section id="contact" className="max-w-5xl px-4 md:mx-auto">
       <div className="md:max-w-xl">
         <div className="relative mb-10">
           <Fade direction="left" cascade triggerOnce duration={300}>

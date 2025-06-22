@@ -39,9 +39,11 @@ const NotFoundPage = () => {
         <p className="text-secondary-text mb-6 text-center text-xl">
           Oops! The page you&apos;re looking for doesn&apos;t exist.
         </p>
+
         <Link
           href="/"
           className="bg-primary text-background group flex items-center gap-2 rounded-full px-6 py-3 text-lg shadow hover:shadow-lg"
+          aria-label="Go back home"
         >
           <ArrowLeftCircle
             size={20}
